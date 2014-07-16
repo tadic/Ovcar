@@ -3,31 +3,47 @@ package app.gajenje_ovaca;
 import app.database.DBServer;
 import app.database.DataBase;
 import app.gajenje_ovaca.gui.dnevnik.Dnevnik;
+import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JagnjenjaPanel;
 import app.logic.Logic;
+import app.model.Aktivnost;
 import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JPanel;
 
 
 public class PocetnaStrana extends javax.swing.JFrame {
     Logic logic;
     
     public PocetnaStrana() {
-        DataBase dataBase = new DataBase(true);
+        DataBase dataBase = new DataBase(false);
         logic = new Logic(dataBase);
         getContentPane().setBackground(Color.white);
         setTitle("Farma ovaca");
         initComponents();
      mainPanel.setLayout(new GridLayout());
-     mainPanel.add(new Dnevnik(logic));
+     mainPanel.add(new Dnevnik(logic, mainPanel));
      mainPanel.revalidate();
+     jToolBar1.setOpaque(true);
+     //jToolBar1.setBackground(Color.yellow);
      repaint();
      setVisible(true);
         
     }
+    
+    private void setJagnjenja(Aktivnost aktivnost){
+        mainPanel.setLayout(new GridLayout());
+        mainPanel.removeAll();
+        mainPanel.add(new JagnjenjaPanel(mainPanel, logic, aktivnost));
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         dnevnikButton = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -35,21 +51,29 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
+        jLinijeButton = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 750));
+        jScrollPane1.setSize(new java.awt.Dimension(100, 750));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1331, 750));
+
+        jToolBar1.setBackground(new java.awt.Color(51, 51, 51));
+        jToolBar1.setForeground(new java.awt.Color(153, 0, 51));
         jToolBar1.setRollover(true);
 
         dnevnikButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        dnevnikButton.setText("Дневник рада");
+        dnevnikButton.setForeground(new java.awt.Color(212, 212, 212));
+        dnevnikButton.setText("Dnevnik rada");
         dnevnikButton.setBorderPainted(false);
         dnevnikButton.setContentAreaFilled(false);
         dnevnikButton.setFocusPainted(false);
@@ -73,7 +97,8 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jToolBar1.add(dnevnikButton);
 
         jButton10.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton10.setText("Почетна страна");
+        jButton10.setForeground(new java.awt.Color(212, 212, 212));
+        jButton10.setText("Početna strana");
         jButton10.setBorderPainted(false);
         jButton10.setContentAreaFilled(false);
         jButton10.setFocusPainted(false);
@@ -97,7 +122,8 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jToolBar1.add(jButton10);
 
         ovceButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        ovceButton.setText("Овце");
+        ovceButton.setForeground(new java.awt.Color(212, 212, 212));
+        ovceButton.setText("Ovce");
         ovceButton.setBorderPainted(false);
         ovceButton.setContentAreaFilled(false);
         ovceButton.setFocusPainted(false);
@@ -120,8 +146,10 @@ public class PocetnaStrana extends javax.swing.JFrame {
         });
         jToolBar1.add(ovceButton);
 
+        jButton18.setBackground(new java.awt.Color(0, 204, 153));
         jButton18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton18.setText("Статистике");
+        jButton18.setForeground(new java.awt.Color(212, 212, 212));
+        jButton18.setText("Statistike");
         jButton18.setBorderPainted(false);
         jButton18.setContentAreaFilled(false);
         jButton18.setFocusPainted(false);
@@ -145,7 +173,8 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jToolBar1.add(jButton18);
 
         jButton19.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton19.setText("Направи извештај");
+        jButton19.setForeground(new java.awt.Color(212, 212, 212));
+        jButton19.setText("Napravi izveštaj");
         jButton19.setBorderPainted(false);
         jButton19.setContentAreaFilled(false);
         jButton19.setFocusPainted(false);
@@ -169,7 +198,8 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jToolBar1.add(jButton19);
 
         jButton20.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton20.setText("Активности");
+        jButton20.setForeground(new java.awt.Color(212, 212, 212));
+        jButton20.setText("Aktivnosti");
         jButton20.setBorderPainted(false);
         jButton20.setContentAreaFilled(false);
         jButton20.setFocusPainted(false);
@@ -192,63 +222,72 @@ public class PocetnaStrana extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton20);
 
-        jButton21.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton21.setText("Помоћ");
-        jButton21.setBorderPainted(false);
-        jButton21.setContentAreaFilled(false);
-        jButton21.setFocusPainted(false);
-        jButton21.setFocusable(false);
-        jButton21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton21.setMargin(new java.awt.Insets(2, 10, 2, 10));
-        jButton21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton21.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLinijeButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jLinijeButton.setForeground(new java.awt.Color(212, 212, 212));
+        jLinijeButton.setText("Linije");
+        jLinijeButton.setBorderPainted(false);
+        jLinijeButton.setContentAreaFilled(false);
+        jLinijeButton.setFocusPainted(false);
+        jLinijeButton.setFocusable(false);
+        jLinijeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLinijeButton.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        jLinijeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLinijeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton21MouseExited(evt);
+                jLinijeButtonMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton21MouseEntered(evt);
+                jLinijeButtonMouseEntered(evt);
             }
         });
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
+        jLinijeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
+                jLinijeButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton21);
+        jToolBar1.add(jLinijeButton);
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mainPanel.setPreferredSize(new java.awt.Dimension(1305, 700));
 
         org.jdesktop.layout.GroupLayout mainPanelLayout = new org.jdesktop.layout.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+            .add(0, 1331, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 718, Short.MAX_VALUE)
+            .add(0, 748, Short.MAX_VALUE)
         );
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1331, Short.MAX_VALUE)
+            .add(mainPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1331, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(mainPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 748, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 785, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(345, Short.MAX_VALUE))
-                    .add(mainPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1309, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(mainPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
 
         pack();
@@ -259,7 +298,7 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseExited
-          jButton10.setForeground(Color.black);
+          jButton10.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_jButton10MouseExited
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -267,15 +306,15 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseEntered
-        jButton10.setForeground(Color.BLUE);
+        jButton10.setForeground(Color.white);
     }//GEN-LAST:event_jButton10MouseEntered
 
     private void ovceButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ovceButtonMouseExited
-        ovceButton.setForeground(Color.black);
+        ovceButton.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_ovceButtonMouseExited
 
     private void ovceButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ovceButtonMouseEntered
-        ovceButton.setForeground(Color.BLUE);
+        ovceButton.setForeground(Color.white);
     }//GEN-LAST:event_ovceButtonMouseEntered
 
     private void ovceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovceButtonActionPerformed
@@ -287,11 +326,11 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_ovceButtonActionPerformed
 
     private void jButton18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton18MouseExited
-        jButton18.setForeground(Color.BLACK);
+        jButton18.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_jButton18MouseExited
 
     private void jButton18MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton18MouseEntered
-        jButton18.setForeground(Color.BLUE);
+        jButton18.setForeground(Color.white);
     }//GEN-LAST:event_jButton18MouseEntered
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -299,11 +338,11 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton19MouseExited
-        jButton19.setForeground(Color.BLACK);
+        jButton19.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_jButton19MouseExited
 
     private void jButton19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton19MouseEntered
-        jButton19.setForeground(Color.BLUE);
+        jButton19.setForeground(Color.white);
     }//GEN-LAST:event_jButton19MouseEntered
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
@@ -311,11 +350,11 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton20MouseExited
-        jButton20.setForeground(Color.BLACK);
+        jButton20.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_jButton20MouseExited
 
     private void jButton20MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton20MouseEntered
-        jButton20.setForeground(Color.BLUE);
+        jButton20.setForeground(Color.white);
     }//GEN-LAST:event_jButton20MouseEntered
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
@@ -323,32 +362,32 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void dnevnikButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dnevnikButtonMouseExited
-        dnevnikButton.setForeground(Color.black);
+        dnevnikButton.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_dnevnikButtonMouseExited
 
     private void dnevnikButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dnevnikButtonMouseEntered
-        dnevnikButton.setForeground(Color.BLUE);
+        dnevnikButton.setForeground(Color.white);
     }//GEN-LAST:event_dnevnikButtonMouseEntered
 
     private void dnevnikButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dnevnikButtonActionPerformed
      mainPanel.setLayout(new GridLayout());
      mainPanel.removeAll();
-     mainPanel.add(new Dnevnik(logic));mainPanel.revalidate();
+     mainPanel.add(new Dnevnik(logic, mainPanel));mainPanel.revalidate();
      repaint();
      setVisible(true);
     }//GEN-LAST:event_dnevnikButtonActionPerformed
 
-    private void jButton21MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton21MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21MouseExited
+    private void jLinijeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButtonMouseExited
+        jLinijeButton.setForeground(new Color(212,212,212));
+    }//GEN-LAST:event_jLinijeButtonMouseExited
 
-    private void jButton21MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton21MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21MouseEntered
+    private void jLinijeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButtonMouseEntered
+        jLinijeButton.setForeground(Color.white);
+    }//GEN-LAST:event_jLinijeButtonMouseEntered
 
-    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+    private void jLinijeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLinijeButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton21ActionPerformed
+    }//GEN-LAST:event_jLinijeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,7 +429,9 @@ public class PocetnaStrana extends javax.swing.JFrame {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jLinijeButton;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton ovceButton;

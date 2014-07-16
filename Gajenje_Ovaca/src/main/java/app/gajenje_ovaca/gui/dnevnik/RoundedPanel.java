@@ -5,10 +5,11 @@
 package app.gajenje_ovaca.gui.dnevnik;
 
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.BelezenjeAktivnosti;
-import app.gajenje_ovaca.gui.dnevnik.DnevniPanel;
+import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.NabavkaOvacaPanel;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -50,19 +51,21 @@ public class RoundedPanel extends JPanel {
     protected int shadowGap = 5;
     
     private JLabel actionNameLabel;
+    private JLabel lokacijaLabel;
+    private JLabel troskoviLabel;
+    private JLabel napomenaLabel;
     private JButton deleteButton, editButton;
     private Aktivnost aktivnost;
     private Color color;
     private Logic logic;
-    private Dnevnik dnevnik;
+    private final JPanel mainPanel;
+    //private Dnevnik dnevnik;
 
-public RoundedPanel() {
+
+public RoundedPanel(Aktivnost aktivnost, JPanel mainPanel, Logic logic) {
         super();
-        setOpaque(false);
-    }
-public RoundedPanel(Aktivnost aktivnost, Dnevnik dnevnik, Logic logic) {
-        super();
-        this.dnevnik = dnevnik;
+       // this.dnevnik = dnevnik;
+        this.mainPanel = mainPanel;
         this.logic = logic;
         this.aktivnost = aktivnost;
         initComponents();
@@ -101,7 +104,13 @@ private void initComponents(){
                 editButton.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent evn){
-                        editThisAction();
+                       
+                        NabavkaOvacaPanel editPanel = new NabavkaOvacaPanel(mainPanel, logic, aktivnost);
+            editPanel.setVisible(true);
+            mainPanel.removeAll();
+            mainPanel.add(editPanel, BorderLayout.CENTER);  
+            mainPanel.repaint();
+            mainPanel.revalidate();
                     }
                 });
                 actionNameLabel = new JLabel(aktivnost.getVrstaAktivnosti().getName());
@@ -110,6 +119,24 @@ private void initComponents(){
                     200, actionNameLabel.getPreferredSize().height);
                 actionNameLabel.setForeground(color.darker());
 
+                lokacijaLabel = new JLabel("Lokacija:       "+aktivnost.getLokacija());
+                lokacijaLabel.setFont(new Font("Ariel", Font.PLAIN,13));
+                lokacijaLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+40), 
+                    200, lokacijaLabel.getPreferredSize().height);
+                lokacijaLabel.setForeground(color.darker());
+                
+                troskoviLabel = new JLabel("Troskovi:      "+Aktivnost.round(aktivnost.getTroskovi(),1)+" €");
+                troskoviLabel.setFont(new Font("Ariel", Font.PLAIN,13));
+                troskoviLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+60), 
+                    200, troskoviLabel.getPreferredSize().height);
+                troskoviLabel.setForeground(color.darker());
+                
+                napomenaLabel = new JLabel("Napomena:   "+aktivnost.getNapomena());
+                napomenaLabel.setFont(new Font("Ariel", Font.PLAIN,13));
+                napomenaLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+80), 
+                    200, napomenaLabel.getPreferredSize().height);
+                napomenaLabel.setForeground(color.darker());
+                
                 JPopupMenu pop = new JPopupMenu();
                 JMenuItem info = new JMenuItem("Vidi sve informacije");
                 JMenuItem cut = new JMenuItem("Seci");
@@ -119,7 +146,7 @@ private void initComponents(){
                 edit.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent evn){
-                    editThisAction();
+                        new BelezenjeAktivnosti(mainPanel, logic, aktivnost).showEditPanel();
                     }
                 });
                 JMenuItem delete = new JMenuItem("Izbrisi");
@@ -138,6 +165,9 @@ private void initComponents(){
                 pop.add(delete);
 
     this.add(actionNameLabel);
+    this.add(lokacijaLabel);
+    this.add(troskoviLabel);
+    this.add(napomenaLabel);
     this.add(deleteButton);
     this.add(editButton);
     this.setComponentPopupMenu(pop);
@@ -150,15 +180,7 @@ private void initComponents(){
     public Aktivnost getAktivnost(){
         return aktivnost;
     }
-    private void editThisAction(){
-        Window parentWindow = SwingUtilities.windowForComponent(this); 
-        JFrame parentFrame = null;
-        if (parentWindow instanceof JFrame) {
-            parentFrame = (JFrame)parentWindow;
-        }
-        BelezenjeAktivnosti belAk = new BelezenjeAktivnosti(dnevnik, logic, aktivnost, parentFrame, true);
-        belAk.setVisible(true);
-    }
+
     
     private void destroyThisAction(){
         DnevniPanel dnevni = (DnevniPanel) getParent();

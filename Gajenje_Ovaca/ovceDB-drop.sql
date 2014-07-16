@@ -4,6 +4,8 @@ drop table aktivnost;
 
 drop table dan;
 
+drop table jagnjenje;
+
 drop table linija;
 
 drop table nabavka_ovaca;

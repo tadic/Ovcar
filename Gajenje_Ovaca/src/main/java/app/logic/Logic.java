@@ -5,6 +5,7 @@ import app.database.DBServer;
 import app.database.DataBase;
 import app.model.Aktivnost;
 import app.model.Dan;
+import app.model.Linija;
 import app.model.Ovca;
 import app.model.VrsteAktivnosti;
 import java.util.ArrayList;
@@ -116,6 +117,18 @@ public class Logic {
 
     public void delete(Aktivnost aktivnost) {
         db.deleteActivity(aktivnost);
+    }
+
+    public List<Linija> getLinije() {
+        return db.getLinije();
+    }
+
+    public Ovca getOvca(int id) {
+        return db.getOvca(id);
+    }
+
+    public List<Ovca> getOvceZaJagnjenje() {
+        return db.getOvceZaJagnjenje(); 
     }
 
 

@@ -102,8 +102,15 @@ public class Dan implements Serializable  {
         hash = 59 * hash + (this.datum != null ? this.datum.hashCode() : 0);
         return hash;
     }
+    private String getTwoCharacters(int n){
+        if (n>9){
+            return String.valueOf(n);
+        } else {
+            return "0" + String.valueOf(n);
+        }
+    }
     @Override
     public String toString(){
-        return "" + datum%100 + "." + (datum%10000)/100 + "." + datum/10000;
+        return "" + getTwoCharacters(datum%100) + "." + getTwoCharacters(1+(datum%10000)/100) + "." + datum/10000;
     }
 }

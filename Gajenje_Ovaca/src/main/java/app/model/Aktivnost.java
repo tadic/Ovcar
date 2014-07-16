@@ -4,6 +4,7 @@ package app.model;
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.SqlRow;
 import java.awt.Color;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +30,9 @@ public class Aktivnost implements Comparable<Aktivnost> {
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<NabavkaOvaca> nabavljenaGrla;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Jagnjenje> listaJagnjenja;
     
     @ManyToOne
     private Dan dan;
@@ -238,6 +242,22 @@ public class Aktivnost implements Comparable<Aktivnost> {
         } catch(Exception e){
             
         }
+    }
+        public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
+
+    public List<Jagnjenje> getListaJagnjenja() {
+        if (listaJagnjenja==null){
+            listaJagnjenja = new ArrayList<Jagnjenje>();
+        }
+        return listaJagnjenja;
+    }
+
+    public void setListaJagnjenja(List<Jagnjenje> listaJagnjenja) {
+        this.listaJagnjenja = listaJagnjenja;
     }
     
 

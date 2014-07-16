@@ -6,6 +6,7 @@ package app.database;
 
 import app.model.Aktivnost;
 import app.model.Dan;
+import app.model.Linija;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.VrsteAktivnosti;
@@ -38,6 +39,7 @@ public class DataBase {
         if (typesOfActivities==null){
             return new ArrayList<VrsteAktivnosti>();
         }
+        System.err.println("List size: " + typesOfActivities.size());
         return typesOfActivities;
     }
 
@@ -56,11 +58,13 @@ public class DataBase {
 
 
     public List<Ovca> getAllSheep() {
-         return  (List<Ovca>) server.find(Ovca.class).findList();
+         List<Ovca> list = server.find(Ovca.class).findList();
+         System.out.println("hei ima li koga lista je ovde "+list.size());
+         return list;
     }
 
     public Ovca getOvca(String oznaka) {
-        return  server.find(Ovca.class).where().like("oznaka", oznaka).findUnique();      
+        return server.find(Ovca.class).where().like("oznaka", oznaka).findUnique();
     }
 
     public Aktivnost getActivityWithId(Integer id) {
@@ -80,17 +84,17 @@ public class DataBase {
         return  server.find(NabavkaOvaca.class).where().like("aktivnost_id", aktivnost.getId().toString()).findList();  
     }
 
-    private void setNabavka(NabavkaOvaca nabavkaO, NabavkaOvaca no) {
-        
-    }
+
 
     public Dan getDayWithDate(Integer date) {
         return  server.find(Dan.class).where().like("datum", date.toString()).findUnique();    
     }
 
     public void saveActivity(Aktivnost aktivnost) {
-        if (!aktivnost.getVrstaAktivnosti().getName().equals("")){
+        if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
             new DBNabavkaOvaca(server).saveActivity(aktivnost);
+        } else {
+            new DBJagnjenja(server).saveActivity(aktivnost);
         }
     }
 
@@ -100,6 +104,10 @@ public class DataBase {
         o.setPracenje(ovca.getPracenje());
         o.setPol(ovca.getPol());
         o.setProcenatR(ovca.getProcenatR());
+        o.setLinija(ovca.getLinija());
+        o.setNadimak(ovca.getNadimak());
+        o.setAktuelno(ovca.getAktuelno());
+        o.setLeglo(ovca.getLeglo());
         server.save(o);
     }
 
@@ -107,6 +115,25 @@ public class DataBase {
         if (!aktivnost.getVrstaAktivnosti().getName().equals("")){
             new DBNabavkaOvaca(server).deleteActivity(aktivnost);
         }
+    }
+
+    public List<Linija> getLinije() {
+       return  server.find(Linija.class).findList();
+    }
+
+    public Ovca getOvca(int id) {
+        Ovca o =  server.find(Ovca.class, id);
+        System.out.println("Otac: " + o.getOznaka() + "+" + o.getOtac());
+        return o;
+    }
+
+    public List<Ovca> getOvceZaJagnjenje() {
+         List<Ovca> list = server.find(Ovca.class).where().like("status", "na farmi").like("pol", "ž").findList();
+        if (list!=null){
+            return list;
+        }
+        return new ArrayList<Ovca>();
+
     }
 
 

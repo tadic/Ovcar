@@ -6,10 +6,15 @@ package app.model;
 
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JDateChooserRenderer;
 import com.toedter.calendar.JDateChooser;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -23,6 +28,11 @@ public class Ovca {
     @OneToOne(mappedBy = "sheep")
     private NabavkaOvaca nabavka;
     
+    @OneToMany(cascade= CascadeType.ALL)
+    private ArrayList<Jagnjenje> listaJagnjenja;
+    
+    @OneToOne(mappedBy = "jagnje")
+    private Jagnjenje rodjenje;
     private String oznaka;
     private String nadimak;
     private float procenatR;
@@ -38,6 +48,7 @@ public class Ovca {
     private Integer leglo;
     @OneToOne
     private Linija linija;
+    private String aktuelno;
    // mozda ne treba private ArrayList<Date> listaJagnjenja;
     
     public Ovca(){
@@ -48,6 +59,7 @@ public class Ovca {
         this.oznaka = oznaka;
         this.pol = pol;
     }
+    
     public Ovca(String status){
         this.status = status;
     }
@@ -138,7 +150,9 @@ public class Ovca {
     }
     public void setOznaka(Object oznaka) {
         if (oznaka!=null){
-            this.oznaka = oznaka.toString();
+            if (oznaka.toString().length()>0){
+                this.oznaka = oznaka.toString();
+            }
         }
     }
 
@@ -201,7 +215,10 @@ public class Ovca {
 
     @Override
     public String toString() {
-        return oznaka;
+        if (oznaka!=null){
+            return oznaka;
+        }
+        return "bez oznake";
     }
 
     public Integer getLeglo() {
@@ -226,7 +243,59 @@ public class Ovca {
             leglo = Integer.parseInt(valueAt.toString());
         }
     }
+    private float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
     
+    public Integer starostUMesecima(){
+        if (this.datumRodjenja!=null && datumRodjenja.length()>0){
+            Calendar c = Calendar.getInstance();
+            int cmonth = c.get(Calendar.MONTH)+1;
+            int cyear = c.get(Calendar.YEAR);
+            int rmonth = Integer.parseInt(datumRodjenja.substring(3, 5));
+            int ryear = Integer.parseInt(datumRodjenja.substring(6));
+            return   12*(cyear-ryear) + cmonth-rmonth;
+        }
+        return null;
+    }
+    
+    public String getStarost(){
+        Integer monthDifference = starostUMesecima();
+        if (monthDifference!=null){
+            if (monthDifference>11){
+                float diff = (float)monthDifference/12 - 0.01f;
+                return Float.toString(round(diff, 1)) + " god."; 
+            } 
+            return String.valueOf(monthDifference) + " mes.";
+        }
+        return "";
+    }
+
+    public String getAktuelno() {
+        return aktuelno;
+    }
+
+    public void setAktuelno(String aktuelno) {
+        this.aktuelno = aktuelno;
+    }
+
+    public ArrayList<Jagnjenje> getListaJagnjenja() {
+        return listaJagnjenja;
+    }
+
+    public void setListaJagnjenja(ArrayList<Jagnjenje> listaJagnjenja) {
+        this.listaJagnjenja = listaJagnjenja;
+    }
+
+    public Jagnjenje getRodjenje() {
+        return rodjenje;
+    }
+
+    public void setRodjenje(Jagnjenje rodjenje) {
+        this.rodjenje = rodjenje;
+    }
     
     
 }

@@ -4,6 +4,8 @@
  */
 package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 
+import app.gajenje_ovaca.OvcaPrikaz;
+import app.gajenje_ovaca.gui.dnevnik.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.NabavkaOvaca;
@@ -15,6 +17,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -29,20 +32,20 @@ public class NabavkaOvacaPanel extends javax.swing.JPanel {
 
 private Logic logic;
 private Aktivnost aktivnost;
-private BelezenjeAktivnosti belezenjeAktivnostiPanel;
+private JPanel mainPanel;
 
 
-    public NabavkaOvacaPanel(BelezenjeAktivnosti parent, Logic logic, Aktivnost aktivnost) {
+    public NabavkaOvacaPanel(JPanel mainP, Logic logic, Aktivnost aktivnost) {
         super();
         this.aktivnost = aktivnost;
-        this.belezenjeAktivnostiPanel = parent;
+        this.mainPanel = mainP;
         this.logic = logic;
         initComponents();
         setOpaque(true);
         jTable1.getColumnModel().getColumn(4).setCellEditor(new JDateChooserCellEditor());
         jTable1.getColumnModel().getColumn(4).setCellRenderer(new JDateChooserRenderer());
         setPanel();
-       // nabavkaPanel.setVisible(aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca"));
+        System.out.println("ooooooooo" + mainPanel + " " + logic + " " + aktivnost);
     }
 
     /**
@@ -312,7 +315,7 @@ private BelezenjeAktivnosti belezenjeAktivnostiPanel;
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel5)
                             .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1062, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(0, 10, Short.MAX_VALUE))
+                .add(10, 10, 10))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(layout.createSequentialGroup()
@@ -452,7 +455,6 @@ private BelezenjeAktivnosti belezenjeAktivnostiPanel;
     }//GEN-LAST:event_jsatiPocetakStateChanged
   private String convertHours(int h){
         if (h<10){
-            System.out.print("Sati je: 0" + h);
             return "0" + h;
         } 
         return "" + h;
@@ -465,15 +467,19 @@ private BelezenjeAktivnosti belezenjeAktivnostiPanel;
         return Integer.parseInt(s.getValue().toString());
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JDialog dial= (JDialog) getParent().getParent().getParent().getParent();
-        dial.dispose();
+            mainPanel.removeAll();
+            mainPanel.add(new Dnevnik(logic, mainPanel));
+            mainPanel.revalidate();
+            repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiButtonActionPerformed
         pickDataFromForm();
-        System.out.println("datum: " + aktivnost.getDan().getDatum());
         logic.saveActivity(aktivnost);
-        belezenjeAktivnostiPanel.close();
+            mainPanel.removeAll();
+            mainPanel.add(new Dnevnik(logic, mainPanel));
+            mainPanel.revalidate();
+            repaint();
     }//GEN-LAST:event_jSnimiButtonActionPerformed
 
 
@@ -508,13 +514,17 @@ private BelezenjeAktivnosti belezenjeAktivnostiPanel;
     private void pickOtac(Ovca ovca, TableModel table, int n){
         ovca.setOtac(new Ovca("zamisljena", "nepoznat", 'm'));
         if (table.getValueAt(n, 5)!=null){
-            ovca.getOtac().setOznaka(table.getValueAt(n, 5));
+            if (table.getValueAt(n, 5).toString().length()>0){
+                ovca.getOtac().setOznaka(table.getValueAt(n, 5));
+            }
         }
     }
     private void pickMajka(Ovca ovca, TableModel table, int n){
         ovca.setMajka(new Ovca("zamisljena", "nepoznata", 'ž'));
         if (table.getValueAt(n, 6)!=null){
-            ovca.getMajka().setOznaka(table.getValueAt(n, 6));
+             if (table.getValueAt(n, 6).toString().length()>0){
+                    ovca.getMajka().setOznaka(table.getValueAt(n, 6));
+             }
         }
     }
     
@@ -587,7 +597,8 @@ private BelezenjeAktivnosti belezenjeAktivnostiPanel;
     }
 
     private Vector vectorFrom(NabavkaOvaca no, int n){
-        Ovca o = no.getSheep();
+        Ovca o = logic.getOvca(no.getSheep().getId());
+        no.setSheep(o);
         Vector v = new Vector();
         v.add(n);
         v.add(o.getPol());

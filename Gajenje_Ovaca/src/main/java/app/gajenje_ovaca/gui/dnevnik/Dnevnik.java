@@ -12,6 +12,7 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,19 +20,21 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class Dnevnik extends javax.swing.JPanel {
     private Logic logic;
+    private JPanel mainPanel;
     
     private DnevniPanel dnevniPanel;
     private SedmicnaLista sedmicnaLista; 
     private Kalendar kalendar;
    
-    public Dnevnik(Logic logic) {
+    public Dnevnik(Logic logic, JPanel mainPanel) {
+        this.mainPanel = mainPanel;
         this.logic = logic;
         initComponents();
         initTimePanels();
     }
     
     private void initTimePanels(){
-        dnevniPanel = new DnevniPanel(this, logic);
+        dnevniPanel = new DnevniPanel(this, logic, mainPanel);
         kalendar = new Kalendar(this, logic);
         sedmicnaLista = new SedmicnaLista(this, logic); 
         kalendar.setUpKalendar(Calendar.getInstance());
@@ -40,6 +43,7 @@ public class Dnevnik extends javax.swing.JPanel {
         
         jScrollPane1.setViewportView(dnevniPanel);
         jScrollPane2.setViewportView(sedmicnaLista);
+        
         jNazivAktivnosti.setModel(new DefaultComboBoxModel(sveVrsteAktivnosti().toArray()));
         jPanel1.setLayout(new FlowLayout());
         jPanel1.add(kalendar);
@@ -50,6 +54,7 @@ public class Dnevnik extends javax.swing.JPanel {
      private ArrayList<String> sveVrsteAktivnosti(){
        ArrayList<String> list = new ArrayList<String>();
        for (VrsteAktivnosti vr:logic.getTypesOfActivities()){
+           System.out.println("Usao ");
            list.add(vr.getName());
        }
        return list;
@@ -188,7 +193,7 @@ public class Dnevnik extends javax.swing.JPanel {
         jNazivAktivnosti.setBackground(new java.awt.Color(255, 255, 255));
         jNazivAktivnosti.setFont(new java.awt.Font("Monaco", 0, 13)); // NOI18N
         jNazivAktivnosti.setForeground(new java.awt.Color(0, 102, 102));
-        jNazivAktivnosti.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jNazivAktivnosti.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1" }));
         jNazivAktivnosti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jNazivAktivnostiActionPerformed(evt);

@@ -150,7 +150,7 @@ public void setPlace(Insets insets, int x, int y){
     }
 
     public void refresh() {
-        System.out.println("Refreshaaa");
+     
         aktivnost = logic.getActivityWithId(aktivnost.getId());
         color = new Color(aktivnost.getVrstaAktivnosti().getColor());
         actionNameLabel.setText(aktivnost.getVrstaAktivnosti().getName());

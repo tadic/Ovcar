@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
@@ -22,14 +23,18 @@ import javax.swing.SwingUtilities;
 public class DnevniPanel extends JPanel{
     private static final int TOP_MARGIN = 0;
     private Dan dan;
+    private JPanel mainPanel;
     private Dnevnik dnevnik;
+    
+
     private Logic logic;
     /**
      * Creates new form DnavniKalendarPanel
      */
 
-    public DnevniPanel(Dnevnik parent, final Logic logic){
+    public DnevniPanel(Dnevnik parent, final Logic logic, final JPanel mainPanel){
        this.dnevnik = parent;
+       this.mainPanel = mainPanel;
        this.logic = logic;
         setPreferredSize(new Dimension(466, 1532));
         setLayout(null);
@@ -46,14 +51,8 @@ public class DnevniPanel extends JPanel{
            Aktivnost aktivnost = new Aktivnost(sati, minuta);
            aktivnost.setVrstaAktivnosti(dnevnik.getChoosenActivityType());
            aktivnost.setDan(dan);
-        
-            Window parentWindow = SwingUtilities.windowForComponent(dnevnik); 
-            JFrame parentFrame = null;
-            if (parentWindow instanceof JFrame) {
-                parentFrame = (JFrame)parentWindow;
-            }
-            BelezenjeAktivnosti belAk = new BelezenjeAktivnosti(dnevnik, logic, aktivnost, parentFrame, true);
-            belAk.setVisible(true);
+
+           new BelezenjeAktivnosti(mainPanel, logic, aktivnost).showEditPanel();
         }
         @Override
         public void mouseEntered(MouseEvent e)
@@ -81,7 +80,7 @@ public class DnevniPanel extends JPanel{
       //  Aktivnost aka = logic.getActivityWithId(1);
          //   System.out.println("nabavljenih grla id: " + aka.getNabavljenaGrla().get(0).getNapomena());
             for (Aktivnost a: dan.getAktivnosti()){
-                RoundedPanel eventPanel2 = new RoundedPanel(a,dnevnik, logic);
+                RoundedPanel eventPanel2 = new RoundedPanel(a,mainPanel, logic);
                 eventPanel2.setPlace(this.getInsets(), a.getXPosition(), a.getYPosition());
                 add(eventPanel2);
             }
@@ -91,7 +90,7 @@ public class DnevniPanel extends JPanel{
 
 public void showEvents(){
     for (Aktivnost a: dan.getAktivnosti()){
-        this.add(new RoundedPanel(a, dnevnik, logic));
+        this.add(new RoundedPanel(a, mainPanel, logic));
     }
     revalidate();
 }

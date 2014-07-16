@@ -18,10 +18,12 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Podaci_ovaca extends javax.swing.JPanel {
     private List<Ovca> listOfSheep;
     private Logic logic;
     private JPanel mainPanel;
+    private TableRowSorter<TableModel> sorter;
+
 
     /**
      * Creates new form Podaci_ovaca
@@ -40,13 +44,35 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         this.mainPanel = mainPanel;
         initComponents();
         jScrollPane1.getViewport().setBackground(Color.white);
-        jTable1.getColumnModel().getColumn(0).setCellEditor(new JButtonCellEditor());
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(new JButtonRenderer());
-        setBoldFontToColumn(3);
-        listOfSheep = logic.getAllSheep();
-        resetTable(listOfSheep);
-    }
+      // jTable1.getColumnModel().getColumn(0).setCellEditor(new JButtonCellEditor());
+      //  jTable1.getColumnModel().getColumn(0).setCellRenderer(new JButtonRenderer());
 
+        
+        setBoldFontToColumn(3);
+        setBoldFontToColumn(0);
+        listOfSheep = logic.getAllSheep();
+        
+        resetTable(listOfSheep);
+
+    }
+    
+    private List<RowFilter<TableModel,Object>> getFilters(){
+         List<RowFilter<TableModel,Object>> filters = new ArrayList<RowFilter<TableModel,Object>>();
+         RowFilter<TableModel, Object> comboFilter = RowFilter.regexFilter("");
+         if (jNaFarmi.isSelected()){
+             comboFilter = RowFilter.regexFilter("na farmi");
+         }
+         RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(jTrazi.getText());
+         RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jTrazi1.getText());
+         RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          filters.add(comboFilter);
+         filters.add(filter1);
+         filters.add(filter2);
+         filters.add(filter3);
+         
+
+         return filters;
+    }
+    
     private void setBoldFontToColumn(int n){
         DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
             Font f = new Font ("Monaco", Font.BOLD, 16);
@@ -68,23 +94,45 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         Vector v = new Vector();
         v.add(o.getOznaka());
         v.add(o.getNadimak());
-        v.add(""+o.getPol());
+        if (o.getPol()=='m'){
+           v.add("muško");
+        } else {
+           v.add("žensko");
+        }
+
         v.add(""+o.getProcenatR());
-        v.add(o.getDatumRodjenja());
+        v.add(o.getStarost());
+        v.add(o.getLeglo());
         v.add("");
-        v.add("");
-        v.add(o.getOtac());
-        v.add(o.getMajka());
+        if (o.getOtac()==null){
+              v.add("nepoznat");
+        }else{
+             v.add(o.getOtac().getOznaka());
+        }
+        if (o.getMajka()==null){
+              v.add("nepoznata");
+        }else{
+             v.add(o.getMajka().getOznaka());
+        }
+
         v.add(o.getStatus());
         v.add(o.getOpis());
+        v.add(o.getId());
+        v.add(o.getAktuelno());
         return v;
     }
     private void resetTable(List<Ovca> list){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        sorter = new TableRowSorter<TableModel>(model);
+        jTable1.setRowSorter(sorter);
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
         model.setRowCount(0);
         for (Ovca o: list){
             model.addRow(vectorFrom(o));
         }
+        jCounter.setText("("+ jTable1.getRowCount() + ")");
+       
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,12 +146,20 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTrazi = new javax.swing.JTextField();
+        jNaFarmi = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        jTrazi1 = new javax.swing.JTextField();
+        jTrazi2 = new javax.swing.JTextField();
+        jCounter = new javax.swing.JLabel();
+        jSnimi = new javax.swing.JButton();
+        jPrikazi = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Noteworthy", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel2.setText("Податци о овцама");
+        jLabel2.setText("Podatci o ovcama");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel2.setAlignmentY(3.0F);
         jLabel2.setMaximumSize(new java.awt.Dimension(219, 40));
@@ -116,20 +172,20 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "oznaka", "nadimak", "pol", "% R", "starost", "iz legla od", "% jagnjenja", "otac", "majka", "poreklo", "opis"
+                "oznaka", "nadimak", "pol", "% R", "starost", "iz legla od", "% jagnjenja", "otac", "majka", "poreklo", "opis", "id", "aktuelno"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,6 +197,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         });
         jTable1.setAutoCreateRowSorter(true);
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowHeight(35);
         jTable1.setRowMargin(2);
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -182,27 +239,114 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(8).setPreferredWidth(80);
         jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(11).setMinWidth(1);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(1);
+        jTable1.getColumnModel().getColumn(11).setMaxWidth(1);
+
+        jTrazi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTraziKeyReleased(evt);
+            }
+        });
+
+        jNaFarmi.setSelected(true);
+        jNaFarmi.setText("na farmi");
+        jNaFarmi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNaFarmiActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Traži:");
+
+        jTrazi1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTrazi1KeyReleased(evt);
+            }
+        });
+
+        jTrazi2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTrazi2KeyReleased(evt);
+            }
+        });
+
+        jCounter.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jCounter.setForeground(new java.awt.Color(153, 0, 51));
+
+        jSnimi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jSnimi.setText("Snimi");
+        jSnimi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSnimiActionPerformed(evt);
+            }
+        });
+
+        jPrikazi.setBackground(new java.awt.Color(0, 153, 153));
+        jPrikazi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jPrikazi.setText("Prikaži");
+        jPrikazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPrikaziActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(0, 723, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .add(jScrollPane1))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(18, 18, 18)
+                        .add(jCounter, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel1)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jTrazi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 166, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jTrazi1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 176, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jTrazi2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 176, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jNaFarmi))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 229, Short.MAX_VALUE)
                         .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 410, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jScrollPane1))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jSnimi)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPrikazi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(layout.createSequentialGroup()
+                            .add(jNaFarmi)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jTrazi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel1)
+                                .add(jTrazi1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jTrazi2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jCounter, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 582, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jSnimi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPrikazi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,19 +365,76 @@ public class Podaci_ovaca extends javax.swing.JPanel {
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
         char c = evt.getKeyChar();
         if (c== KeyEvent.VK_ENTER){
-            String oznaka = jTable1.getModel().getValueAt(jTable1.getSelectedRow(),0).toString();
-            Ovca o = logic.getOvca(oznaka);
-
+            int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+            String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
+            Ovca o = logic.getOvca(Integer.parseInt(id));
             mainPanel.removeAll();
             mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
             mainPanel.revalidate();
-        repaint();
+            repaint();
         }
     }//GEN-LAST:event_jTable1KeyPressed
 
+    private void jTraziKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTraziKeyReleased
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jTraziKeyReleased
+
+    private void jTrazi1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrazi1KeyReleased
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jTrazi1KeyReleased
+
+    private void jNaFarmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNaFarmiActionPerformed
+       sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jNaFarmiActionPerformed
+
+    private void jTrazi2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrazi2KeyReleased
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jTrazi2KeyReleased
+
+    private void jPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrikaziActionPerformed
+            if (jTable1.getSelectedRow()!= -1){
+            int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+            String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
+            Ovca o = logic.getOvca(Integer.parseInt(id));
+            mainPanel.removeAll();
+            mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
+            mainPanel.revalidate();
+            repaint();
+            }
+    }//GEN-LAST:event_jPrikaziActionPerformed
+
+    private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
+            for (int i=0; i<jTable1.getRowCount(); i++){
+                int selectedRow = jTable1.convertRowIndexToModel(i);
+                Object aktuelno = jTable1.getModel().getValueAt(selectedRow,12);
+                System.out.print("Ovcee aktuelno ");
+                if (aktuelno!=null){
+                    System.out.println(aktuelno.toString());
+                    String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
+                    Ovca o = logic.getOvca(Integer.parseInt(id));
+                    o.setAktuelno(aktuelno.toString());
+                    logic.updateOvca(o);
+                }
+            }
+            listOfSheep = logic.getAllSheep();
+            resetTable(listOfSheep);
+    }//GEN-LAST:event_jSnimiActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jCounter;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JCheckBox jNaFarmi;
+    private javax.swing.JButton jPrikazi;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jSnimi;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTrazi;
+    private javax.swing.JTextField jTrazi1;
+    private javax.swing.JTextField jTrazi2;
     // End of variables declaration//GEN-END:variables
 }

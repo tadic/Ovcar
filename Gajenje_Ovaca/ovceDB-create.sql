@@ -14,6 +14,15 @@ create table dan (
   datum                     integer)
 ;
 
+create table jagnjenje (
+  id                        integer primary key AUTOINCREMENT,
+  aktivnost_id              integer,
+  ovca_id                   integer,
+  sheep_id                  integer,
+  jel_zivo                  integer(1),
+  napomena                  varchar(255))
+;
+
 create table linija (
   id                        integer primary key AUTOINCREMENT,
   ime_linije                varchar(255),
@@ -41,7 +50,8 @@ create table ovca (
   pracenje                  varchar(255),
   status                    varchar(255),
   leglo                     integer,
-  linija_id                 integer)
+  linija_id                 integer,
+  aktuelno                  varchar(255))
 ;
 
 create table vrste_aktivnosti (
@@ -52,10 +62,13 @@ create table vrste_aktivnosti (
 
 create index ix_aktivnost_vrstaAktivnosti_1 on aktivnost (vrsta_aktivnosti_id);
 create index ix_aktivnost_dan_2 on aktivnost (dan_id);
-create index ix_nabavka_ovaca_aktivnost_3 on nabavka_ovaca (aktivnost_id);
-create index ix_nabavka_ovaca_sheep_4 on nabavka_ovaca (sheep_id);
-create index ix_ovca_otac_5 on ovca (otac_id);
-create index ix_ovca_majka_6 on ovca (majka_id);
-create index ix_ovca_linija_7 on ovca (linija_id);
+create index ix_jagnjenje_aktivnost_3 on jagnjenje (aktivnost_id);
+create index ix_jagnjenje_ovca_4 on jagnjenje (ovca_id);
+create index ix_jagnjenje_jagnje_5 on jagnjenje (sheep_id);
+create index ix_nabavka_ovaca_aktivnost_6 on nabavka_ovaca (aktivnost_id);
+create index ix_nabavka_ovaca_sheep_7 on nabavka_ovaca (sheep_id);
+create index ix_ovca_otac_8 on ovca (otac_id);
+create index ix_ovca_majka_9 on ovca (majka_id);
+create index ix_ovca_linija_10 on ovca (linija_id);
 
 

@@ -15,14 +15,14 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class VrsteAktivnosti {
-    private static HashMap<String, VrsteAktivnosti> map = new HashMap<String, VrsteAktivnosti>();
+   // private static HashMap<String, VrsteAktivnosti> map = new HashMap<String, VrsteAktivnosti>();
     
     @Id
     private int Id;
     private String name;
     private Integer color;
-    @OneToOne(mappedBy="vrstaAktivnosti")
-    private Aktivnost owner;
+   // @OneToOne(mappedBy="vrstaAktivnosti")
+   // private Aktivnost owner;
     
     
     public VrsteAktivnosti(){
@@ -41,13 +41,13 @@ public class VrsteAktivnosti {
     
    
     
-    public static List<VrsteAktivnosti> getAll(){
+   /* public static List<VrsteAktivnosti> getAll(){
         List<VrsteAktivnosti> list = new ArrayList<VrsteAktivnosti>();
         for (VrsteAktivnosti vr: map.values()){
             list.add(vr);
         }
         return list;
-    }
+    }*/
     
  /*   public void setIdAndCOlor(){
         EbeanServer server = NewJFrame.getServer();
@@ -63,13 +63,13 @@ public class VrsteAktivnosti {
         }
     }*/
 
-    public Aktivnost getOwner() {
+   /* public Aktivnost getOwner() {
         return owner;
     }
 
     public void setOwner(Aktivnost owner) {
         this.owner = owner;
-    }
+    }*/
 
     public int getId() {
         return Id;
