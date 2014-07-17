@@ -61,6 +61,7 @@ public class DBNabavkaOvaca {
         act.setVremeZavrsetka(a.getVremeZavrsetka());
         act.setVrstaAktivnosti(a.getVrstaAktivnosti());
         act.setTroskovi(a.getTroskovi());
+        act.setBilans(a.getBilans());
 }
     
     
@@ -76,7 +77,9 @@ public class DBNabavkaOvaca {
         }
         server.save(sheep);                 // ako nije postojala snimi je direktno
     }
+    
     private void updateNabavkeOvaca(Aktivnost a){
+
         for (NabavkaOvaca no: a.getNabavljenaGrla()){
             updateNabavkaOvaca(no);
             saveSheep(no.getSheep());

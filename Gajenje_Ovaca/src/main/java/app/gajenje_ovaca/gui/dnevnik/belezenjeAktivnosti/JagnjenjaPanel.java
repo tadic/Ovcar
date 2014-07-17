@@ -51,7 +51,7 @@ private JPanel mainPanel;
         //this.belezenjeAktivnostiPanel = parent;
         this.logic = logic;
         initComponents();
-                this.setAlignmentY(LEFT_ALIGNMENT);
+        //        this.setAlignmentY(LEFT_ALIGNMENT);
 
         setOpaque(true);
        // jTable1.getColumnModel().getColumn(4).setCellEditor(new JDateChooserCellEditor());
@@ -151,7 +151,9 @@ private JPanel mainPanel;
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel13.setText("Broj ojagnjenih ovaca");
 
-        jSpinField1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
+        jSpinField1.setBackground(new java.awt.Color(255, 255, 255));
+        jSpinField1.setAlignmentX(2.0F);
+        jSpinField1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jSpinField1.setMaximum(7);
         jSpinField1.setMinimum(1);
         jSpinField1.setValue(1);
@@ -236,26 +238,55 @@ private JPanel mainPanel;
                 .addContainerGap(7, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-  /*  private void showComponents(boolean b){
-          jsatiPocetak.setVisible(b);
-          jminutaPocetak.setVisible(b);
-          jminutaKraj.setVisible(b);
-          jsatiKraj.setVisible(b);
-          jLabel6.setVisible(b);
-          jLabel7.setVisible(b);
-          jLabel8.setVisible(b);
-          jLabel9.setVisible(b);
-    }*/
-    
+
     private void setPanel(){
         jNameOfActivity.setText(aktivnost.getVrstaAktivnosti().getName());
         jColorLabel.setBackground(new Color(aktivnost.getVrstaAktivnosti().getColor()));
-        
+
+
         jLokacija.setText(aktivnost.getLokacija());
         jNapomena.setText(aktivnost.getNapomena());
-        
+        setJagnjenjaPanels();
+        if (jagnjenjePanel.getComponents().length>0){
+            JagnjenjePanel jp = (JagnjenjePanel) jagnjenjePanel.getComponent(0);
+            jp.uvecajSe();
+        }
         //setTableRows();
         
+    }
+    private void setJagnjenjaPanels(){
+        if (!aktivnost.getListaJagnjenja().isEmpty()){
+            
+                jagnjenjePanel.removeAll();
+                
+                //System.out.println("jagnjenja"+ aktivnost.getListaJagnjenja().get(0).toString());
+                String oznaka=aktivnost.getListaJagnjenja().get(0).getOvca().getOznaka();
+                ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
+                int brojOjagnjenihOvaca = 0;
+                jagnjenjePanel.setLayout(new BoxLayout(jagnjenjePanel, BoxLayout.Y_AXIS));
+                for (Jagnjenje j : aktivnost.getListaJagnjenja()){
+                   // System.out.println("Ovca i oznaka" + oznaka+" i u bazi: "+ j.getOvca().getOznaka());
+                    if (oznaka.equals(j.getOvca().getOznaka())){
+                        list.add(j);
+                    } else {
+                       // System.out.println("Paznja, paznja ovo ne bi trebalo dase deis!!!! \n\n");
+                        //jagnjenjePanel.setLayout(new BoxLayout(jagnjenjePanel, BoxLayout.Y_AXIS));
+                      
+                        jagnjenjePanel.add(new JagnjenjePanel(list, logic, this));
+                        brojOjagnjenihOvaca ++;
+                        list = new ArrayList<Jagnjenje>();
+                        list.add(j);
+                        oznaka = j.getOvca().getOznaka();
+
+                    }
+                }
+                jagnjenjePanel.add(new JagnjenjePanel(list, logic, this));
+                brojOjagnjenihOvaca ++;
+                
+                jagnjenjePanel.revalidate();
+                jagnjenjePanel.repaint();
+                jSpinField1.setValue(brojOjagnjenihOvaca);
+        }
     }
 
    
@@ -277,12 +308,22 @@ private JPanel mainPanel;
     private void pickJagnjenja(){
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setNapomena(jNapomena.getText());
+        aktivnost.getListaJagnjenja().clear();
         for (Component c: jagnjenjePanel.getComponents()){
             JagnjenjePanel jp = (JagnjenjePanel) c;
             for (Jagnjenje jagnjenje: jp.getJagnjenja()){
                aktivnost.getListaJagnjenja().add(jagnjenje); 
             }
         }
+        int ovaca = jagnjenjePanel.getComponentCount();
+        int jaganjaca = aktivnost.getListaJagnjenja().size();
+        aktivnost.setBilans(createBilans(ovaca, jaganjaca));
+    }
+    
+    private String createBilans(int o, int j){
+        StringBuilder sb = new StringBuilder(Ovca.mnozinaOvca(o));
+        sb.append(", ojagnjeno ").append(" ").append(Ovca.mnozinaJagnje(j));
+        return sb.toString();
     }
     private void jSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiButtonActionPerformed
 
@@ -293,102 +334,29 @@ private JPanel mainPanel;
         mainPanel.revalidate();
         mainPanel.repaint();
     }//GEN-LAST:event_jSnimiButtonActionPerformed
-/*
 
-    private ArrayList<NabavkaOvaca> createListOfNabavka(int n){
-        ArrayList<NabavkaOvaca> list = new ArrayList<NabavkaOvaca>();
-        for (int i=0; i<n; i++){
-            list.add(new NabavkaOvaca());
-        }
-        return list;
-        
-    }
-    private void pickSveNabavke(){
-        int listSize = jTable1.getRowCount();
-        if (aktivnost.getId()==null){
-            aktivnost.setNabavljenaGrla(createListOfNabavka(listSize));
-        }
-        for (int i=0; i<listSize; i++){
-            pickNabavka(i);   
-        }            
-
-    }
-    
-
-    private void pickNabavka(int n){
-        TableModel table = jTable1.getModel();
-
-        aktivnost.getNabavljenaGrla().get(n).setCena(table.getValueAt(n, 7));
-        aktivnost.getNabavljenaGrla().get(n).setNapomena(table.getValueAt(n, 9));
-        aktivnost.getNabavljenaGrla().get(n).setSheep(pickOvca(table, n));    
-    }
-
-    private void pickOtac(Ovca ovca, TableModel table, int n){
-        ovca.setOtac(new Ovca("zamisljena", "nepoznat", 'm'));
-        if (table.getValueAt(n, 5)!=null){
-            if (table.getValueAt(n, 5).toString().length()>0){
-                ovca.getOtac().setOznaka(table.getValueAt(n, 5));
-            }
-        }
-    }
-    private void pickMajka(Ovca ovca, TableModel table, int n){
-        ovca.setMajka(new Ovca("zamisljena", "nepoznata", 'ž'));
-        if (table.getValueAt(n, 6)!=null){
-             if (table.getValueAt(n, 6).toString().length()>0){
-                    ovca.getMajka().setOznaka(table.getValueAt(n, 6));
-             }
-        }
-    }
-    
-    private Ovca pickOvca(TableModel table, int n){
-        Ovca ovca = new Ovca("na farmi");
-        if (aktivnost.getId()!=null){
-            ovca.setId(aktivnost.getNabavljenaGrla().get(n).getSheep().getId());
-        }
-        ovca.setPol(table.getValueAt(n, 1));
-        ovca.setOznaka(table.getValueAt(n, 2));
-        ovca.setProcenatR(table.getValueAt(n, 3));
-        ovca.setDatumRodjenja(table.getValueAt(n, 4));
-        pickOtac(ovca, table, n);
-        pickMajka(ovca, table, n);
-        ovca.setOpis(table.getValueAt(n, 8));
-        ovca.setLeglo(table.getValueAt(n, 10));
-        return ovca;
-    }
-    private void pickDataFromForm(){
-        aktivnost.setLokacija(jLokacija.getText());
-        aktivnost.setNapomena(jNapomena.getText());
-        pickSveNabavke();
-    }
-*/
     private void jSpinField1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSpinField1PropertyChange
+              int n = jSpinField1.getValue();
+                if (n>0){
+                    if (jagnjenjePanel.getComponents().length>n){
+                        jagnjenjePanel.remove(n);
+                    } else if (jagnjenjePanel.getComponents().length<n){
+                        //mainPanel.setPreferredSize(new Dimension(1000, 1999));
+                        //jagnjenjePanel.setAlignmentY(LEFT_ALIGNMENT);
+                        jagnjenjePanel.add(new JagnjenjePanel(null, logic, this));
 
-        int n = jSpinField1.getValue();
-        if (n>0){
-            if (jagnjenjePanel.getComponents().length>n){
-                jagnjenjePanel.remove(n);
-            } else {
-                //mainPanel.setPreferredSize(new Dimension(1000, 1999));
-                jagnjenjePanel.setLayout(new BoxLayout(jagnjenjePanel, BoxLayout.Y_AXIS));
-                //jagnjenjePanel.setAlignmentY(LEFT_ALIGNMENT);
-                jagnjenjePanel.add(new JagnjenjePanel(null, logic, this));
-            }
-            jagnjenjePanel.revalidate();
-            //System.out.println("broj panela: " + jagnjenjePanel.getComponents().length);
-            jagnjenjePanel.repaint();
-        }    
+                    }
+                    this.smanjiSvePaneleJagnjenja();
+                    JagnjenjePanel jp = (JagnjenjePanel) jagnjenjePanel.getComponent(jagnjenjePanel.getComponentCount()-1);
+                    jp.uvecajSe();
+                    jagnjenjePanel.setLayout(new BoxLayout(jagnjenjePanel, BoxLayout.Y_AXIS));
+                    jagnjenjePanel.revalidate();
+                    //System.out.println("broj panela: " + jagnjenjePanel.getComponents().length);
+                    jagnjenjePanel.repaint();
+                } 
+        
     }//GEN-LAST:event_jSpinField1PropertyChange
-/*       
-    private void setTableRows(){
-        if (aktivnost.getNabavljenaGrla()!=null){
 
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            int i=1;
-            for (NabavkaOvaca no: aktivnost.getNabavljenaGrla()){
-                model.addRow(vectorFrom(no, i++));
-            }
-        }
-    }*/
 
     private Vector vectorFrom(NabavkaOvaca no, int n){
         Ovca o = logic.getOvca(no.getSheep().getId());

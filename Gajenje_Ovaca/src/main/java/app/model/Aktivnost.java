@@ -41,6 +41,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     private Integer vremeZavrsetka;
     private String lokacija;
     private String napomena;
+    private String bilans;
     private float troskovi;
     
     public Aktivnost() {
@@ -259,6 +260,15 @@ public class Aktivnost implements Comparable<Aktivnost> {
     public void setListaJagnjenja(List<Jagnjenje> listaJagnjenja) {
         this.listaJagnjenja = listaJagnjenja;
     }
+
+    public String getBilans() {
+        return bilans;
+    }
+
+    public void setBilans(String bilans) {
+        this.bilans = bilans;
+    }
+    
     
 
 }

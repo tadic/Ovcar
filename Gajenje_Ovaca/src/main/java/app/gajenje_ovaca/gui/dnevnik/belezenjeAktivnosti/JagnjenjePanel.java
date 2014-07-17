@@ -6,11 +6,13 @@ package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 
 import app.logic.Logic;
 import app.model.Jagnjenje;
+import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.VrsteAktivnosti;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -24,35 +26,69 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  * @author ivantadic
  */
 public class JagnjenjePanel extends javax.swing.JPanel {
-private Ovca o;
+private List<Jagnjenje> listaJagnjenja;
 private  Logic logic;
 private JagnjenjaPanel parent;
     /**
      * Creates new form JagnjenjePanel
      */
-    public JagnjenjePanel(Ovca ovca, Logic logic, JagnjenjaPanel parent) {
+    public JagnjenjePanel(List<Jagnjenje> listaJagnjenja, Logic logic, JagnjenjaPanel parent) {
         this.logic = logic;
         this.parent = parent;
-        this.o = ovca;
+        this.listaJagnjenja = listaJagnjenja;;
         initComponents();
-        System.out.println(logic.toString());
-        setOvca(ovca);
-        setComboBox();
-        this.setAlignmentY(LEFT_ALIGNMENT);
-        jScrollPane2.setVisible(false);
-        jScrollPane2.getViewport().setBackground(Color.white);
-        AutoCompleteDecorator.decorate(this.jOvca);
+
+        setPanel();
         
     }
+    
+    private void setPanel(){
+        setComboBox();
+        jScrollPane2.setVisible(false);
+        jScrollPane2.getViewport().setBackground(Color.white);      
+        AutoCompleteDecorator.decorate(this.jOvca);
+        AutoCompleteDecorator.decorate(this.jOvan);
 
-    private void setOvca(Ovca o){
-        if (o!=null){
-            this.o = o;
+        fillPanel();
+        this.setVisible(true);
+  
+    }
+    private void fillPanel(){
+      //  System.out.println("Velicina1 liste: "+listaJagnjenja.size());
+        if (listaJagnjenja!=null && !listaJagnjenja.isEmpty()){
+           
+           // System.out.println("Velicina2 liste: "+listaJagnjenja.size());
+            jOvca.setSelectedItem(listaJagnjenja.get(0).getOvca().toString());
+            jOvan.setSelectedItem(listaJagnjenja.get(0).getJagnje().getOtac().getOznaka());
+            DefaultTableModel tb = (DefaultTableModel) jTableJagnjaci.getModel();
+            int n=1;
+            
+            for (Jagnjenje j: listaJagnjenja){
+                tb.addRow(vectorFrom(j, n));
+              //  System.err.println("Dodao, ");
+                n++;
+            }
+             jSpinField2.setValue(listaJagnjenja.size());
         }
+    }
+    private Vector vectorFrom(Jagnjenje j, int n){
+        Vector v = new Vector();
+        v.add(n);
+        v.add(j.isJelZivo());
+        v.add(j.getJagnje().getPol());
+        v.add(j.getJagnje().getOznaka());      
+        
+        v.add(j.getJagnje().getProcenatR());
+        v.add(j.getJagnje().getOpis());
+        v.add(j.getNapomena());
+        v.add(j.getJagnje().getTezinaNaRodjenju());
+        v.add(j.getId());
+        return v;
     }
     
     private void setComboBox(){
         jOvca.setModel(new DefaultComboBoxModel(ovceZaJagnjenje().toArray()));
+        jOvan.setModel(new DefaultComboBoxModel(logic.listaOvnova().toArray()));
     }
     
     private ArrayList<String> ovceZaJagnjenje(){
@@ -112,6 +148,7 @@ private JagnjenjaPanel parent;
         jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel15.setText("ojagnjila");
 
+        jSpinField2.setBackground(new java.awt.Color(255, 255, 255));
         jSpinField2.setMinimum(1);
         jSpinField2.setValue(1);
         jSpinField2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -126,7 +163,7 @@ private JagnjenjaPanel parent;
 
             },
             new String [] {
-                "rbr", "jelZivo", "pol", "oznaka", "% romanov", "opis", "napomena", "tezina", "id"
+                "rbr", "jel živo", "pol", "oznaka jagnjeta", "% romanov", "opis jagnjeta", "napomena", "težina u kg", "id"
             }
         ) {
             Class[] types = new Class [] {
@@ -151,9 +188,13 @@ private JagnjenjaPanel parent;
         jTableJagnjaci.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTableJagnjaci);
         jTableJagnjaci.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTableJagnjaci.getColumnModel().getColumn(0).setMaxWidth(36);
+        jTableJagnjaci.getColumnModel().getColumn(1).setMaxWidth(50);
+        jTableJagnjaci.getColumnModel().getColumn(2).setMaxWidth(120);
+        jTableJagnjaci.getColumnModel().getColumn(4).setMaxWidth(80);
         jTableJagnjaci.getColumnModel().getColumn(8).setMinWidth(0);
         jTableJagnjaci.getColumnModel().getColumn(8).setPreferredWidth(15);
-        jTableJagnjaci.getColumnModel().getColumn(8).setMaxWidth(15);
+        jTableJagnjaci.getColumnModel().getColumn(8).setMaxWidth(5);
 
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel16.setText("Otac");
@@ -227,16 +268,16 @@ private JagnjenjaPanel parent;
 
     private void jSpinField2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSpinField2PropertyChange
         int n = jSpinField2.getValue(); 
-                if (n>0){
-            DefaultTableModel model = (DefaultTableModel) jTableJagnjaci.getModel();
-            if (jTableJagnjaci.getModel().getRowCount()>n){
-                model.removeRow(n);
-            } else {
-                Vector row = new Vector();
-                row.add(n);
-                model.addRow(row);
-            }
-        } 
+            if (n>0){
+                DefaultTableModel model = (DefaultTableModel) jTableJagnjaci.getModel();
+                if (jTableJagnjaci.getModel().getRowCount()>n){
+                    model.removeRow(n);
+                } else if (jTableJagnjaci.getModel().getRowCount()<n){
+                    Vector row = new Vector();
+                    row.add(n);
+                    model.addRow(row);
+                }
+            } 
     }//GEN-LAST:event_jSpinField2PropertyChange
 
     private void jOvcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOvcaActionPerformed
@@ -267,14 +308,17 @@ private JagnjenjaPanel parent;
         this.revalidate();
         this.repaint();
     }
+    public void uvecajSe(){
+        parent.smanjiSvePaneleJagnjenja();
+        jScrollPane2.setVisible(true);
+        jButton1.setText("-");
+       // this.setPreferredSize(new Dimension(1266, 100));
+        this.revalidate();
+        this.repaint();
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jButton1.getText().equals("+")){
-            parent.smanjiSvePaneleJagnjenja();
-            jScrollPane2.setVisible(true);
-            jButton1.setText("-");
-           // this.setPreferredSize(new Dimension(1266, 100));
-            this.revalidate();
-            this.repaint();
+            uvecajSe();
         } else {
             smanjiSe();
         }
@@ -294,6 +338,9 @@ private JagnjenjaPanel parent;
         jagnje.setPol(tb.getValueAt(n, 2));
         jagnje.setOpis(tb.getValueAt(n, 5));
         jagnje.setLeglo(tb.getRowCount());
+        jagnje.setTezinaNaRodjenju(tb.getValueAt(n, 7));
+        
+        System.out.println("Tezina: " + jagnje.getTezinaNaRodjenju() + " Table value: " + tb.getValueAt(n, 7) );
         j.setJagnje(jagnje);    
         j.setJelZivo(tb.getValueAt(n, 1));
         if (j.isJelZivo()){
@@ -302,6 +349,9 @@ private JagnjenjaPanel parent;
             jagnje.setStatus("mrtvo rođeno");
         }
         j.setNapomena(tb.getValueAt(n, 6));
+        
+        j.setId(tb.getValueAt(n, 8));
+       // j.setNapomena(tb.getValueAt(n, 6));
         return j;
          
     }
@@ -311,16 +361,18 @@ private JagnjenjaPanel parent;
         if (majka==null){
             return null;
         }
-        Ovca otac = logic.getOvca(jOvan.getSelectedItem().toString());
+        Ovca otac = new Ovca("zamišljen", jOvan.getSelectedItem().toString(), 'm');
         TableModel tb = jTableJagnjaci.getModel();
         ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
         for (int i=0; i<jTableJagnjaci.getRowCount(); i++){
             Jagnjenje jagnjenje = pickJagnjenjeFromTable(i, tb);
+            jagnjenje.setOvca(majka);
             jagnjenje.getJagnje().setMajka(majka);
             jagnjenje.getJagnje().setOtac(otac);
 
             list.add(jagnjenje);
         }
+        System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getJagnje().getTezinaNaRodjenju());
         return list;
     }
     

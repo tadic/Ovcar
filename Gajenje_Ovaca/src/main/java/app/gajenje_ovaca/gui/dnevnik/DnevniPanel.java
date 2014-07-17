@@ -76,7 +76,6 @@ public class DnevniPanel extends JPanel{
     public void setDate(){
         this.removeAll();
         dan = logic.getDayWithDate(logic.getSelectedDay());
-    //    System.out.println("Aktivnost id: " + dan.getAktivnosti().get(0).getId());
       //  Aktivnost aka = logic.getActivityWithId(1);
          //   System.out.println("nabavljenih grla id: " + aka.getNabavljenaGrla().get(0).getNapomena());
             for (Aktivnost a: dan.getAktivnosti()){

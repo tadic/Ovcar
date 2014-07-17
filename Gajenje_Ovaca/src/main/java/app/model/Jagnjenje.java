@@ -86,12 +86,43 @@ public class Jagnjenje {
     }
 
     public void setJelZivo(Object valueAt) {
+        if (valueAt==null){
+            this.jelZivo = false;
+        } else{
         this.jelZivo =  Boolean.valueOf(valueAt.toString());
+        }
     }
 
     public void setNapomena(Object value) {
         if (value!=null){
             this.napomena = value.toString();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Jagnjenje{" + "id=" + id + ", aktivnost=" + aktivnost + ", ovca=" + ovca + ", jagnje=" + jagnje + ", jelZivo=" + jelZivo + ", napomena=" + napomena + '}';
+    }
+
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof Jagnjenje)
+        {
+            Integer objectId = ((Jagnjenje) object).id;
+            if (this.id!=null && objectId!=null && this.id!=0){
+                sameSame = this.id == objectId;
+            }
+        }
+
+        return sameSame;
+    }
+    
+    public void setId(Object oid) {
+        if (oid!=null){
+            this.id = Integer.parseInt(oid.toString());
         }
     }
     

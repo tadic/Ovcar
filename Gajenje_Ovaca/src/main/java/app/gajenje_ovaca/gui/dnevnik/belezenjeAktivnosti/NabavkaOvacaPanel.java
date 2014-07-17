@@ -549,6 +549,7 @@ private JPanel mainPanel;
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setTroskovi(jTextTroskovi.getText());
         aktivnost.setNapomena(jNapomena.getText());
+        aktivnost.setBilans(createBilans());
         pickSveNabavke();
     }
 
@@ -596,6 +597,25 @@ private JPanel mainPanel;
         }
     }
 
+    private int brojMuskihGrla(){
+        int muskih = 0;
+        for (NabavkaOvaca no: aktivnost.getNabavljenaGrla()){
+            if (no.getSheep().getPol()=='m'){
+                muskih++;
+            }
+        }
+        return muskih;
+    }
+    private String createBilans(){
+        int muskih = brojMuskihGrla();
+        int zenskih = aktivnost.getNabavljenaGrla().size()-muskih;
+        StringBuilder sb = new StringBuilder(Ovca.mnozinaGro(aktivnost.getNabavljenaGrla().size()));
+        sb.append(": ");
+        sb.append(Ovca.mnozinaOvan(muskih));
+        sb.append(" i ").append(Ovca.mnozinaOvca(zenskih));
+        return sb.toString();
+        
+    }
     private Vector vectorFrom(NabavkaOvaca no, int n){
         Ovca o = logic.getOvca(no.getSheep().getId());
         no.setSheep(o);

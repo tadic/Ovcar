@@ -112,8 +112,10 @@ public class DataBase {
     }
 
     public void deleteActivity(Aktivnost aktivnost) {
-        if (!aktivnost.getVrstaAktivnosti().getName().equals("")){
+        if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
             new DBNabavkaOvaca(server).deleteActivity(aktivnost);
+        } else {
+            new DBJagnjenja(server).deleteActivity(aktivnost);
         }
     }
 
@@ -134,6 +136,14 @@ public class DataBase {
         }
         return new ArrayList<Ovca>();
 
+    }
+
+    public List<Ovca> listaOvnova() {
+        List<Ovca> list = server.find(Ovca.class).where().like("pol", "m").findList();
+        if (list!=null){
+            return list;
+        }
+        return new ArrayList<Ovca>();
     }
 
 

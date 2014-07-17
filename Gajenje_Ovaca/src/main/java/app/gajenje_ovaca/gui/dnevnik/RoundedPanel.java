@@ -53,6 +53,7 @@ public class RoundedPanel extends JPanel {
     private JLabel actionNameLabel;
     private JLabel lokacijaLabel;
     private JLabel troskoviLabel;
+    private JLabel bilansLabel;
     private JLabel napomenaLabel;
     private JButton deleteButton, editButton;
     private Aktivnost aktivnost;
@@ -104,37 +105,37 @@ private void initComponents(){
                 editButton.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseReleased(MouseEvent evn){
-                       
-                        NabavkaOvacaPanel editPanel = new NabavkaOvacaPanel(mainPanel, logic, aktivnost);
-            editPanel.setVisible(true);
-            mainPanel.removeAll();
-            mainPanel.add(editPanel, BorderLayout.CENTER);  
-            mainPanel.repaint();
-            mainPanel.revalidate();
+                       new BelezenjeAktivnosti(mainPanel, logic, aktivnost).showEditPanel();
                     }
                 });
                 actionNameLabel = new JLabel(aktivnost.getVrstaAktivnosti().getName());
                 actionNameLabel.setFont(new Font("Ariel", 1,13));
                 actionNameLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+2), 
-                    200, actionNameLabel.getPreferredSize().height);
+                    300, actionNameLabel.getPreferredSize().height);
                 actionNameLabel.setForeground(color.darker());
 
                 lokacijaLabel = new JLabel("Lokacija:       "+aktivnost.getLokacija());
                 lokacijaLabel.setFont(new Font("Ariel", Font.PLAIN,13));
                 lokacijaLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+40), 
-                    200, lokacijaLabel.getPreferredSize().height);
+                    300, lokacijaLabel.getPreferredSize().height);
                 lokacijaLabel.setForeground(color.darker());
                 
                 troskoviLabel = new JLabel("Troskovi:      "+Aktivnost.round(aktivnost.getTroskovi(),1)+" €");
                 troskoviLabel.setFont(new Font("Ariel", Font.PLAIN,13));
                 troskoviLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+60), 
-                    200, troskoviLabel.getPreferredSize().height);
+                    300, troskoviLabel.getPreferredSize().height);
                 troskoviLabel.setForeground(color.darker());
+                
+               bilansLabel = new JLabel("Bilans:          "+aktivnost.getBilans());
+                bilansLabel.setFont(new Font("Ariel", Font.PLAIN,13));
+                bilansLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+80), 
+                    400, bilansLabel.getPreferredSize().height);
+                bilansLabel.setForeground(color.darker());
                 
                 napomenaLabel = new JLabel("Napomena:   "+aktivnost.getNapomena());
                 napomenaLabel.setFont(new Font("Ariel", Font.PLAIN,13));
-                napomenaLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+80), 
-                    200, napomenaLabel.getPreferredSize().height);
+                napomenaLabel.setBounds((10 + this.getInsets().left), (this.getInsets().top+100), 
+                    400, napomenaLabel.getPreferredSize().height);
                 napomenaLabel.setForeground(color.darker());
                 
                 JPopupMenu pop = new JPopupMenu();
@@ -167,6 +168,7 @@ private void initComponents(){
     this.add(actionNameLabel);
     this.add(lokacijaLabel);
     this.add(troskoviLabel);
+    this.add(bilansLabel);
     this.add(napomenaLabel);
     this.add(deleteButton);
     this.add(editButton);

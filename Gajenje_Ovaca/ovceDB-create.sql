@@ -6,6 +6,7 @@ create table aktivnost (
   vreme_zavrsetka           integer,
   lokacija                  varchar(255),
   napomena                  varchar(255),
+  bilans                    varchar(255),
   troskovi                  float)
 ;
 
@@ -51,6 +52,7 @@ create table ovca (
   status                    varchar(255),
   leglo                     integer,
   linija_id                 integer,
+  tezina_na_rodjenju        float,
   aktuelno                  varchar(255))
 ;
 

@@ -116,6 +116,9 @@
     </Component>
     <Component class="com.toedter.components.JSpinField" name="jSpinField2">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="minimum" type="int" value="1"/>
         <Property name="value" type="int" value="1"/>
       </Properties>
@@ -138,20 +141,40 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="9" rowCount="0">
                 <Column editable="false" title="rbr" type="java.lang.Integer"/>
-                <Column editable="true" title="jelZivo" type="java.lang.Boolean"/>
+                <Column editable="true" title="jel &#x17e;ivo" type="java.lang.Boolean"/>
                 <Column editable="true" title="pol" type="java.lang.String"/>
-                <Column editable="true" title="oznaka" type="java.lang.String"/>
+                <Column editable="true" title="oznaka jagnjeta" type="java.lang.String"/>
                 <Column editable="true" title="% romanov" type="java.lang.Float"/>
-                <Column editable="true" title="opis" type="java.lang.Object"/>
+                <Column editable="true" title="opis jagnjeta" type="java.lang.Object"/>
                 <Column editable="true" title="napomena" type="java.lang.String"/>
-                <Column editable="true" title="tezina" type="java.lang.Float"/>
+                <Column editable="true" title="te&#x17e;ina u kg" type="java.lang.Float"/>
                 <Column editable="false" title="id" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="2">
+                <Column maxWidth="36" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="50" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="120" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="80" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -171,27 +194,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="15" minWidth="0" prefWidth="15" resizable="true">
+                <Column maxWidth="5" minWidth="0" prefWidth="15" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

@@ -31,21 +31,68 @@ public class DBJagnjenja {
     } 
     
     public void updateActivity(Aktivnost a){
-        Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
-       // setActivity(act, a);
-        //updateNabavkeOvaca(a);
+        Aktivnost act = server.find(Aktivnost.class, a.getId());  
+        setActivity(act, a);
+        deleteOldJagnjenja(act, act);
+        updateJagnjenja(a);
         server.save(act);
     }
     
+    private void deleteOldJagnjenja(Aktivnost staraAktivnost, Aktivnost novaAktivnost){
+        for (Jagnjenje j: staraAktivnost.getListaJagnjenja()){
+            if (!novaAktivnost.getListaJagnjenja().contains(j)){
+                deleteSheep(j.getJagnje());
+                server.delete(j);
+            }
+        }
+    }
+    
+    private void setActivity(Aktivnost act, Aktivnost a){
+        act.setDan(a.getDan());
+        act.setLokacija(a.getLokacija());
+        act.setNapomena(a.getNapomena());
+        act.setVremePocetka(a.getVremePocetka());
+        act.setVremeZavrsetka(a.getVremeZavrsetka());
+        act.setVrstaAktivnosti(a.getVrstaAktivnosti());
+        act.setTroskovi(a.getTroskovi());
+        act.setBilans(a.getBilans());
+    }
+    
+    private void updateJagnjenja(Aktivnost a){
+        for (Jagnjenje j: a.getListaJagnjenja()){
+            //saveSheep(j.getJagnje());
+            updateJagnjenje(j, a);    // prvo update jagnjenje da bi definitivno dobilo id i jagnjetov id
+            
+        }
+    }
+    private void updateJagnjenje(Jagnjenje j, Aktivnost a){
+        if (j.getId()!=null){
+            System.out.println("Update jagnjenje id :"+ j.getId());
+            Jagnjenje jagnjenje = server.find(Jagnjenje.class, j.getId());
+            jagnjenje.setOvca(j.getOvca());
+            
+            jagnjenje.setJelZivo(j.isJelZivo());
+            jagnjenje.setNapomena(j.getNapomena());
+            j.getJagnje().setId(jagnjenje.getJagnje().getId());
+            saveSheep(j.getJagnje());
+            server.save(jagnjenje);
+            
+        }else{
+            j.setAktivnost(a);
+            saveSheep(j.getJagnje());
+            server.save(j);
+        }
+    }
     private void createActivity(Aktivnost a){
         a.getDan().getAktivnosti().add(a);// unesi u panel
         String datumJagnjenja = a.getDan().toString();
             for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
                 jagnjenje.getJagnje().setDatumRodjenja(datumJagnjenja);
+               // System.out.println("majka ovca: "+ a.getDan().toString());
                 saveSheep(jagnjenje.getJagnje());
             }
             if (a.getDan().getId()==null){ // ako ga nema u bazi, napravi ga
-                System.out.println("dan: "+ a.getDan().toString());
+             //   System.out.println("dan: "+ a.getDan().toString());
                 server.save(a.getDan());
             } else{
                Dan d = server.find(Dan.class).where().like("datum", a.getDan().getDatum().toString()).findUnique();  
@@ -57,7 +104,11 @@ public class DBJagnjenja {
     
         
     public void saveSheep(Ovca sheep){
-             System.out.println("Update" + sheep.getId());System.out.println("Update");
+                System.out.println("Update sheep id:  :"+ sheep.getId());
+                System.out.println("Update sheep id:  :"+ sheep.getId());
+                System.out.println("Update sheep id:  :"+ sheep.getId());System.out.println("Update sheep id:  :"+ sheep.getId());System.out.println("Update sheep id:  :"+ sheep.getId());
+                
+                
         setOtac(sheep);                     // povezi ovcu sa ocem i majkom iz baze
         setMother(sheep);
         if (sheep.getId()!=null){           // ako je ovca vec postojala u bazi, pronadji original i uskladi data
@@ -70,7 +121,7 @@ public class DBJagnjenja {
     }
     
     private void setMother(Ovca sheep){
-        System.out.println("Majka: " + sheep.getMajka());
+      
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             if (majka==null){   
@@ -105,35 +156,50 @@ public class DBJagnjenja {
             if (stariOtac.getId()==sheep.getOtac().getId()){
                 return;
             }
-            System.out.println("step 2, status: " + stariOtac.getStatus());
-            if (stariOtac.getStatus()!=null && stariOtac.getStatus().equals("zamisljena")){
-                System.out.println("step 2");
-                List<Ovca> listaSinova = server.find(Ovca.class).where().like("otac_id", stariOtac.getId().toString()).findList();
-                if (listaSinova.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-                    System.out.println("step 3");
-                    server.delete(stariOtac);
-                }
-            }
+            ocistiOca(stariOtac);
         }
     }
+    
     private void proveriStaruMajku(Ovca sheep){
         if (sheep.getId()!=null){
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
             Ovca staraMajka = staraOvca.getMajka();
-                        System.out.println("step 2, status: " + staraMajka.getStatus());
+          //              System.out.println("step 2, status: " + staraMajka.getStatus());
             if (staraMajka.getId()==sheep.getMajka().getId()){
                 return;
             }
-            if (staraMajka.getStatus()!=null && staraMajka.getStatus().equals("zamisljena")){
-                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("majka_id", staraMajka.getId().toString()).findList();
-                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-                    System.out.println("step 3");
-                    server.delete(staraMajka);
-                }
-            }
+            ocistiMajku(staraMajka);
         }
     }
+    private void ocistiMajku(Ovca o){
+            if (o.getStatus()!=null && o.getStatus().equals("zamisljena")){
+                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("majka_id", o.getId().toString()).findList();
+                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
+                    server.delete(o);
+                }
+            }
+    }
+    private void ocistiOca(Ovca o){
+            if (o.getStatus()!=null && o.getStatus().equals("zamisljena")){
+                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("otac_id", o.getId().toString()).findList();
+                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
+                    server.delete(o);
+                }
+            }
+    }
+    public void deleteSheep(Ovca o){
+       ocistiMajku(o.getMajka());
+       ocistiOca(o.getOtac());
+       server.delete(o);
+    }
 
+    public void deleteActivity(Aktivnost a) {
+        for (Jagnjenje j: a.getListaJagnjenja()){
+            deleteSheep(j.getJagnje());
+        }
+        server.delete(a);
+    }
+    
     private void setSheep(Ovca ovca1, Ovca ovca2){
         ovca1.setDatumRodjenja(ovca2.getDatumRodjenja());
         ovca1.setNadimak(ovca2.getNadimak());
@@ -144,6 +210,8 @@ public class DBJagnjenja {
         ovca1.setPol(ovca2.getPol());
         ovca1.setOtac(ovca2.getOtac());
         ovca1.setMajka(ovca2.getMajka());
+        ovca1.setStatus(ovca2.getStatus());
+        ovca1.setTezinaNaRodjenju(ovca2.getTezinaNaRodjenju());
     }
 
 }

@@ -48,6 +48,7 @@ public class Ovca {
     private Integer leglo;
     @OneToOne
     private Linija linija;
+    private float tezinaNaRodjenju;
     private String aktuelno;
    // mozda ne treba private ArrayList<Date> listaJagnjenja;
     
@@ -295,6 +296,57 @@ public class Ovca {
 
     public void setRodjenje(Jagnjenje rodjenje) {
         this.rodjenje = rodjenje;
+    }
+
+    public float getTezinaNaRodjenju() {
+        return tezinaNaRodjenju;
+    }
+
+    public void setTezinaNaRodjenju(float tezinaNaRodjenju) {
+        this.tezinaNaRodjenju = tezinaNaRodjenju;
+    }
+
+    public void setTezinaNaRodjenju(Object value) {
+         if (value != null && !value.toString().equals("")){
+           this.tezinaNaRodjenju = Float.parseFloat(value.toString()) - 0.00f;
+        }
+    }
+    
+    public static String mnozinaJagnje(int n){
+        switch (n%10){
+            case 1: return "" + n + " jagnje";
+            case 2: return "" + n + " jagnjeta";
+            case 3: return "" + n + " jagnjeta";
+            case 4: return "" + n + " jagnjeta";          
+        }
+        return "" + n + " jagnjadi";
+    }
+    public static String mnozinaOvan(int n){
+        switch (n%10){
+            case 1: return "" + n + " ovan";
+            case 2: return "" + n + " ovna";
+            case 3: return "" + n + " ovna";
+            case 4: return "" + n + " ovna";          
+        }
+        return "" + n + " ovnova";
+    }
+    
+    
+    public static String mnozinaOvca(int n){
+        switch (n%10){
+            case 1: return "" + n + " ovca";
+            case 2: return "" + n + " ovce";
+            case 3: return "" + n + " ovce";
+            case 4: return "" + n + " ovce";          
+        }
+        return "" + n + " ovaca";
+    }
+    
+        public static String mnozinaGro(int n){
+        switch (n%10){
+            case 1: return "" + n + " grlo";          
+        }
+        return "" + n + " grla";
     }
     
     

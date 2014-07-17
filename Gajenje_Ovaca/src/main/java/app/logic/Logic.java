@@ -131,6 +131,10 @@ public class Logic {
         return db.getOvceZaJagnjenje(); 
     }
 
+    public List<Ovca> listaOvnova() {
+        return db.listaOvnova();
+    }
+
 
 
 
