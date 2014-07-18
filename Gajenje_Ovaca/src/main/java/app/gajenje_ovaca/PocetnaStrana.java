@@ -65,11 +65,13 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(100, 750));
         jScrollPane1.setSize(new java.awt.Dimension(100, 750));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1331, 750));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 750));
 
         jToolBar1.setBackground(new java.awt.Color(51, 51, 51));
         jToolBar1.setForeground(new java.awt.Color(153, 0, 51));
         jToolBar1.setRollover(true);
+        jToolBar1.setMinimumSize(new java.awt.Dimension(500, 31));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(500, 31));
 
         dnevnikButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         dnevnikButton.setForeground(new java.awt.Color(212, 212, 212));
@@ -254,7 +256,7 @@ public class PocetnaStrana extends javax.swing.JFrame {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 1331, Short.MAX_VALUE)
+            .add(0, 0, Short.MAX_VALUE)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -265,8 +267,8 @@ public class PocetnaStrana extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1331, Short.MAX_VALUE)
-            .add(mainPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1331, Short.MAX_VALUE)
+            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE)
+            .add(mainPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1209, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -283,7 +285,7 @@ public class PocetnaStrana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1309, Short.MAX_VALUE)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

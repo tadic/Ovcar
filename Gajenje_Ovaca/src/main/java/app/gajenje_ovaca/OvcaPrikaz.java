@@ -68,7 +68,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         }    
         jOznaka.setText(o.getOznaka());
         jNadimak.setText(o.getNadimak());
-
+        jStarost.setText(o.getStarost());
         jOpis.setText(o.getOpis());
         jDosije.setText(o.getPracenje());
         
@@ -76,13 +76,15 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         if (!o.getStatus().equals("zamisljena")){
             jOtac.setText(o.getOtac().getOznaka());
             jMajka.setText(o.getMajka().getOznaka());
-             jRodjenjeNapomena.setText(o.getNabavka().getNapomena());
+            // jRodjenjeNapomena.setText(o.getNabavka().getNapomena());
                
         }
        if (o.getNabavka()!=null){
           setTitleToPanel(jPanelNabavka, "Nabavka " + o.getNabavka().getAktivnost().getDan().toString() + " - " + o.getNabavka().getAktivnost().getLokacija() + " -");
          jCenaNabavke.setText(Float.toString(o.getNabavka().getCena()));
          jDetaljiNabavke.setText(o.getNabavka().getNapomena());
+       } else {
+          jPanelNabavka.setVisible(false);
        }
         if (o.getLeglo()!=null){
             jLeglo.setText(o.getLeglo().toString());

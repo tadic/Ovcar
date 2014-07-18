@@ -135,6 +135,10 @@ public class Logic {
         return db.listaOvnova();
     }
 
+    public List<Ovca> getSvaZivaGrla() {
+        return db.getSvaZivaGrla();
+    }
+
 
 
 

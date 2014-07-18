@@ -44,23 +44,24 @@ public class DnevniPanel extends JPanel{
         this.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {
-           int n = e.getY()/32;
-           n=n*32;
-           int sati = n/64;
-           int minuta = 30*((n/32) - (sati*2));
-           Aktivnost aktivnost = new Aktivnost(sati, minuta);
-           aktivnost.setVrstaAktivnosti(dnevnik.getChoosenActivityType());
-           aktivnost.setDan(dan);
+                int n = e.getY()/32;
+                n=n*32;
+                int sati = n/64;
+                int minuta = 30*((n/32) - (sati*2));
+                Aktivnost aktivnost = new Aktivnost(sati, minuta);
+                aktivnost.setVrstaAktivnosti(dnevnik.getChoosenActivityType());
+                aktivnost.setDan(dan);
 
-           new BelezenjeAktivnosti(mainPanel, logic, aktivnost).showEditPanel();
-        }
-        @Override
-        public void mouseEntered(MouseEvent e)
-        {
-           unfocusAll();
-        }
+                new BelezenjeAktivnosti(mainPanel, logic, aktivnost).showEditPanel();
+             }
+             @Override
+             public void mouseEntered(MouseEvent e)
+             {
+                unfocusAll();
+             }
        
-    });
+        });
+ 
  }
     public void unfocusAll(){
         for (Component c: getComponents()){

@@ -250,11 +250,8 @@ private void initComponents(){
     }
 
     public void refresh() {
-        System.err.println("Refreshaaa" + aktivnost.getVremeZavrsetka());
-       //
         aktivnost = logic.getActivityWithId(aktivnost.getId());
        //aktivnost = logic.getServer().find(Aktivnost.class, aktivnost.getId());
-         System.err.println("Refreshaaa" + aktivnost.getVremeZavrsetka());
         color = new Color(aktivnost.getVrstaAktivnosti().getColor());
         actionNameLabel.setText(aktivnost.getVrstaAktivnosti().getName());
        // setPreferredSize(new Dimension(400,100));

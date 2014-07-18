@@ -39,37 +39,6 @@ public class VrsteAktivnosti {
         color = boja.getRGB();
     }
     
-   
-    
-   /* public static List<VrsteAktivnosti> getAll(){
-        List<VrsteAktivnosti> list = new ArrayList<VrsteAktivnosti>();
-        for (VrsteAktivnosti vr: map.values()){
-            list.add(vr);
-        }
-        return list;
-    }*/
-    
- /*   public void setIdAndCOlor(){
-        EbeanServer server = NewJFrame.getServer();
-        VrsteAktivnosti vr = server.find(VrsteAktivnosti.class).where().like("name", name).findUnique();
-        if (vr!=null){
-            Id = vr.getId();
-            color = vr.getColor();
-            System.out.print("Postoji: " + vr.getName());
-        } else {
-            System.out.print("Ne ostoji: !");
-            name = "Zaba"; 
-            color = Color.yellow.getRGB();
-        }
-    }*/
-
-   /* public Aktivnost getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Aktivnost owner) {
-        this.owner = owner;
-    }*/
 
     public int getId() {
         return Id;
@@ -102,15 +71,4 @@ public class VrsteAktivnosti {
         }
         return false;
     }
-    
-   /* public static VrsteAktivnosti get(String name){
-        if (map.isEmpty()){
-            List<VrsteAktivnosti> list = NewJFrame.getServer().find(VrsteAktivnosti.class).where().findList();
-            for (VrsteAktivnosti vr: list){
-                map.put(vr.getName(), vr);
-            }
-        }
-        return map.get(name);
-    }
-    */
 }

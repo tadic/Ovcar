@@ -71,6 +71,9 @@ public class NabavkaOvaca {
         }
     }
     public String getNapomena() {
+        if (napomena==null){
+            return "";
+        }
         return napomena;
     }
 

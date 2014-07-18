@@ -66,7 +66,7 @@ public class DBNabavkaOvaca {
     
     
     public void saveSheep(Ovca sheep){
-             System.out.println("Update" + sheep.getId());System.out.println("Update");
+        //     System.out.println("Update" + sheep.getId());System.out.println("Update");
         setOtac(sheep);                     // povezi ovcu sa ocem i majkom iz baze
         setMother(sheep);
         if (sheep.getId()!=null){           // ako je ovca vec postojala u bazi, pronadji original i uskladi data
@@ -99,7 +99,7 @@ public class DBNabavkaOvaca {
     }
     
     private void setMother(Ovca sheep){
-        System.out.println("Majka: " + sheep.getMajka());
+     //   System.out.println("Majka: " + sheep.getMajka());
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             if (majka==null){   
@@ -128,18 +128,18 @@ public class DBNabavkaOvaca {
     }
     private void proveriStarogOca(Ovca sheep){
         if (sheep.getId()!=null){
-            System.out.println("step 1");
+         //   System.out.println("step 1");
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
             Ovca stariOtac = staraOvca.getOtac();
             if (stariOtac.getId()==sheep.getOtac().getId()){
                 return;
             }
-            System.out.println("step 2, status: " + stariOtac.getStatus());
+        //    System.out.println("step 2, status: " + stariOtac.getStatus());
             if (stariOtac.getStatus()!=null && stariOtac.getStatus().equals("zamisljena")){
-                System.out.println("step 2");
+              //  System.out.println("step 2");
                 List<Ovca> listaSinova = server.find(Ovca.class).where().like("otac_id", stariOtac.getId().toString()).findList();
                 if (listaSinova.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-                    System.out.println("step 3");
+                  //  System.out.println("step 3");
                     server.delete(stariOtac);
                 }
             }
@@ -149,14 +149,14 @@ public class DBNabavkaOvaca {
         if (sheep.getId()!=null){
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
             Ovca staraMajka = staraOvca.getMajka();
-                        System.out.println("step 2, status: " + staraMajka.getStatus());
+             //           System.out.println("step 2, status: " + staraMajka.getStatus());
             if (staraMajka.getId()==sheep.getMajka().getId()){
                 return;
             }
             if (staraMajka.getStatus()!=null && staraMajka.getStatus().equals("zamisljena")){
                 List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("majka_id", staraMajka.getId().toString()).findList();
                 if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-                    System.out.println("step 3");
+             //       System.out.println("step 3");
                     server.delete(staraMajka);
                 }
             }

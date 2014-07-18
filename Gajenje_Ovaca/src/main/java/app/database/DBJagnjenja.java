@@ -59,15 +59,17 @@ public class DBJagnjenja {
     }
     
     private void updateJagnjenja(Aktivnost a){
+        String datumJagnjenja = a.getDan().toString();
         for (Jagnjenje j: a.getListaJagnjenja()){
             //saveSheep(j.getJagnje());
+            j.getJagnje().setDatumRodjenja(datumJagnjenja);
             updateJagnjenje(j, a);    // prvo update jagnjenje da bi definitivno dobilo id i jagnjetov id
             
         }
     }
     private void updateJagnjenje(Jagnjenje j, Aktivnost a){
         if (j.getId()!=null){
-            System.out.println("Update jagnjenje id :"+ j.getId());
+         //   System.out.println("Update jagnjenje id :"+ j.getId());
             Jagnjenje jagnjenje = server.find(Jagnjenje.class, j.getId());
             jagnjenje.setOvca(j.getOvca());
             
@@ -104,11 +106,6 @@ public class DBJagnjenja {
     
         
     public void saveSheep(Ovca sheep){
-                System.out.println("Update sheep id:  :"+ sheep.getId());
-                System.out.println("Update sheep id:  :"+ sheep.getId());
-                System.out.println("Update sheep id:  :"+ sheep.getId());System.out.println("Update sheep id:  :"+ sheep.getId());System.out.println("Update sheep id:  :"+ sheep.getId());
-                
-                
         setOtac(sheep);                     // povezi ovcu sa ocem i majkom iz baze
         setMother(sheep);
         if (sheep.getId()!=null){           // ako je ovca vec postojala u bazi, pronadji original i uskladi data
@@ -147,10 +144,12 @@ public class DBJagnjenja {
             sheep.setOtac(otac);
             proveriStarogOca(sheep);
         }
+       // System.err.println("Otac linija: " + sheep.getOtac().getLinija().getImeLinije());
+        sheep.setLinija(sheep.getOtac().getLinija());
     }
     private void proveriStarogOca(Ovca sheep){
         if (sheep.getId()!=null){
-            System.out.println("step 1");
+           // System.out.println("step 1");
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
             Ovca stariOtac = staraOvca.getOtac();
             if (stariOtac.getId()==sheep.getOtac().getId()){
@@ -212,6 +211,7 @@ public class DBJagnjenja {
         ovca1.setMajka(ovca2.getMajka());
         ovca1.setStatus(ovca2.getStatus());
         ovca1.setTezinaNaRodjenju(ovca2.getTezinaNaRodjenju());
+        ovca1.setLinija(ovca2.getLinija());
     }
 
 }

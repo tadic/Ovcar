@@ -39,7 +39,6 @@ public class DataBase {
         if (typesOfActivities==null){
             return new ArrayList<VrsteAktivnosti>();
         }
-        System.err.println("List size: " + typesOfActivities.size());
         return typesOfActivities;
     }
 
@@ -93,14 +92,19 @@ public class DataBase {
     public void saveActivity(Aktivnost aktivnost) {
         if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
             new DBNabavkaOvaca(server).saveActivity(aktivnost);
-        } else {
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Jagnjenje")) {
             new DBJagnjenja(server).saveActivity(aktivnost);
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")) {
+            new DBUginuca(server).saveActivity(aktivnost);
+        } else {
+            new DBProdaja(server).saveActivity(aktivnost);
         }
     }
 
     public void update(Ovca ovca) {
         Ovca o = server.find(Ovca.class, ovca.getId());
         o.setOpis(ovca.getOpis());
+        o.setOznaka(ovca.getOznaka());
         o.setPracenje(ovca.getPracenje());
         o.setPol(ovca.getPol());
         o.setProcenatR(ovca.getProcenatR());
@@ -114,8 +118,12 @@ public class DataBase {
     public void deleteActivity(Aktivnost aktivnost) {
         if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
             new DBNabavkaOvaca(server).deleteActivity(aktivnost);
-        } else {
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Jagnjenje")) {
             new DBJagnjenja(server).deleteActivity(aktivnost);
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")) {
+            new DBUginuca(server).deleteActivity(aktivnost);
+        } else {
+            new DBProdaja(server).deleteActivity(aktivnost);
         }
     }
 
@@ -125,7 +133,6 @@ public class DataBase {
 
     public Ovca getOvca(int id) {
         Ovca o =  server.find(Ovca.class, id);
-        System.out.println("Otac: " + o.getOznaka() + "+" + o.getOtac());
         return o;
     }
 
@@ -144,6 +151,10 @@ public class DataBase {
             return list;
         }
         return new ArrayList<Ovca>();
+    }
+
+    public List<Ovca> getSvaZivaGrla() {
+       return  server.find(Ovca.class).where().like("status", "na farmi").findList();
     }
 
 

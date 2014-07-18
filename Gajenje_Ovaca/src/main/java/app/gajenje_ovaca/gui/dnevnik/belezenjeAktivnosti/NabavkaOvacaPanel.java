@@ -45,7 +45,6 @@ private JPanel mainPanel;
         jTable1.getColumnModel().getColumn(4).setCellEditor(new JDateChooserCellEditor());
         jTable1.getColumnModel().getColumn(4).setCellRenderer(new JDateChooserRenderer());
         setPanel();
-        System.out.println("ooooooooo" + mainPanel + " " + logic + " " + aktivnost);
     }
 
     /**
@@ -60,7 +59,6 @@ private JPanel mainPanel;
         jLabel7 = new javax.swing.JLabel();
         jminutaPocetak = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jminutaKraj = new javax.swing.JSpinner();
@@ -98,14 +96,6 @@ private JPanel mainPanel;
         });
 
         jLabel8.setText("-");
-
-        jCheckBox1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
-        jCheckBox1.setText("Ceo dan");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("-");
 
@@ -274,11 +264,9 @@ private JPanel mainPanel;
                         .add(jTextTroskovi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(nabavkaPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 345, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(nabavkaPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1061, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 345, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2)
         );
         nabavkaPanelLayout.setVerticalGroup(
             nabavkaPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -306,16 +294,11 @@ private JPanel mainPanel;
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(20, 20, 20)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(18, 18, 18)
-                        .add(nabavkaPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(20, 20, 20)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel5)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1062, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(10, 10, 10))
+                    .add(jLabel5)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1062, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(layout.createSequentialGroup()
@@ -336,15 +319,12 @@ private JPanel mainPanel;
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jLabel9)
                         .add(1, 1, 1)
-                        .add(jminutaKraj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(9, 9, 9))
+                        .add(jminutaKraj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(21, 21, 21)
                         .add(jColorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
-                .add(jCheckBox1)
+                        .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLabel3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -362,6 +342,9 @@ private JPanel mainPanel;
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton2)
                         .add(28, 28, 28))))
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(nabavkaPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -386,8 +369,8 @@ private JPanel mainPanel;
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                                 .add(jLokacija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(jLabel3))
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jCheckBox1)
+                            .add(layout.createSequentialGroup()
+                                .add(1, 1, 1)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jminutaKraj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(layout.createSequentialGroup()
@@ -412,10 +395,6 @@ private JPanel mainPanel;
                 .addContainerGap(38, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        showComponents(!jCheckBox1.isSelected());
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
     private void showComponents(boolean b){
           jsatiPocetak.setVisible(b);
           jminutaPocetak.setVisible(b);
@@ -549,8 +528,9 @@ private JPanel mainPanel;
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setTroskovi(jTextTroskovi.getText());
         aktivnost.setNapomena(jNapomena.getText());
-        aktivnost.setBilans(createBilans());
+      
         pickSveNabavke();
+          aktivnost.setBilans(createBilans());
     }
 
     private void jminutaPocetakStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jminutaPocetakStateChanged
@@ -581,6 +561,7 @@ private JPanel mainPanel;
             } else {
                 Vector row = new Vector();
                 row.add(n);
+                row.add("ž");
                 model.addRow(row);
             }
         }    
@@ -646,7 +627,6 @@ private JPanel mainPanel;
     
     @Override  
     public void paintComponent(Graphics g) {  
-
         super.paintComponent(g);  
         Graphics2D g2d = (Graphics2D) g;  
         int w = getWidth();  
@@ -665,7 +645,6 @@ private JPanel mainPanel;
     }  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jColorLabel;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -122,7 +122,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x43d;"/>
+        <Property name="text" type="java.lang.String" value="Pon"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel86">
@@ -133,7 +133,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="cc" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x41d;&#x435;&#x434;"/>
+        <Property name="text" type="java.lang.String" value="Ned"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelLastWeek">
@@ -1237,7 +1237,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x421;&#x443;&#x431;"/>
+        <Property name="text" type="java.lang.String" value="Sub"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel88">
@@ -1248,7 +1248,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x423;&#x442;&#x43e;"/>
+        <Property name="text" type="java.lang.String" value="Uto"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel89">
@@ -1270,7 +1270,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x427;&#x435;&#x442;"/>
+        <Property name="text" type="java.lang.String" value="&#x10c;et"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel91">
@@ -1281,7 +1281,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="99" green="99" red="0" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x41f;&#x435;&#x442;"/>
+        <Property name="text" type="java.lang.String" value="Pet"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="godinaSpinner">
@@ -1322,18 +1322,18 @@
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="12">
-            <StringItem index="0" value="&#x408;&#x430;&#x43d;&#x443;&#x430;&#x440;"/>
-            <StringItem index="1" value="&#x424;&#x435;&#x431;&#x440;&#x443;&#x430;&#x440;"/>
-            <StringItem index="2" value="&#x41c;&#x430;&#x440;&#x442;"/>
-            <StringItem index="3" value="&#x410;&#x43f;&#x440;&#x438;&#x43b;"/>
-            <StringItem index="4" value="&#x41c;&#x430;&#x458;"/>
-            <StringItem index="5" value="&#x408;&#x443;&#x43d;"/>
-            <StringItem index="6" value="&#x408;&#x443;&#x43b;"/>
-            <StringItem index="7" value="&#x410;&#x432;&#x433;&#x443;&#x441;&#x442;"/>
-            <StringItem index="8" value="&#x421;&#x435;&#x43f;&#x442;&#x435;&#x43c;&#x431;&#x430;&#x440;"/>
-            <StringItem index="9" value="&#x41e;&#x43a;&#x442;&#x43e;&#x431;&#x430;&#x440;"/>
-            <StringItem index="10" value="&#x41d;&#x43e;&#x432;&#x435;&#x43c;&#x431;&#x430;&#x440;"/>
-            <StringItem index="11" value="&#x414;&#x435;&#x446;&#x435;&#x43c;&#x431;&#x430;&#x440;"/>
+            <StringItem index="0" value="Januar"/>
+            <StringItem index="1" value="Februar"/>
+            <StringItem index="2" value="Mart"/>
+            <StringItem index="3" value="April"/>
+            <StringItem index="4" value="Maj"/>
+            <StringItem index="5" value="Jun"/>
+            <StringItem index="6" value="Jul"/>
+            <StringItem index="7" value="Avgust"/>
+            <StringItem index="8" value="Septembar"/>
+            <StringItem index="9" value="Oktobar"/>
+            <StringItem index="10" value="Novembar"/>
+            <StringItem index="11" value="Decembar"/>
           </StringArray>
         </Property>
         <Property name="opaque" type="boolean" value="true"/>

@@ -31,6 +31,8 @@ public class Dnevnik extends javax.swing.JPanel {
         this.logic = logic;
         initComponents();
         initTimePanels();
+        
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
     }
     
     private void initTimePanels(){
@@ -39,9 +41,10 @@ public class Dnevnik extends javax.swing.JPanel {
         sedmicnaLista = new SedmicnaLista(this, logic); 
         kalendar.setUpKalendar(Calendar.getInstance());
         
-        jScrollPane1.setPreferredSize(new Dimension(500,500));
+       // jScrollPane1.setPreferredSize(new Dimension(500,500));
         
         jScrollPane1.setViewportView(dnevniPanel);
+        jScrollPane1.getVerticalScrollBar().setValue(5000);
         jScrollPane2.setViewportView(sedmicnaLista);
         
         jNazivAktivnosti.setModel(new DefaultComboBoxModel(sveVrsteAktivnosti().toArray()));
@@ -54,7 +57,7 @@ public class Dnevnik extends javax.swing.JPanel {
      private ArrayList<String> sveVrsteAktivnosti(){
        ArrayList<String> list = new ArrayList<String>();
        for (VrsteAktivnosti vr:logic.getTypesOfActivities()){
-           System.out.println("Usao ");
+          // System.out.println("Usao ");
            list.add(vr.getName());
        }
        return list;
@@ -92,7 +95,9 @@ public class Dnevnik extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1300, 748));
 
+        jScrollPane1.setVerifyInputWhenFocusTarget(false);
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jScrollPane1MouseClicked(evt);
@@ -126,9 +131,9 @@ public class Dnevnik extends javax.swing.JPanel {
             .add(0, 0, Short.MAX_VALUE)
         );
 
-        jButton1.setFont(new java.awt.Font("Noteworthy", 1, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 153, 153));
-        jButton1.setText("Данас");
+        jButton1.setText("Danas");
         jButton1.setAlignmentY(0.0F);
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
@@ -176,7 +181,7 @@ public class Dnevnik extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Noteworthy", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel1.setText("Дневник рада");
+        jLabel1.setText("Dnevnik rada");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setAlignmentY(3.0F);
         jLabel1.setMaximumSize(new java.awt.Dimension(219, 40));
@@ -187,7 +192,7 @@ public class Dnevnik extends javax.swing.JPanel {
 
         punDatumLabel.setFont(new java.awt.Font("Noteworthy", 2, 16)); // NOI18N
         punDatumLabel.setForeground(new java.awt.Color(102, 0, 0));
-        punDatumLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        punDatumLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         punDatumLabel.setText("четвртак, 10.септембар 2013");
 
         jNazivAktivnosti.setBackground(new java.awt.Color(255, 255, 255));
@@ -202,19 +207,16 @@ public class Dnevnik extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Monaco", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel2.setText("dodaj:");
+        jLabel2.setText("nova aktivnost:");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jScrollPane2))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(19, 19, 19)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(monthLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 173, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -222,12 +224,13 @@ public class Dnevnik extends javax.swing.JPanel {
                                 .add(layout.createSequentialGroup()
                                     .add(jButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 117, Short.MAX_VALUE)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(42, 42, 42)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 180, Short.MAX_VALUE)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jScrollPane2))
+                .add(210, 210, 210)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
@@ -238,15 +241,14 @@ public class Dnevnik extends javax.swing.JPanel {
                             .add(jLabel2)
                             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                             .add(jNazivAktivnosti, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(5, 5, 5))))
-                .addContainerGap())
+                            .add(5, 5, 5)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(layout.createSequentialGroup()
-                        .add(0, 20, Short.MAX_VALUE)
+                        .add(0, 0, Short.MAX_VALUE)
                         .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -261,7 +263,7 @@ public class Dnevnik extends javax.swing.JPanel {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jButton3)
                                     .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

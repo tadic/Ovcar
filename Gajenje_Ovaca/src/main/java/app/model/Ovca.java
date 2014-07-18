@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,9 +28,10 @@ public class Ovca {
     private Integer id; 
     @OneToOne(mappedBy = "sheep")
     private NabavkaOvaca nabavka;
-    
-    @OneToMany(cascade= CascadeType.ALL)
-    private ArrayList<Jagnjenje> listaJagnjenja;
+    @OneToOne(mappedBy = "ovca")
+    private Prodaja prodaja;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy="ovca")
+    private List<Jagnjenje> listaJagnjenja;
     
     @OneToOne(mappedBy = "jagnje")
     private Jagnjenje rodjenje;
@@ -48,6 +50,8 @@ public class Ovca {
     private Integer leglo;
     @OneToOne
     private Linija linija;
+    @OneToOne(mappedBy = "o")
+    private Uginuce uginuce;
     private float tezinaNaRodjenju;
     private String aktuelno;
    // mozda ne treba private ArrayList<Date> listaJagnjenja;
@@ -282,11 +286,11 @@ public class Ovca {
         this.aktuelno = aktuelno;
     }
 
-    public ArrayList<Jagnjenje> getListaJagnjenja() {
+    public List<Jagnjenje> getListaJagnjenja() {
         return listaJagnjenja;
     }
 
-    public void setListaJagnjenja(ArrayList<Jagnjenje> listaJagnjenja) {
+    public void setListaJagnjenja(List<Jagnjenje> listaJagnjenja) {
         this.listaJagnjenja = listaJagnjenja;
     }
 
@@ -310,6 +314,51 @@ public class Ovca {
          if (value != null && !value.toString().equals("")){
            this.tezinaNaRodjenju = Float.parseFloat(value.toString()) - 0.00f;
         }
+    }
+
+    public Uginuce getUginuce() {
+        return uginuce;
+    }
+
+    public void setUginuce(Uginuce uginuce) {
+        this.uginuce = uginuce;
+    }
+
+    public Prodaja getProdaja() {
+        return prodaja;
+    }
+
+    public void setProdaja(Prodaja prodaja) {
+        this.prodaja = prodaja;
+    }
+    
+    
+    public Integer getBrojJagnjenja(){
+        Integer brojJagnjenja = 0;
+        int acId = this.getListaJagnjenja().get(0).getAktivnost().getId();
+        for (Jagnjenje j: this.listaJagnjenja){
+            if (j.getAktivnost().getId()!=acId){
+                acId = j.getAktivnost().getId();
+                brojJagnjenja ++;
+            }
+        } 
+        brojJagnjenja ++;
+        return brojJagnjenja;
+    }
+    public String getPoreklo(){
+        if (nabavka==null){
+            return "sa farme";
+        } 
+        return nabavka.getAktivnost().getLokacija();
+    }
+    
+    public String procenatJagnjenja(){
+        if (this.listaJagnjenja==null || this.listaJagnjenja.isEmpty()){
+            return "0.0%";
+        }
+        Integer brojJagnjadi = this.listaJagnjenja.size();
+        Integer brojJagnjenja = getBrojJagnjenja();
+        return Float.toString(100*((float) (brojJagnjadi.floatValue())/brojJagnjenja) - 0.0f) + "%";
     }
     
     public static String mnozinaJagnje(int n){

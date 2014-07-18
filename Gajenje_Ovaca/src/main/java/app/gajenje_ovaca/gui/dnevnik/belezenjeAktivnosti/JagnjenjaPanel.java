@@ -358,32 +358,7 @@ private JPanel mainPanel;
     }//GEN-LAST:event_jSpinField1PropertyChange
 
 
-    private Vector vectorFrom(NabavkaOvaca no, int n){
-        Ovca o = logic.getOvca(no.getSheep().getId());
-        no.setSheep(o);
-        Vector v = new Vector();
-        v.add(n);
-        v.add(o.getPol());
-        v.add(o.getOznaka());
-        v.add(o.getProcenatR());
-        v.add(o.getDatumRodjenja());      
-        if (o.getOtac()!=null){
-             v.add(o.getOtac().getOznaka());
-        } else {
-            v.add(null);
-        }
-               
-        if (o.getMajka()!=null){
-             v.add(o.getMajka().getOznaka());
-        } else {
-            v.add(null);
-        }
-        v.add(no.getCena());
-        v.add(o.getOpis());
-        v.add(no.getNapomena());
-        v.add(o.getLeglo());
-        return v;
-    }
+
     public void smanjiSvePaneleJagnjenja(){
         for (Component c: jagnjenjePanel.getComponents()){
             JagnjenjePanel jp = (JagnjenjePanel) c;

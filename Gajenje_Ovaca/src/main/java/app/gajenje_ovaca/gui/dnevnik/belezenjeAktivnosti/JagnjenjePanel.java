@@ -191,7 +191,11 @@ private JagnjenjaPanel parent;
         jTableJagnjaci.getColumnModel().getColumn(0).setMaxWidth(36);
         jTableJagnjaci.getColumnModel().getColumn(1).setMaxWidth(50);
         jTableJagnjaci.getColumnModel().getColumn(2).setMaxWidth(120);
+        jTableJagnjaci.getColumnModel().getColumn(3).setMinWidth(120);
+        jTableJagnjaci.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jTableJagnjaci.getColumnModel().getColumn(3).setMaxWidth(140);
         jTableJagnjaci.getColumnModel().getColumn(4).setMaxWidth(80);
+        jTableJagnjaci.getColumnModel().getColumn(7).setMaxWidth(90);
         jTableJagnjaci.getColumnModel().getColumn(8).setMinWidth(0);
         jTableJagnjaci.getColumnModel().getColumn(8).setPreferredWidth(15);
         jTableJagnjaci.getColumnModel().getColumn(8).setMaxWidth(5);
@@ -221,28 +225,26 @@ private JagnjenjaPanel parent;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1266, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(7, 7, 7)
-                        .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(45, 45, 45)
-                        .add(jLabel14)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOvca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(jLabel15)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jSpinField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(82, 82, 82)
-                        .add(jLabel16)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jOvan, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1254, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(7, 7, 7)
+                .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(45, 45, 45)
+                .add(jLabel14)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jOvca, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jLabel15)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSpinField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(82, 82, 82)
+                .add(jLabel16)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jOvan, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 101, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -275,6 +277,8 @@ private JagnjenjaPanel parent;
                 } else if (jTableJagnjaci.getModel().getRowCount()<n){
                     Vector row = new Vector();
                     row.add(n);
+                    row.add(true);
+                    row.add("ž");
                     model.addRow(row);
                 }
             } 
@@ -324,12 +328,7 @@ private JagnjenjaPanel parent;
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private float getPercentOfR(Ovca majka, Ovca otac){
-        if (majka!=null && otac !=null){
-            return (majka.getProcenatR() + otac.getProcenatR())/2;
-        }
-        return 0;
-    }
+
     private Jagnjenje pickJagnjenjeFromTable(int n, TableModel tb){
         Jagnjenje j = new Jagnjenje();
         Ovca jagnje  = new Ovca();
@@ -357,13 +356,14 @@ private JagnjenjaPanel parent;
     }
     
     public ArrayList<Jagnjenje> getJagnjenja(){
+        ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
         Ovca majka = logic.getOvca(jOvca.getSelectedItem().toString());
         if (majka==null){
             return null;
         }
         Ovca otac = new Ovca("zamišljen", jOvan.getSelectedItem().toString(), 'm');
         TableModel tb = jTableJagnjaci.getModel();
-        ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
+        
         for (int i=0; i<jTableJagnjaci.getRowCount(); i++){
             Jagnjenje jagnjenje = pickJagnjenjeFromTable(i, tb);
             jagnjenje.setOvca(majka);
@@ -372,7 +372,7 @@ private JagnjenjaPanel parent;
 
             list.add(jagnjenje);
         }
-        System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getJagnje().getTezinaNaRodjenju());
+       // System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getJagnje().getTezinaNaRodjenju());
         return list;
     }
     

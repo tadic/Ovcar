@@ -44,10 +44,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         this.mainPanel = mainPanel;
         initComponents();
         jScrollPane1.getViewport().setBackground(Color.white);
-      // jTable1.getColumnModel().getColumn(0).setCellEditor(new JButtonCellEditor());
-      //  jTable1.getColumnModel().getColumn(0).setCellRenderer(new JButtonRenderer());
-
-        
         setBoldFontToColumn(3);
         setBoldFontToColumn(0);
         listOfSheep = logic.getAllSheep();
@@ -64,7 +60,8 @@ public class Podaci_ovaca extends javax.swing.JPanel {
          }
          RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(jTrazi.getText());
          RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jTrazi1.getText());
-         RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          filters.add(comboFilter);
+         RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          
+         filters.add(comboFilter);
          filters.add(filter1);
          filters.add(filter2);
          filters.add(filter3);
@@ -103,7 +100,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         v.add(""+o.getProcenatR());
         v.add(o.getStarost());
         v.add(o.getLeglo());
-        v.add("");
+        v.add(""+ o.procenatJagnjenja());
         if (o.getOtac()==null){
               v.add("nepoznat");
         }else{
@@ -115,10 +112,11 @@ public class Podaci_ovaca extends javax.swing.JPanel {
              v.add(o.getMajka().getOznaka());
         }
 
-        v.add(o.getStatus());
+        v.add(o.getPoreklo());
         v.add(o.getOpis());
         v.add(o.getId());
         v.add(o.getAktuelno());
+        v.add(o.getStatus());
         return v;
     }
     private void resetTable(List<Ovca> list){
@@ -172,20 +170,20 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "oznaka", "nadimak", "pol", "% R", "starost", "iz legla od", "% jagnjenja", "otac", "majka", "poreklo", "opis", "id", "aktuelno"
+                "oznaka", "nadimak", "pol", "% R", "starost", "iz legla od", "% jagnjenja", "otac", "majka", "poreklo", "opis", "id", "aktuelno", "status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,8 +218,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(120);
         jTable1.getColumnModel().getColumn(1).setMinWidth(35);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -243,6 +242,11 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(11).setPreferredWidth(1);
         jTable1.getColumnModel().getColumn(11).setMaxWidth(1);
 
+        jTrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTraziActionPerformed(evt);
+            }
+        });
         jTrazi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTraziKeyReleased(evt);
@@ -411,7 +415,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             for (int i=0; i<jTable1.getRowCount(); i++){
                 int selectedRow = jTable1.convertRowIndexToModel(i);
                 Object aktuelno = jTable1.getModel().getValueAt(selectedRow,12);
-                System.out.print("Ovcee aktuelno ");
                 if (aktuelno!=null){
                     System.out.println(aktuelno.toString());
                     String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
@@ -423,6 +426,10 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             listOfSheep = logic.getAllSheep();
             resetTable(listOfSheep);
     }//GEN-LAST:event_jSnimiActionPerformed
+
+    private void jTraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTraziActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTraziActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;

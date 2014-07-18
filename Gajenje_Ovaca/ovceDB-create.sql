@@ -56,6 +56,24 @@ create table ovca (
   aktuelno                  varchar(255))
 ;
 
+create table prodaja (
+  id                        integer primary key AUTOINCREMENT,
+  aktivnost_id              integer,
+  ovca_id                   integer,
+  cena_grla                 double,
+  tezina                    double,
+  cena_kg                   double,
+  kupac                     varchar(255),
+  napomena                  varchar(255))
+;
+
+create table uginuce (
+  id                        integer primary key AUTOINCREMENT,
+  razlog                    varchar(255),
+  a_id                      integer,
+  o_id                      integer)
+;
+
 create table vrste_aktivnosti (
   id                        integer primary key AUTOINCREMENT,
   name                      varchar(255),
@@ -72,5 +90,9 @@ create index ix_nabavka_ovaca_sheep_7 on nabavka_ovaca (sheep_id);
 create index ix_ovca_otac_8 on ovca (otac_id);
 create index ix_ovca_majka_9 on ovca (majka_id);
 create index ix_ovca_linija_10 on ovca (linija_id);
+create index ix_prodaja_aktivnost_11 on prodaja (aktivnost_id);
+create index ix_prodaja_ovca_12 on prodaja (ovca_id);
+create index ix_uginuce_a_13 on uginuce (a_id);
+create index ix_uginuce_o_14 on uginuce (o_id);
 
 

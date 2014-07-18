@@ -12,6 +12,10 @@ drop table nabavka_ovaca;
 
 drop table ovca;
 
+drop table prodaja;
+
+drop table uginuce;
+
 drop table vrste_aktivnosti;
 
 PRAGMA foreign_keys = ON;

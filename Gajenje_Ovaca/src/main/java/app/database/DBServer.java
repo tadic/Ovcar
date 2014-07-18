@@ -10,6 +10,8 @@ import app.model.Jagnjenje;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.Linija;
+import app.model.Prodaja;
+import app.model.Uginuce;
 import app.model.VrsteAktivnosti;
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
@@ -63,9 +65,11 @@ public class DBServer {
         
         config.addClass(Dan.class);
         config.addClass(Linija.class);
+        config.addClass(Uginuce.class);
         config.addClass(VrsteAktivnosti.class);
         config.addClass(Aktivnost.class);
         config.addClass(NabavkaOvaca.class);
+        config.addClass(Prodaja.class);
         config.addClass(Jagnjenje.class);
         config.addClass(Ovca.class);
         
@@ -82,10 +86,10 @@ public class DBServer {
 
    //     server.save(new VrsteAktivnosti("Hranjenje i ispaša", new Color(255,0,0)));
     //    server.save(new VrsteAktivnosti("Košenje", new Color(255,0,187)));
-    //    server.save(new VrsteAktivnosti("Baliranje", new Color(255,0,255)));
+        server.save(new VrsteAktivnosti("Uginuce", new Color(255,0,0)));
         server.save(new VrsteAktivnosti("Nabavka ovaca", new Color(144,0,255)));
     //    server.save(new VrsteAktivnosti("Nabavka hrane", new Color(43,0,255)));
-   //     server.save(new VrsteAktivnosti("Prodaja", new Color(0,185,255)));
+        server.save(new VrsteAktivnosti("Prodaja", new Color(0,185,255)));
    //     server.save(new VrsteAktivnosti("Parenje", new Color(0,255,200)));
         server.save(new VrsteAktivnosti("Jagnjenje", new Color(0,255,123)));
      //   server.save(new VrsteAktivnosti("Vakcinacija'Lečenje", new Color(81,255,0)));

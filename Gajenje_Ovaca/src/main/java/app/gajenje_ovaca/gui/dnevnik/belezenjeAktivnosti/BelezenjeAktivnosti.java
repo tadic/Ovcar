@@ -29,8 +29,9 @@ private JPanel mainpanel;
     }
     
     public void showEditPanel(){
+        JPanel editPanel;
         if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
-            NabavkaOvacaPanel editPanel = new NabavkaOvacaPanel(mainpanel, logic, aktivnost);
+            editPanel = new NabavkaOvacaPanel(mainpanel, logic, aktivnost);
             editPanel.setVisible(true);
             mainpanel.removeAll();
             mainpanel.add(editPanel, BorderLayout.CENTER);  
@@ -38,14 +39,28 @@ private JPanel mainpanel;
             mainpanel.revalidate();
             
         }   else if (aktivnost.getVrstaAktivnosti().getName().equals("Jagnjenje")){
-            JagnjenjaPanel editPanel = new JagnjenjaPanel(mainpanel, logic, aktivnost);
+            editPanel = new JagnjenjaPanel(mainpanel, logic, aktivnost);
             editPanel.setVisible(true);
             mainpanel.removeAll();
             mainpanel.add(editPanel, BorderLayout.CENTER);  
             mainpanel.repaint();
-            mainpanel.revalidate();
-                   
-        }  
+            mainpanel.revalidate(); 
+        }   else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")){
+            editPanel = new UginucaPanel(mainpanel, logic, aktivnost);
+            editPanel.setVisible(true);
+            mainpanel.removeAll();
+            mainpanel.add(editPanel, BorderLayout.CENTER);  
+            mainpanel.repaint();
+            mainpanel.revalidate(); 
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Prodaja")){
+            editPanel = new ProdajaPanel(mainpanel, logic, aktivnost);
+            editPanel.setVisible(true);
+            mainpanel.removeAll();
+            mainpanel.add(editPanel, BorderLayout.CENTER);  
+            mainpanel.repaint();
+            mainpanel.revalidate(); 
+        }
+        
     }
 }
 

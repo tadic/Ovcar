@@ -5,6 +5,7 @@
 package app.gajenje_ovaca.gui.dnevnik;
 
 import app.logic.Logic;
+import app.model.Dan;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -30,8 +31,8 @@ public class Kalendar extends javax.swing.JPanel {
     private final Dnevnik dnevnik;
     private Logic logic;
     private int year, month, day, selectedDay;
-    private final String[] monthNames = {"јануар","фебруар","март","април","мај","јун",
-                                            "јул","август","септембар","октобар","новембар","децембар"};
+    private final String[] monthNames = {"januar","februar","mart","april","maj","jun",
+                                            "jul","avgust","septembar","oktobar","novembar","decembar"};
     
     public Kalendar(Dnevnik parent, Logic l) {
         initComponents();
@@ -68,13 +69,26 @@ public class Kalendar extends javax.swing.JPanel {
        int j=1;
        for (Component comp: jPanel1.getComponents()){
             JLabel label = (JLabel)  comp;
-            label.setOpaque(false);
-            label.setBackground(Color.black);
+            label.setOpaque(true);
+            label.setBackground(Color.white);
             label.setBorder(null);
             if (i<start || j>max){
               label.setText(" ");
             } else {
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, j);
+                Dan d = logic.getDayWithDate(c);
                 label.setText(""+ j++);
+                //System.out.println("Boja: ");
+                if (d.getAktivnosti().size()>0){
+                  //  System.out.println("Boja labela: ");
+                    Color color = new Color(d.getAktivnosti().get(0).getVrstaAktivnosti().getColor());
+                    //label.setOpaque(true);
+                    label.setBackground(color);
+                    label.revalidate();
+                    
+                }
+                       
                 setActionToLabel(label);
             }
             i++;
@@ -103,11 +117,11 @@ public class Kalendar extends javax.swing.JPanel {
         int start = (c.get(Calendar.DAY_OF_WEEK)+5)%7 +1;
         JLabel label = (JLabel)  jPanel1.getComponent(start+day-2);
         JLabel label2 = (JLabel)  jPanel1.getComponent(start+selectedDay-2);
-        label2.setOpaque(false);
-        label2.setBackground(Color.black);
+       // label2.setOpaque(true);
+        label2.setBorder(null);
         label2.revalidate();
-        label.setOpaque(true);
-        label.setBackground(new Color(131,225,219));
+       // label.setOpaque(true);
+        label.setBorder(new LineBorder(Color.red,2));
         label.revalidate();
         selectedDay = day;
     }
@@ -116,7 +130,7 @@ public class Kalendar extends javax.swing.JPanel {
         Calendar c = Calendar.getInstance();
         int m = c.get(Calendar.MONTH);
         int y = c.get(Calendar.YEAR);
-        System.out.println("mesec trenutni " + month + " selektovani " + m);
+        //System.out.println("mesec trenutni " + month + " selektovani " + m);
         if (m == month && y == year){
             JLabel label = (JLabel)  jPanel1.getComponent(start+day-2);
             label.setBorder(new LineBorder(Color.blue));
@@ -232,11 +246,11 @@ public class Kalendar extends javax.swing.JPanel {
 
         jLabel85.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel85.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel85.setText("Пон");
+        jLabel85.setText("Pon");
 
         jLabel86.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel86.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel86.setText("Нед");
+        jLabel86.setText("Ned");
 
         jLabelLastWeek.setFont(new java.awt.Font("Lucida Grande", 0, 9)); // NOI18N
         jLabelLastWeek.setForeground(new java.awt.Color(153, 153, 153));
@@ -743,11 +757,11 @@ public class Kalendar extends javax.swing.JPanel {
 
         jLabel87.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel87.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel87.setText("Суб");
+        jLabel87.setText("Sub");
 
         jLabel88.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel88.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel88.setText("Уто");
+        jLabel88.setText("Uto");
 
         jLabel89.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel89.setForeground(new java.awt.Color(0, 153, 153));
@@ -755,11 +769,11 @@ public class Kalendar extends javax.swing.JPanel {
 
         jLabel90.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel90.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel90.setText("Чет");
+        jLabel90.setText("Čet");
 
         jLabel91.setFont(new java.awt.Font("Monaco", 0, 10)); // NOI18N
         jLabel91.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel91.setText("Пет");
+        jLabel91.setText("Pet");
 
         godinaSpinner.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
         godinaSpinner.setModel(new javax.swing.SpinnerListModel(new String[] {"2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"}));
@@ -773,7 +787,7 @@ public class Kalendar extends javax.swing.JPanel {
         mesecComboBox.setBackground(new java.awt.Color(255, 255, 255));
         mesecComboBox.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
         mesecComboBox.setForeground(new java.awt.Color(102, 102, 102));
-        mesecComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Јануар", "Фебруар", "Март", "Април", "Мај", "Јун", "Јул", "Август", "Септембар", "Октобар", "Новембар", "Децембар" }));
+        mesecComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar" }));
         mesecComboBox.setOpaque(true);
         mesecComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -878,7 +892,7 @@ public class Kalendar extends javax.swing.JPanel {
     }//GEN-LAST:event_godinaSpinnerStateChanged
 
     public String selectedDateToString(){
-        final String[] daysOfWeek = {"понедељак","уторак","среда","четвртак","пеtак","субота","недеља"};
+        final String[] daysOfWeek = {"ponedeljak","utorak","sreda","četvrtak","petak","subota","nedelja"};
         int dayOfWeek = (logic.getSelectedDay().get(Calendar.DAY_OF_WEEK) + 5)%7;
         StringBuilder sb = new StringBuilder(daysOfWeek[dayOfWeek]);
         sb.append(", ").append(selectedDay).append(".").append(monthNames[month]);
