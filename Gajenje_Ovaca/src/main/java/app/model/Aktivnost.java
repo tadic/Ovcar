@@ -29,9 +29,13 @@ public class Aktivnost implements Comparable<Aktivnost> {
     private VrsteAktivnosti vrstaAktivnosti;
     @OneToOne(mappedBy = "a")
     private Uginuce uginuce;
-    
+    @OneToOne(mappedBy="aktivnost")
+    private Radovi radovi;
     @OneToMany(cascade = CascadeType.ALL)
     private List<NabavkaOvaca> nabavljenaGrla;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Vakcinacija> vakcinacije;
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<Prodaja> prodaje;
@@ -289,6 +293,23 @@ public class Aktivnost implements Comparable<Aktivnost> {
     public void setProdaje(List<Prodaja> prodaje) {
         this.prodaje = prodaje;
     }
+
+    public List<Vakcinacija> getVakcinacije() {
+        return vakcinacije;
+    }
+
+    public void setVakcinacije(List<Vakcinacija> vakcinacije) {
+        this.vakcinacije = vakcinacije;
+    }
+
+    public Radovi getRadovi() {
+        return radovi;
+    }
+
+    public void setRadovi(Radovi radovi) {
+        this.radovi = radovi;
+    }
+    
     
     
     

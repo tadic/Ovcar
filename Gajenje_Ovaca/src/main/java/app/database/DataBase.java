@@ -13,6 +13,8 @@ import app.model.VrsteAktivnosti;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class DataBase {
     }
     
       public List<Dan> getAllDays() {
-        List<Dan> listOfDays = server.find(Dan.class).findList();
+        List<Dan> listOfDays = server.find(Dan.class).order().asc("datum").findList();
         if (listOfDays==null){
             return new ArrayList<Dan>();
         }
@@ -96,8 +98,12 @@ public class DataBase {
             new DBJagnjenja(server).saveActivity(aktivnost);
         } else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")) {
             new DBUginuca(server).saveActivity(aktivnost);
-        } else {
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Prodaja")) {
             new DBProdaja(server).saveActivity(aktivnost);
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Vakcinacija/Lečenje")) {
+            new DBVakcinacija(server).saveActivity(aktivnost);
+        } else {
+            new DBRadovi(server).saveActivity(aktivnost);
         }
     }
 
@@ -122,8 +128,12 @@ public class DataBase {
             new DBJagnjenja(server).deleteActivity(aktivnost);
         } else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")) {
             new DBUginuca(server).deleteActivity(aktivnost);
-        } else {
+        } else  if (aktivnost.getVrstaAktivnosti().getName().equals("Prodaja")) {
             new DBProdaja(server).deleteActivity(aktivnost);
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Vakcinacija/Lečenje")) {
+            new DBVakcinacija(server).deleteActivity(aktivnost);
+        } else {
+            new DBRadovi(server).deleteActivity(aktivnost);
         }
     }
 
@@ -156,6 +166,8 @@ public class DataBase {
     public List<Ovca> getSvaZivaGrla() {
        return  server.find(Ovca.class).where().like("status", "na farmi").findList();
     }
+
+
 
 
 

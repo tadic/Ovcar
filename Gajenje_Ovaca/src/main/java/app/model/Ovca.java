@@ -29,6 +29,8 @@ public class Ovca {
     @OneToOne(mappedBy = "sheep")
     private NabavkaOvaca nabavka;
     @OneToOne(mappedBy = "ovca")
+    private Vakcinacija vakcinacija;
+    @OneToOne(mappedBy = "ovca")
     private Prodaja prodaja;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="ovca")
     private List<Jagnjenje> listaJagnjenja;
@@ -360,6 +362,15 @@ public class Ovca {
         Integer brojJagnjenja = getBrojJagnjenja();
         return Float.toString(100*((float) (brojJagnjadi.floatValue())/brojJagnjenja) - 0.0f) + "%";
     }
+
+    public Vakcinacija getVakcinacija() {
+        return vakcinacija;
+    }
+
+    public void setVakcinacija(Vakcinacija vakcinacija) {
+        this.vakcinacija = vakcinacija;
+    }
+    
     
     public static String mnozinaJagnje(int n){
         switch (n%10){

@@ -139,6 +139,11 @@ public class Logic {
         return db.getSvaZivaGrla();
     }
 
+    public List<Dan> getAllDays() {
+        return db.getAllDays();
+    }
+
+   
 
 
 

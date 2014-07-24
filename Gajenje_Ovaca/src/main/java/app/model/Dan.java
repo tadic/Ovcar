@@ -44,6 +44,13 @@ public class Dan implements Serializable  {
                 + cal.get(Calendar.DAY_OF_MONTH);
         aktivnosti = new ArrayList<Aktivnost>();
     }
+    public Calendar getDate(){
+        Calendar c = Calendar.getInstance();
+        c.set(datum/10000,(datum%10000)/100, datum%100); 
+        System.err.println(datum/10000+" "+(datum%10000)/100+" "+ datum%100);
+        System.out.println(c);
+        return c;
+    }
     
   /*   public static Dan getInstance(int year, int month, int day){
          Integer datum = year*10000 + month*100 + day; 

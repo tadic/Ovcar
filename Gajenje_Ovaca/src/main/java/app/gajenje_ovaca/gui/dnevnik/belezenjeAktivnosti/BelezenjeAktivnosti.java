@@ -31,38 +31,30 @@ private JPanel mainpanel;
     public void showEditPanel(){
         JPanel editPanel;
         if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
-            editPanel = new NabavkaOvacaPanel(mainpanel, logic, aktivnost);
-            editPanel.setVisible(true);
-            mainpanel.removeAll();
-            mainpanel.add(editPanel, BorderLayout.CENTER);  
-            mainpanel.repaint();
-            mainpanel.revalidate();
-            
+            setPanel(new NabavkaOvacaPanel(mainpanel, logic, aktivnost));
         }   else if (aktivnost.getVrstaAktivnosti().getName().equals("Jagnjenje")){
-            editPanel = new JagnjenjaPanel(mainpanel, logic, aktivnost);
-            editPanel.setVisible(true);
-            mainpanel.removeAll();
-            mainpanel.add(editPanel, BorderLayout.CENTER);  
-            mainpanel.repaint();
-            mainpanel.revalidate(); 
+            setPanel(new JagnjenjaPanel(mainpanel, logic, aktivnost));
         }   else if (aktivnost.getVrstaAktivnosti().getName().equals("Uginuce")){
-            editPanel = new UginucaPanel(mainpanel, logic, aktivnost);
-            editPanel.setVisible(true);
-            mainpanel.removeAll();
-            mainpanel.add(editPanel, BorderLayout.CENTER);  
-            mainpanel.repaint();
-            mainpanel.revalidate(); 
+            setPanel(new UginucaPanel(mainpanel, logic, aktivnost));
         } else if (aktivnost.getVrstaAktivnosti().getName().equals("Prodaja")){
-            editPanel = new ProdajaPanel(mainpanel, logic, aktivnost);
-            editPanel.setVisible(true);
-            mainpanel.removeAll();
-            mainpanel.add(editPanel, BorderLayout.CENTER);  
-            mainpanel.repaint();
-            mainpanel.revalidate(); 
+            setPanel(new ProdajaPanel(mainpanel, logic, aktivnost));
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Vakcinacija/Lečenje")){
+            setPanel(new VakcinacijaPanel(mainpanel, logic, aktivnost));
+        } else {
+            setPanel(new RadoviPanel(mainpanel, logic, aktivnost));
         }
         
     }
+    
+    private void setPanel(JPanel editPanel){
+            editPanel.setVisible(true);
+            mainpanel.removeAll();
+            mainpanel.add(editPanel, BorderLayout.CENTER);  
+            mainpanel.repaint();
+            mainpanel.revalidate(); 
+    }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

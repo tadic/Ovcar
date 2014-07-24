@@ -67,11 +67,29 @@ create table prodaja (
   napomena                  varchar(255))
 ;
 
+create table radovi (
+  id                        integer primary key AUTOINCREMENT,
+  aktivnost_id              integer,
+  razlog                    varchar(255),
+  sta_se_radilo_nabavilo    varchar(255),
+  kolicina                  varchar(255))
+;
+
 create table uginuce (
   id                        integer primary key AUTOINCREMENT,
   razlog                    varchar(255),
   a_id                      integer,
   o_id                      integer)
+;
+
+create table vakcinacija (
+  id                        integer primary key AUTOINCREMENT,
+  aktivnost_id              integer,
+  ovca_id                   integer,
+  jel_redovno               integer(1),
+  razlog                    varchar(255),
+  sredstvo                  varchar(255),
+  napomena                  varchar(255))
 ;
 
 create table vrste_aktivnosti (
@@ -92,7 +110,10 @@ create index ix_ovca_majka_9 on ovca (majka_id);
 create index ix_ovca_linija_10 on ovca (linija_id);
 create index ix_prodaja_aktivnost_11 on prodaja (aktivnost_id);
 create index ix_prodaja_ovca_12 on prodaja (ovca_id);
-create index ix_uginuce_a_13 on uginuce (a_id);
-create index ix_uginuce_o_14 on uginuce (o_id);
+create index ix_radovi_aktivnost_13 on radovi (aktivnost_id);
+create index ix_uginuce_a_14 on uginuce (a_id);
+create index ix_uginuce_o_15 on uginuce (o_id);
+create index ix_vakcinacija_aktivnost_16 on vakcinacija (aktivnost_id);
+create index ix_vakcinacija_ovca_17 on vakcinacija (ovca_id);
 
 

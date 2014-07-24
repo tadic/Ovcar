@@ -5,11 +5,9 @@
 package app.gajenje_ovaca.gui.dnevnik;
 
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.BelezenjeAktivnosti;
-import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.NabavkaOvacaPanel;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,17 +15,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
-import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
 
@@ -77,8 +72,7 @@ private void initComponents(){
         this.setOpaque(false);
         this.setPreferredSize(new Dimension(400,aktivnost.getHight()));
         this.setLayout(null);
-        
-                deleteButton = new JButton(new ImageIcon(getClass().getResource("/images/delete.png")));
+                deleteButton = new JButton(new ImageIcon(getClass().getResource("/delete.png")));
                 deleteButton.setPreferredSize(new Dimension(25,25));
                 deleteButton.setOpaque(false);
                 deleteButton.setContentAreaFilled(false);
@@ -94,7 +88,7 @@ private void initComponents(){
                 });
 
 
-                editButton = new JButton(new ImageIcon(getClass().getResource("/images/pencil.png")));
+                editButton = new JButton(new ImageIcon(getClass().getResource("/pencil.png")));
                 editButton.setPreferredSize(new Dimension(25,25));
                 editButton.setOpaque(false);
                 editButton.setContentAreaFilled(false);

@@ -5,21 +5,23 @@
 package app.gajenje_ovaca;
 
 import app.logic.Logic;
+import app.model.Jagnjenje;
 import app.model.Linija;
 import app.model.Ovca;
 import com.apple.laf.AquaTextFieldBorder;
-import com.toedter.components.JTitlePanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,7 +42,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         initComponents();
         jScrollPane1.getViewport().setBackground(Color.white);
 
-        setBoldFontToColumn(3);
+        //setBoldFontToColumn(3);
         
         setSheepToPanel(o);
     }
@@ -53,7 +55,28 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     }
 
     private void setSheepToPanel(Ovca o){
-        if (o.getPol()=='m'){
+        setOsnovniPodaci(o);
+        setRodjenje(o);
+        setNabavka(o);  
+        setJagnjenja(o);
+    }
+    private void setRodjenje(Ovca o){
+        setTitleToPanel(jPanelRodjenje, "Rođenje " + o.getDatumRodjenja() + " -  -");
+        if (!o.getStatus().equals("zamisljena")){
+            jOtac.setText(o.getOtac().getOznaka());
+            jMajka.setText(o.getMajka().getOznaka());
+            // jRodjenjeNapomena.setText(o.getNabavka().getNapomena());
+               
+        }
+                if (o.getLeglo()!=null){
+            jLeglo.setText(o.getLeglo().toString());
+        } else {
+            jLeglo.setText("?");
+        }
+        
+    }
+    private void setOsnovniPodaci(Ovca o){
+                if (o.getPol()=='m'){
             jPol.setSelectedIndex(0);
         } else {
             jPol.setSelectedIndex(1);
@@ -72,13 +95,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOpis.setText(o.getOpis());
         jDosije.setText(o.getPracenje());
         
-        setTitleToPanel(jPanelRodjenje, "Rođenje " + o.getDatumRodjenja() + " -  -");
-        if (!o.getStatus().equals("zamisljena")){
-            jOtac.setText(o.getOtac().getOznaka());
-            jMajka.setText(o.getMajka().getOznaka());
-            // jRodjenjeNapomena.setText(o.getNabavka().getNapomena());
-               
-        }
+    }
+    private void setNabavka(Ovca o){
        if (o.getNabavka()!=null){
           setTitleToPanel(jPanelNabavka, "Nabavka " + o.getNabavka().getAktivnost().getDan().toString() + " - " + o.getNabavka().getAktivnost().getLokacija() + " -");
          jCenaNabavke.setText(Float.toString(o.getNabavka().getCena()));
@@ -86,12 +104,61 @@ public class OvcaPrikaz extends javax.swing.JPanel {
        } else {
           jPanelNabavka.setVisible(false);
        }
-        if (o.getLeglo()!=null){
-            jLeglo.setText(o.getLeglo().toString());
-        } else {
-            jLeglo.setText("?");
+    }
+    private void setJagnjenja(Ovca o){
+         
+        DefaultTableModel tm = (DefaultTableModel) jTableJagnjenja.getModel();
+        tm.setRowCount(0);
+        if (o.getListaJagnjenja()!=null && !o.getListaJagnjenja().isEmpty()){
+            
+            String datum = o.getListaJagnjenja().get(0).getJagnje().getDatumRodjenja();
+            int brojJagnjadi = 0;
+            int brojMuskih = 0;
+            int zivih = 0;
+            String napomena = "";
+            for (Jagnjenje j: o.getListaJagnjenja()){
+                if (j.getJagnje().getDatumRodjenja().equals(datum)){
+                    brojJagnjadi++;
+                    if (j.isJelZivo()){
+                        zivih ++;
+                        napomena = j.getNapomena();
+                        
+                    }
+                    if (j.getJagnje().getPol()=='m'){
+                        brojMuskih++;
+                    }
+                } else {
+                    insertRowInTable(tm, vectorFrom(datum, brojJagnjadi, zivih, brojJagnjadi-brojMuskih, napomena));
+                    napomena="";
+                    zivih=0;
+                    brojJagnjadi=1;
+                    brojMuskih=0;
+                    if (j.isJelZivo()){
+                        zivih ++;
+                        napomena = j.getNapomena();
+                        
+                    }
+                    if (j.getJagnje().getPol()=='m'){
+                        brojMuskih++;
+                    }
+                    datum = j.getAktivnost().getDan().toString();
+                }
+            }
+            insertRowInTable(tm, vectorFrom(datum, brojJagnjadi, zivih, brojJagnjadi-brojMuskih, napomena));
+            jTableJagnjenja.setModel(tm);        
         }
-          
+         setTitleToPanel(jPanelJagnjenja, "Jagnjenja (" + tm.getRowCount() + ")");
+       
+    }
+    private Vector vectorFrom(Object ...params){
+         Vector vrsta = new Vector();
+         for (int i=0; i<params.length; i++){
+                    vrsta.add(params[i]);
+         }
+         return vrsta;
+    }
+    private void insertRowInTable(DefaultTableModel model, Vector v){
+       model.addRow(v);
     }
     private List<Linija> sveLinije(){
         return  logic.getLinije();
@@ -111,7 +178,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             }
         
         };
-        jTable1.getColumnModel().getColumn(n).setCellRenderer(r);
+        jTableJagnjenja.getColumnModel().getColumn(n).setCellRenderer(r);
     }
 
     /**
@@ -122,6 +189,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -163,9 +231,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jStarost = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        jPanelJagnjenja = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableJagnjenja = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
@@ -188,18 +256,14 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOtkaziButton = new javax.swing.JButton();
         jIzmeniButton = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanelRodjenje.setBackground(new java.awt.Color(255, 255, 255));
         jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTezina.setEditable(false);
         jTezina.setFont(new java.awt.Font("Damascus", 0, 14)); // NOI18N
         jTezina.setForeground(new java.awt.Color(0, 0, 153));
         jTezina.setText("    ");
-        jTezina.setBorder(null);
         jTezina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTezinaActionPerformed(evt);
@@ -210,7 +274,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLeglo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLeglo.setForeground(new java.awt.Color(0, 0, 153));
         jLeglo.setText("2");
-        jLeglo.setBorder(null);
         jLeglo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLegloActionPerformed(evt);
@@ -221,7 +284,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jMajka.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jMajka.setForeground(new java.awt.Color(0, 0, 153));
         jMajka.setText("Nema");
-        jMajka.setBorder(null);
         jMajka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMajkaActionPerformed(evt);
@@ -247,7 +309,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jRodjenjeNapomena.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jRodjenjeNapomena.setForeground(new java.awt.Color(0, 0, 153));
         jRodjenjeNapomena.setText("napomena");
-        jRodjenjeNapomena.setBorder(null);
         jRodjenjeNapomena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRodjenjeNapomenaActionPerformed(evt);
@@ -258,7 +319,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOtac.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jOtac.setForeground(new java.awt.Color(0, 0, 153));
         jOtac.setText("Nema");
-        jOtac.setBorder(null);
         jOtac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOtacActionPerformed(evt);
@@ -268,7 +328,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jTezina1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTezina1.setForeground(new java.awt.Color(0, 0, 153));
         jTezina1.setText("kg");
-        jTezina1.setBorder(null);
         jTezina1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTezina1ActionPerformed(evt);
@@ -318,30 +377,29 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanelRodjenjeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jMajka, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jMajka, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jOtac, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jOtac, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanelRodjenjeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLeglo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTezina, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jTezina1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanelRodjenjeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanelRodjenjeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLeglo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jLabel20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jTezina1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jTezina, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanelRodjenjeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRodjenjeNapomena, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jRodjenjeNapomena, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(0, 0, Short.MAX_VALUE))
         );
 
-        jPanelNabavka.setBackground(new java.awt.Color(255, 255, 255));
         jPanelNabavka.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Nabavljena 24-12-2014 s. Korićani", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jCenaNabavke.setEditable(false);
         jCenaNabavke.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jCenaNabavke.setForeground(new java.awt.Color(0, 0, 153));
-        jCenaNabavke.setBorder(null);
         jCenaNabavke.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCenaNabavkeActionPerformed(evt);
@@ -358,7 +416,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jDetaljiNabavke.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jDetaljiNabavke.setForeground(new java.awt.Color(0, 0, 153));
         jDetaljiNabavke.setText("jTextField1");
-        jDetaljiNabavke.setBorder(null);
         jDetaljiNabavke.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDetaljiNabavkeActionPerformed(evt);
@@ -369,7 +426,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jCenaNabavke1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jCenaNabavke1.setForeground(new java.awt.Color(0, 0, 153));
         jCenaNabavke1.setText("€");
-        jCenaNabavke1.setBorder(null);
         jCenaNabavke1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCenaNabavke1ActionPerformed(evt);
@@ -386,7 +442,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .add(jPanelNabavkaLayout.createSequentialGroup()
                         .add(jLabel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 121, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jCenaNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jCenaNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 61, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jCenaNabavke1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(0, 0, Short.MAX_VALUE))
@@ -402,16 +458,15 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanelNabavkaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jCenaNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jCenaNabavke1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jCenaNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jCenaNabavke1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanelNabavkaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jDetaljiNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jDetaljiNabavke, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Dosije", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jDosije.setEditable(false);
@@ -437,8 +492,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .add(0, 0, Short.MAX_VALUE))
         );
 
-        jPanelOpstipodatci.setBackground(new java.awt.Color(255, 255, 255));
-
         jNadimak.setEditable(false);
         jNadimak.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jNadimak.setForeground(new java.awt.Color(153, 0, 0));
@@ -446,7 +499,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jNadimak.setActionCommand("<Not Set>");
         jNadimak.setAlignmentX(0.0F);
         jNadimak.setAlignmentY(0.0F);
-        jNadimak.setBorder(null);
         jNadimak.setMinimumSize(new java.awt.Dimension(0, 16));
         jNadimak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,7 +510,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jProcenatR.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jProcenatR.setForeground(new java.awt.Color(0, 0, 153));
         jProcenatR.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jProcenatR.setBorder(null);
         jProcenatR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jProcenatRActionPerformed(evt);
@@ -487,7 +538,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOpis.setForeground(new java.awt.Color(0, 0, 153));
         jOpis.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jOpis.setText("malo crno sa belom desnom carrrrgggrapom");
-        jOpis.setBorder(null);
         jOpis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOpisActionPerformed(evt);
@@ -525,7 +575,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jStatus1.setActionCommand("<Not Set>");
         jStatus1.setAlignmentX(0.0F);
         jStatus1.setAlignmentY(0.0F);
-        jStatus1.setBorder(null);
         jStatus1.setMinimumSize(new java.awt.Dimension(0, 16));
         jStatus1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,7 +589,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOznaka.setActionCommand("<Not Set>");
         jOznaka.setAlignmentX(0.0F);
         jOznaka.setAlignmentY(0.0F);
-        jOznaka.setBorder(null);
         jOznaka.setMinimumSize(new java.awt.Dimension(0, 16));
         jOznaka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -554,7 +602,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jStarost.setEditable(false);
         jStarost.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jStarost.setForeground(new java.awt.Color(0, 0, 153));
-        jStarost.setBorder(null);
         jStarost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jStarostActionPerformed(evt);
@@ -577,12 +624,11 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                             .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 67, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanelOpstipodatciLayout.createSequentialGroup()
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jOpis))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jOpis, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
                             .add(jPanelOpstipodatciLayout.createSequentialGroup()
-                                .add(21, 21, 21)
-                                .add(jStatus1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 111, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(0, 0, Short.MAX_VALUE))))
+                                .add(6, 6, 6)
+                                .add(jStatus1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                     .add(jPanelOpstipodatciLayout.createSequentialGroup()
                         .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jPanelOpstipodatciLayout.createSequentialGroup()
@@ -609,11 +655,11 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                                     .add(jPanelOpstipodatciLayout.createSequentialGroup()
                                         .add(jLabel7)
                                         .add(21, 21, 21)
-                                        .add(jLinija, 0, 214, Short.MAX_VALUE))
+                                        .add(jLinija, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .add(jPanelOpstipodatciLayout.createSequentialGroup()
                                         .add(jLabel10)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jOznaka, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(jOznaka, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         jPanelOpstipodatciLayout.setVerticalGroup(
@@ -632,58 +678,68 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .add(jLabel7)
                     .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLinija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jProcenatR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jProcenatR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jStatus1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(jStatus1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jStarost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jStarost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanelOpstipodatciLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jOpis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jOpis, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Jagnjenja (2)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelJagnjenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Jagnjenja (2)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Damascus", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableJagnjenja.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jTableJagnjenja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Datum", "ojagnjeno", "zivih", "zenskih", "Napomena"
             }
-        ));
-        jTable1.setEnabled(false);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
 
-        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTableJagnjenja.setAutoCreateRowSorter(true);
+        jTableJagnjenja.setEnabled(false);
+        jScrollPane1.setViewportView(jTableJagnjenja);
+        jTableJagnjenja.getColumnModel().getColumn(1).setMaxWidth(60);
+        jTableJagnjenja.getColumnModel().getColumn(2).setMaxWidth(60);
+        jTableJagnjenja.getColumnModel().getColumn(3).setMaxWidth(60);
+
+        org.jdesktop.layout.GroupLayout jPanelJagnjenjaLayout = new org.jdesktop.layout.GroupLayout(jPanelJagnjenja);
+        jPanelJagnjenja.setLayout(jPanelJagnjenjaLayout);
+        jPanelJagnjenjaLayout.setHorizontalGroup(
+            jPanelJagnjenjaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelJagnjenjaLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
+        jPanelJagnjenjaLayout.setVerticalGroup(
+            jPanelJagnjenjaLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanelJagnjenjaLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Redovna vakcinacija (5)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
@@ -706,7 +762,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                .add(jScrollPane5)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -717,7 +773,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lečenja (1)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTable18.setFont(new java.awt.Font("Damascus", 0, 14)); // NOI18N
@@ -741,7 +796,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane18, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                .add(jScrollPane18)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -752,7 +807,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel24.setBackground(new java.awt.Color(255, 255, 255));
         jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prodata 25-09-2015", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
         jPanel24.setEnabled(false);
 
@@ -848,7 +902,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .add(jOznaka9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
         jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Uginula 25-09-2015", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
         jPanel23.setForeground(new java.awt.Color(0, 0, 153));
 
@@ -895,7 +948,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel2.setMaximumSize(new java.awt.Dimension(219, 40));
         jLabel2.setMinimumSize(new java.awt.Dimension(219, 40));
         jLabel2.setPreferredSize(new java.awt.Dimension(219, 40));
-        jLabel2.setSize(new java.awt.Dimension(40, 16));
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jPDFSnimiButton.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -940,72 +992,63 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .add(jPanelOpstipodatci, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .add(89, 89, 89)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel24, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel23, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(jIzmeniButton)
+                        .add(27, 27, 27)
+                        .add(jPDFSnimiButton)
+                        .add(18, 18, 18)
+                        .add(jOtkaziButton)
+                        .add(20, 20, 20))
+                    .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .add(jIzmeniButton)
-                                .add(18, 18, 18)
-                                .add(jPDFSnimiButton)
-                                .add(27, 27, 27)
-                                .add(jOtkaziButton)
-                                .add(9, 9, 9)))
+                            .add(jPanelJagnjenja, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel24, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel23, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanelOpstipodatci, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanelRodjenje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanelNabavka, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel25, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jIzmeniButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPDFSnimiButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jOtkaziButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(20, 20, 20))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanelJagnjenja, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jIzmeniButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jPDFSnimiButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jOtkaziButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(20, 20, 20))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanelOpstipodatci, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanelRodjenje, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanelNabavka, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel25, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(0, 2, Short.MAX_VALUE)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 23, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 298;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 28, 0);
+        add(jPanel1, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jProcenatRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jProcenatRActionPerformed
@@ -1206,8 +1249,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelJagnjenja;
     private javax.swing.JPanel jPanelNabavka;
     private javax.swing.JPanel jPanelOpstipodatci;
     private javax.swing.JPanel jPanelRodjenje;
@@ -1221,9 +1264,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private javax.swing.JTextField jStarost;
     private javax.swing.JTextField jStatus1;
     private javax.swing.JTextField jStatus10;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable18;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTableJagnjenja;
     private javax.swing.JTextField jTezina;
     private javax.swing.JTextField jTezina1;
     // End of variables declaration//GEN-END:variables

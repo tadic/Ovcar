@@ -14,7 +14,11 @@ drop table ovca;
 
 drop table prodaja;
 
+drop table radovi;
+
 drop table uginuce;
+
+drop table vakcinacija;
 
 drop table vrste_aktivnosti;
 

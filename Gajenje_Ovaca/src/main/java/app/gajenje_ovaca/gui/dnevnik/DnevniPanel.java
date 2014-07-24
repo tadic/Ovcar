@@ -15,6 +15,9 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -80,9 +83,11 @@ public class DnevniPanel extends JPanel{
       //  Aktivnost aka = logic.getActivityWithId(1);
          //   System.out.println("nabavljenih grla id: " + aka.getNabavljenaGrla().get(0).getNapomena());
             for (Aktivnost a: dan.getAktivnosti()){
+
                 RoundedPanel eventPanel2 = new RoundedPanel(a,mainPanel, logic);
                 eventPanel2.setPlace(this.getInsets(), a.getXPosition(), a.getYPosition());
                 add(eventPanel2);
+
             }
 
         revalidate();
@@ -90,7 +95,7 @@ public class DnevniPanel extends JPanel{
 
 public void showEvents(){
     for (Aktivnost a: dan.getAktivnosti()){
-        this.add(new RoundedPanel(a, mainPanel, logic));
+            this.add(new RoundedPanel(a, mainPanel, logic));
     }
     revalidate();
 }
