@@ -26,8 +26,7 @@ public class Jagnjenje {
     private Ovca ovca;
     
     @OneToOne
-    @JoinColumn(name = "sheep_id")
-    private Ovca jagnje;
+    private Ovca sheep;
     
     private boolean jelZivo;
     
@@ -61,12 +60,12 @@ public class Jagnjenje {
         this.ovca = ovca;
     }
 
-    public Ovca getJagnje() {
-        return jagnje;
+    public Ovca getSheep() {
+        return sheep;
     }
 
-    public void setJagnje(Ovca jagnje) {
-        this.jagnje = jagnje;
+    public void setSheep(Ovca jagnje) {
+        this.sheep = jagnje;
     }
 
     public boolean isJelZivo() {
@@ -101,7 +100,7 @@ public class Jagnjenje {
 
     @Override
     public String toString() {
-        return "Jagnjenje{" + "id=" + id + ", aktivnost=" + aktivnost + ", ovca=" + ovca + ", jagnje=" + jagnje + ", jelZivo=" + jelZivo + ", napomena=" + napomena + '}';
+        return "Jagnjenje{" + "id=" + id + ", aktivnost=" + aktivnost + ", ovca=" + ovca + ", jagnje=" + sheep + ", jelZivo=" + jelZivo + ", napomena=" + napomena + '}';
     }
 
     @Override

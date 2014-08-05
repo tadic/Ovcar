@@ -4,8 +4,7 @@
  */
 package app.gajenje_ovaca;
 
-import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JButtonCellEditor;
-import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JButtonRenderer;
+import app.Reports.ListaOvacaIzvestaj;
 import app.logic.Logic;
 import app.model.Ovca;
 import java.awt.Color;
@@ -16,10 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -44,10 +41,11 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         this.mainPanel = mainPanel;
         initComponents();
         jScrollPane1.getViewport().setBackground(Color.white);
-        setBoldFontToColumn(3);
-        setBoldFontToColumn(0);
+        setBoldFontToColumn(3, Color.black);
+        setBoldFontToColumn(0, Color.red.darker());
+        setBoldFontToColumn(12, Color.black);
         listOfSheep = logic.getAllSheep();
-        
+        //System.err.println("Velicina liste ovaca: " + listOfSheep.size());
         resetTable(listOfSheep);
 
     }
@@ -70,10 +68,11 @@ public class Podaci_ovaca extends javax.swing.JPanel {
          return filters;
     }
     
-    private void setBoldFontToColumn(int n){
+    private void setBoldFontToColumn(int n, Color color){
         DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
-            Font f = new Font ("Monaco", Font.BOLD, 16);
-
+            
+            Font f = new Font ("Dialog", Font.BOLD, 14);
+            
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
@@ -84,6 +83,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         
         };
+        r.setForeground(color);
         jTable1.getColumnModel().getColumn(n).setCellRenderer(r);
     }
     
@@ -97,19 +97,19 @@ public class Podaci_ovaca extends javax.swing.JPanel {
            v.add("žensko");
         }
 
-        v.add(""+o.getProcenatR());
+        v.add(o.getProcenatR());
         v.add(o.getStarost());
         v.add(o.getLeglo());
         v.add(""+ o.procenatJagnjenja());
         if (o.getOtac()==null){
               v.add("nepoznat");
         }else{
-             v.add(o.getOtac().getOznaka());
+             v.add(o.getOtac().toString());
         }
         if (o.getMajka()==null){
               v.add("nepoznata");
         }else{
-             v.add(o.getMajka().getOznaka());
+             v.add(o.getMajka().toString());
         }
 
         v.add(o.getPoreklo());
@@ -152,6 +152,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jCounter = new javax.swing.JLabel();
         jSnimi = new javax.swing.JButton();
         jPrikazi = new javax.swing.JButton();
+        jSnimi1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -167,7 +168,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -234,13 +235,15 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(5).setMaxWidth(70);
         jTable1.getColumnModel().getColumn(6).setPreferredWidth(80);
         jTable1.getColumnModel().getColumn(6).setMaxWidth(100);
-        jTable1.getColumnModel().getColumn(7).setPreferredWidth(80);
-        jTable1.getColumnModel().getColumn(8).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(7).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(8).setMinWidth(100);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(200);
-        jTable1.getColumnModel().getColumn(11).setMinWidth(1);
-        jTable1.getColumnModel().getColumn(11).setPreferredWidth(1);
-        jTable1.getColumnModel().getColumn(11).setMaxWidth(1);
+        jTable1.getColumnModel().getColumn(11).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(11).setMaxWidth(0);
 
         jTrazi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,6 +298,14 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         });
 
+        jSnimi1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jSnimi1.setText("Štampaj");
+        jSnimi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSnimi1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -321,7 +332,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSnimi1)
+                        .addGap(18, 18, 18)
                         .addComponent(jSnimi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -349,7 +362,8 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSnimi1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -372,6 +386,12 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
             String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
             Ovca o = logic.getOvca(Integer.parseInt(id));
+            if (o.getOtac()!=null){
+                o.getOtac().getOznaka();
+            }
+            if (o.getMajka()!=null){
+                o.getMajka().getOznaka();
+            }
             mainPanel.removeAll();
             mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
             mainPanel.revalidate();
@@ -431,6 +451,23 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTraziActionPerformed
 
+    private void jSnimi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimi1ActionPerformed
+       ArrayList<Ovca> list = new ArrayList<Ovca>();
+        String f1 = "-";
+        if (jNaFarmi.isSelected()){
+           f1 = "na farmi";
+       }
+        String f2 = jTrazi.getText();
+        String f3 = jTrazi1.getText();
+        String f4 = jTrazi2.getText();
+        for (int i=0; i<jTable1.getRowCount(); i++){
+            int selectedRow = jTable1.convertRowIndexToModel(i);
+            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
+            list.add(logic.getOvca(id));
+        }
+        new ListaOvacaIzvestaj(list, f1, f2, f3, f4).create();
+    }//GEN-LAST:event_jSnimi1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
@@ -439,6 +476,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
     private javax.swing.JButton jPrikazi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSnimi;
+    private javax.swing.JButton jSnimi1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi;
     private javax.swing.JTextField jTrazi1;

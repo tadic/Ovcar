@@ -4,17 +4,15 @@
  */
 package app.model;
 
-import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JDateChooserRenderer;
-import com.toedter.calendar.JDateChooser;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -28,29 +26,29 @@ public class Ovca {
     private Integer id; 
     @OneToOne(mappedBy = "sheep")
     private NabavkaOvaca nabavka;
-    @OneToOne(mappedBy = "ovca")
-    private Vakcinacija vakcinacija;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovca")
+    private List<Vakcinacija> vakcinacije;
     @OneToOne(mappedBy = "ovca")
     private Prodaja prodaja;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="ovca")
     private List<Jagnjenje> listaJagnjenja;
     
-    @OneToOne(mappedBy = "jagnje")
+    @OneToOne(mappedBy = "sheep")
     private Jagnjenje rodjenje;
     private String oznaka;
     private String nadimak;
     private float procenatR;
     private String datumRodjenja;
     private char pol; // m ili z
-    @OneToOne
+    @ManyToOne
     private Ovca otac; 
-    @OneToOne
+    @ManyToOne
     private Ovca majka;
     private String opis;
     private String pracenje;
     private String status;
     private Integer leglo;
-    @OneToOne
+    @ManyToOne
     private Linija linija;
     @OneToOne(mappedBy = "o")
     private Uginuce uginuce;
@@ -66,7 +64,9 @@ public class Ovca {
         this.oznaka = oznaka;
         this.pol = pol;
     }
-    
+    public Ovca getMe(){
+        return this;
+    }
     public Ovca(String status){
         this.status = status;
     }
@@ -181,7 +181,15 @@ public class Ovca {
     public float getProcenatR() {
         return procenatR;
     }
-
+public String getProcR(){
+    return String.valueOf(Aktivnost.round(procenatR, 2));
+}
+public String getPpol(){
+    if (pol=='m'){
+        return "muško";
+    } 
+    return "žensko";
+}
     public void setProcenatR(float procenatR) {
         this.procenatR = procenatR;
     }
@@ -223,7 +231,11 @@ public class Ovca {
     @Override
     public String toString() {
         if (oznaka!=null){
-            return oznaka;
+            if (nadimak!=null){
+                return oznaka + " " + nadimak;
+            } else {
+                return oznaka + " " + oznaka;
+            }
         }
         return "bez oznake";
     }
@@ -270,14 +282,14 @@ public class Ovca {
     
     public String getStarost(){
         Integer monthDifference = starostUMesecima();
-        if (monthDifference!=null){
+        if (monthDifference!=null && status.equals("na farmi")){
             if (monthDifference>11){
                 float diff = (float)monthDifference/12 - 0.01f;
                 return Float.toString(round(diff, 1)) + " god."; 
             } 
             return String.valueOf(monthDifference) + " mes.";
         }
-        return "";
+        return "-";
     }
 
     public String getAktuelno() {
@@ -353,7 +365,21 @@ public class Ovca {
         } 
         return nabavka.getAktivnost().getLokacija();
     }
-    
+    public String getOotac(){
+        if (otac!=null){
+            return otac.toString();
+        }
+        return "-";
+    }
+    public String getLleglo(){
+        return String.valueOf(leglo);
+    }
+    public String getMmajka(){
+        if (majka!=null){
+             return majka.toString();
+        }
+        return "-";
+    } 
     public String procenatJagnjenja(){
         if (this.listaJagnjenja==null || this.listaJagnjenja.isEmpty()){
             return "0.0%";
@@ -363,12 +389,20 @@ public class Ovca {
         return Float.toString(100*((float) (brojJagnjadi.floatValue())/brojJagnjenja) - 0.0f) + "%";
     }
 
-    public Vakcinacija getVakcinacija() {
-        return vakcinacija;
+    public List<Vakcinacija> getVakcinacije() {
+        return vakcinacije;
     }
 
-    public void setVakcinacija(Vakcinacija vakcinacija) {
-        this.vakcinacija = vakcinacija;
+    public void setVakcinacije(List<Vakcinacija> vakcinacije) {
+        this.vakcinacije = vakcinacije;
+    }
+    
+    public static String parseOznaka(String slog){
+        int i=slog.indexOf(" ");
+        if (i>0){
+            return slog.substring(0,i);
+        }
+        return slog;
     }
     
     

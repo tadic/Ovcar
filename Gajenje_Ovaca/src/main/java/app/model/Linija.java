@@ -4,9 +4,10 @@
  */
 package app.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -15,9 +16,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class Linija {
      @Id
-     Integer id;
-     @OneToOne(mappedBy="linija")
-     Ovca o;
+     private Integer id;
+     @OneToMany(mappedBy="linija")
+     private List<Ovca> ovce;
      String imeLinije;
      String opis;
 
@@ -50,12 +51,20 @@ public class Linija {
         this.opis = opis;
     }
 
-    public Ovca getO() {
-        return o;
+    public List<Ovca> getO() {
+        return ovce;
     }
 
-    public void setO(Ovca o) {
-        this.o = o;
+    public void setO(List<Ovca> o) {
+        this.ovce = o;
+    }
+
+    public List<Ovca> getOvce() {
+        return ovce;
+    }
+
+    public void setOvce(List<Ovca> ovce) {
+        this.ovce = ovce;
     }
     
     @Override

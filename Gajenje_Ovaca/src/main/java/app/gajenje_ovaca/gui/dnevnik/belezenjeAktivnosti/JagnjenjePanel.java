@@ -5,6 +5,7 @@
 package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 
 import app.logic.Logic;
+import app.model.Aktivnost;
 import app.model.Jagnjenje;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
@@ -59,7 +60,7 @@ private JagnjenjaPanel parent;
            
            // System.out.println("Velicina2 liste: "+listaJagnjenja.size());
             jOvca.setSelectedItem(listaJagnjenja.get(0).getOvca().toString());
-            jOvan.setSelectedItem(listaJagnjenja.get(0).getJagnje().getOtac().getOznaka());
+            jOvan.setSelectedItem(listaJagnjenja.get(0).getSheep().getOtac().toString());
             DefaultTableModel tb = (DefaultTableModel) jTableJagnjaci.getModel();
             int n=1;
             
@@ -75,13 +76,13 @@ private JagnjenjaPanel parent;
         Vector v = new Vector();
         v.add(n);
         v.add(j.isJelZivo());
-        v.add(j.getJagnje().getPol());
-        v.add(j.getJagnje().getOznaka());      
+        v.add(j.getSheep().getPol());
+        v.add(j.getSheep().getOznaka());      
         
-        v.add(j.getJagnje().getProcenatR());
-        v.add(j.getJagnje().getOpis());
+        v.add(j.getSheep().getProcenatR());
+        v.add(j.getSheep().getOpis());
         v.add(j.getNapomena());
-        v.add(j.getJagnje().getTezinaNaRodjenju());
+        v.add(j.getSheep().getTezinaNaRodjenju());
         v.add(j.getId());
         return v;
     }
@@ -95,12 +96,7 @@ private JagnjenjaPanel parent;
        ArrayList<String> list = new ArrayList<String>();
        System.out.println("velicina liste" + logic);
        for (Ovca ovca:logic.getOvceZaJagnjenje()){
-           if (ovca.getOznaka()!=null){
-               list.add(ovca.getOznaka());
-           } else {
-              list.add("bez oznake"); 
-           }
-           
+               list.add(ovca.toString());
        }
        return list;
     }
@@ -232,15 +228,15 @@ private JagnjenjaPanel parent;
                 .addGap(45, 45, 45)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jOvca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jOvca, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSpinField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jOvan, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jOvan, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -284,12 +280,28 @@ private JagnjenjaPanel parent;
             } 
     }//GEN-LAST:event_jSpinField2PropertyChange
 
+    private float calculatePercentR(){
+        Ovca majka = logic.getOvca(Ovca.parseOznaka(jOvca.getSelectedItem().toString()));
+        Ovca otac = logic.getOvca(Ovca.parseOznaka(jOvan.getSelectedItem().toString()));
+        float percentR = 0;
+        if (otac!=null && majka!=null){
+            percentR = Aktivnost.round((majka.getProcenatR()+otac.getProcenatR())/2, 1);
+        }    
+        return percentR;
+    }
     private void jOvcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOvcaActionPerformed
-        
+        DefaultTableModel tm = (DefaultTableModel) jTableJagnjaci.getModel();
+        setPercentRToTable(tm, calculatePercentR());
     }//GEN-LAST:event_jOvcaActionPerformed
 
+    private void setPercentRToTable(DefaultTableModel tm, float percentR){
+        for (int i=0; i<tm.getRowCount(); i++){
+            tm.setValueAt(percentR, i, 4);
+        }
+    }
     private void jOvanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOvanActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel tm = (DefaultTableModel) jTableJagnjaci.getModel();
+        setPercentRToTable(tm, calculatePercentR());
     }//GEN-LAST:event_jOvanActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -339,8 +351,7 @@ private JagnjenjaPanel parent;
         jagnje.setLeglo(tb.getRowCount());
         jagnje.setTezinaNaRodjenju(tb.getValueAt(n, 7));
         
-        System.out.println("Tezina: " + jagnje.getTezinaNaRodjenju() + " Table value: " + tb.getValueAt(n, 7) );
-        j.setJagnje(jagnje);    
+        j.setSheep(jagnje);    
         j.setJelZivo(tb.getValueAt(n, 1));
         if (j.isJelZivo()){
            jagnje.setStatus("na farmi"); 
@@ -357,22 +368,25 @@ private JagnjenjaPanel parent;
     
     public ArrayList<Jagnjenje> getJagnjenja(){
         ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
-        Ovca majka = logic.getOvca(jOvca.getSelectedItem().toString());
+        Ovca majka = logic.getOvca(Ovca.parseOznaka(jOvca.getSelectedItem().toString()));
         if (majka==null){
             return null;
         }
-        Ovca otac = new Ovca("zamišljen", jOvan.getSelectedItem().toString(), 'm');
+        Ovca otac = logic.getOvca(Ovca.parseOznaka(jOvan.getSelectedItem().toString()));
+        if (otac==null){
+                otac = new Ovca("zamišljen", Ovca.parseOznaka(jOvan.getSelectedItem().toString()), 'm');
+        }
         TableModel tb = jTableJagnjaci.getModel();
         
         for (int i=0; i<jTableJagnjaci.getRowCount(); i++){
             Jagnjenje jagnjenje = pickJagnjenjeFromTable(i, tb);
             jagnjenje.setOvca(majka);
-            jagnjenje.getJagnje().setMajka(majka);
-            jagnjenje.getJagnje().setOtac(otac);
+            jagnjenje.getSheep().setMajka(majka);
+            jagnjenje.getSheep().setOtac(otac);
 
             list.add(jagnjenje);
         }
-       // System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getJagnje().getTezinaNaRodjenju());
+       // System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getSheep().getTezinaNaRodjenju());
         return list;
     }
     

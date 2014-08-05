@@ -6,11 +6,8 @@ package app.database;
 
 import app.model.Aktivnost;
 import app.model.Dan;
-import app.model.Ovca;
-import app.model.Prodaja;
 import app.model.Vakcinacija;
 import com.avaje.ebean.EbeanServer;
-import java.util.List;
 
 /**
  *

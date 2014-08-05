@@ -7,6 +7,7 @@ package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 import app.gajenje_ovaca.gui.dnevnik.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
+import app.model.Ovca;
 import app.model.Uginuce;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -228,6 +230,7 @@ private JPanel mainPanel;
     
     private void setPanel(){
         jGrlo.setModel(new DefaultComboBoxModel(logic.getSvaZivaGrla().toArray()));
+        AutoCompleteDecorator.decorate(this.jGrlo);
         jNameOfActivity.setText(aktivnost.getVrstaAktivnosti().getName());
         jColorLabel.setBackground(new Color(aktivnost.getVrstaAktivnosti().getColor()));
         jLokacija.setText(aktivnost.getLokacija());
@@ -237,7 +240,7 @@ private JPanel mainPanel;
     }
     private void fillUginuce(){
         if (aktivnost.getUginuce()!=null){
-            jGrlo.setSelectedItem(aktivnost.getUginuce().getO().getOznaka());
+            jGrlo.setSelectedItem(aktivnost.getUginuce().getO().toString());
             jRazlog.setText(aktivnost.getUginuce().getRazlog());
         }
     }
@@ -266,8 +269,9 @@ private JPanel mainPanel;
 
 
     private boolean pickUginuce(){
-        String oznaka = jGrlo.getSelectedItem().toString();
+        String oznaka = Ovca.parseOznaka(jGrlo.getSelectedItem().toString());
         Uginuce uginuce = new Uginuce();
+        System.out.println("Parsirana oznaka: " + oznaka);
         uginuce.setO(logic.getOvca(oznaka));
         uginuce.setRazlog(jRazlog.getText());
         aktivnost.setUginuce(uginuce);
@@ -288,7 +292,7 @@ private JPanel mainPanel;
     }//GEN-LAST:event_jGrloActionPerformed
        
     private String createBilans(){
-        StringBuilder sb = new StringBuilder(aktivnost.getUginuce().getO().getOznaka());
+        StringBuilder sb = new StringBuilder(aktivnost.getUginuce().getO().toString());
         sb.append(" - ").append(aktivnost.getUginuce().getO().getNadimak());
         return sb.toString();
     }

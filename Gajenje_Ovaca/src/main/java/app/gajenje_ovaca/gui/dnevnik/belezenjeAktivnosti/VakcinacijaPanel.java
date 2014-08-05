@@ -192,14 +192,14 @@ private JPanel mainPanel;
 
             },
             new String [] {
-                "nadimak", "oznaka", "pol", "starost", "napomena", "aktuelno", "selekcija"
+                "nadimak", "oznaka", "pol", "starost", "napomena", "aktuelno", "selekcija", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, true
+                false, false, false, false, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -224,6 +224,7 @@ private JPanel mainPanel;
         jTable1.getColumnModel().getColumn(4).setResizable(false);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(6).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(7).setMaxWidth(15);
 
         jLabel10.setText("_________________________________________________");
 
@@ -632,7 +633,7 @@ private JPanel mainPanel;
 
     private Vakcinacija pickVakcinacija(TableModel table, int n){
         Vakcinacija v = new Vakcinacija();
-        Ovca o = logic.getOvca(table.getValueAt(n, 1).toString());
+        Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 7).toString()));
         v.setRazlog(jRazlog.getText());
         v.setSredstvo(jSredstvo.getText());
         v.setNapomena(table.getValueAt(n, 4));
@@ -742,15 +743,12 @@ private JPanel mainPanel;
         v.add(o.getOznaka());
         v.add(o.getPol());
         v.add(o.getStarost());
-        if (o.getVakcinacija()==null){
+
             v.add(null);    
             v.add(o.getAktuelno());
             v.add(false);
-        } else { 
-            v.add(o.getVakcinacija().getNapomena()); 
-            v.add(o.getAktuelno());
-            v.add(true);
-        }
+         
+        v.add(o.getId());
         return v;
     }
     /*

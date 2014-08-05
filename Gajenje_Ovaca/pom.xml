@@ -59,21 +59,50 @@
           </configuration>
 
       </plugin>
+      <plugin>
+<artifactId>maven-release-plugin</artifactId>
+<version>2.1</version>
+<configuration>
+<!--
+  do not run site-deploy goal, included in the default settings  
+-->
+<goals>deploy</goals>
+<pushChanges>false</pushChanges>
+<localCheckout>true</localCheckout>
+<connectionUrl>scm:hg:ssh://hg@bitbucket.org/xerial/sqlite-jdbc</connectionUrl>
+</configuration>
+</plugin>
     </plugins>
 </build>
+<scm>
+<connection>scm:hg:https://bitbucket.org/xerial/sqlite-jdbc</connection>
+<developerConnection>scm:hg:ssh://hg@bitbucket.org/xerial/sqlite-jdbc</developerConnection>
+<url>https://bitbucket.org/xerial/sqlite-jdbc</url>
+</scm>
   <dependencies>
       <dependency>
 	<groupId>org.swinglabs.swingx</groupId>
 	<artifactId>swingx-all</artifactId>
 	<version>1.6.4</version>
 </dependency>
-
+ <dependency>
+      <groupId>org.xerial.thirdparty</groupId>
+      <artifactId>jdbc-api</artifactId>
+      <version>1.4</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+	<groupId>net.sf.jasperreports</groupId>
+	<artifactId>jasperreports</artifactId>
+	<version>5.0.1</version>
+</dependency>
+
     <dependency>
             <groupId>org.avaje.ebeanorm</groupId>
             <artifactId>avaje-ebeanorm-server</artifactId>

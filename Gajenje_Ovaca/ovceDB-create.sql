@@ -102,7 +102,7 @@ create index ix_aktivnost_vrstaAktivnosti_1 on aktivnost (vrsta_aktivnosti_id);
 create index ix_aktivnost_dan_2 on aktivnost (dan_id);
 create index ix_jagnjenje_aktivnost_3 on jagnjenje (aktivnost_id);
 create index ix_jagnjenje_ovca_4 on jagnjenje (ovca_id);
-create index ix_jagnjenje_jagnje_5 on jagnjenje (sheep_id);
+create index ix_jagnjenje_sheep_5 on jagnjenje (sheep_id);
 create index ix_nabavka_ovaca_aktivnost_6 on nabavka_ovaca (aktivnost_id);
 create index ix_nabavka_ovaca_sheep_7 on nabavka_ovaca (sheep_id);
 create index ix_ovca_otac_8 on ovca (otac_id);

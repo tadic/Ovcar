@@ -47,8 +47,8 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         this.mainPanel = mainPanel;
         initComponents();
         jScrollPane1.getViewport().setBackground(Color.white);
-        setBoldFontToColumn(3);
-        setBoldFontToColumn(0);
+        setBoldFontToColumn(3, Color.black);
+        setBoldFontToColumn(0, Color.red.darker());
         listOfDays = logic.getAllDays();
         
         resetTable(listOfDays);
@@ -69,9 +69,9 @@ public class AktivnostiPanel extends javax.swing.JPanel {
          return filters;
     }
     
-    private void setBoldFontToColumn(int n){
+    private void setBoldFontToColumn(int n, Color color){
         DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
-            Font f = new Font ("Monaco", Font.BOLD, 16);
+            Font f = new Font ("Dialog", Font.BOLD, 13);
 
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
@@ -83,6 +83,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
             }
         
         };
+        r.setForeground(color);
         jTable1.getColumnModel().getColumn(n).setCellRenderer(r);
     }
     
@@ -148,7 +149,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -202,9 +203,12 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(0).setMinWidth(100);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(160);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(200);
         jTable1.getColumnModel().getColumn(2).setMinWidth(35);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(180);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(260);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jTable1.getColumnModel().getColumn(2).setMaxWidth(150);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(300);
         jTable1.getColumnModel().getColumn(4).setMinWidth(50);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(4).setMaxWidth(100);
@@ -279,7 +283,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addComponent(jSnimi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))

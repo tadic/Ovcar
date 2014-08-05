@@ -25,7 +25,6 @@ class DBUginuca {
     
     public void saveActivity(Aktivnost a) {  
         if (a.getId()==null){
-            System.out.print("Uginuce se snima....");
             createActivity(a);
         } else{
             updateActivity(a);
@@ -57,7 +56,7 @@ class DBUginuca {
         if (!staraOvca.getOznaka().equals(a.getUginuce().getO().getOznaka())){ // ako ovca nije ista
             staraOvca.setStatus("na farmi");
             server.save(staraOvca);
-            saveSheep(a.getUginuce().getO(), "uglinulo");
+            saveSheep(a.getUginuce().getO(), "uginulo");
         }
         u.setO(a.getUginuce().getO());
         u.setRazlog(a.getUginuce().getRazlog());
@@ -66,7 +65,7 @@ class DBUginuca {
 
     private void createActivity(Aktivnost a){
         a.getDan().getAktivnosti().add(a);// unesi u panel
-        saveSheep(a.getUginuce().getO(), "uglinulo");
+        saveSheep(a.getUginuce().getO(), "uginulo");
         snimiAktivnost(a);
         a.getUginuce().setA(a);
         server.save(a.getUginuce());
@@ -86,7 +85,8 @@ class DBUginuca {
     
         
     public void saveSheep(Ovca sheep, String status){
-        Ovca ovca = server.find(Ovca.class).where().like("oznaka", sheep.getOznaka().toString()).findUnique();  
+        System.err.println("za drekavca: " + status);
+        Ovca ovca = server.find(Ovca.class, sheep.getId());  
         ovca.setStatus(status);
         server.save(ovca);                 // ako nije postojala snimi je direktno
     }

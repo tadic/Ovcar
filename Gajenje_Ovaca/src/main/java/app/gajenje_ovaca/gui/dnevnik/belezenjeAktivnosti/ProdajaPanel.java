@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -449,6 +450,7 @@ private JPanel mainPanel;
         jNapomena.setText(aktivnost.getNapomena());
         jTextTroskovi.setText(Float.toString(aktivnost.getTroskovi()));
 //setTableRows();
+         
         paintColumns();
         resetTable(logic.getSvaZivaGrla());
         
@@ -540,14 +542,11 @@ private JPanel mainPanel;
     private List<Prodaja> pickSveProdaje(){
         List<Prodaja> list = new ArrayList<Prodaja>(); 
         TableModel table = jTable1.getModel();
-        System.out.println("sve prodaja velicina tabele: " + table.getRowCount());
         for (int i=0; i<table.getRowCount(); i++){
-            System.out.println(Boolean.getBoolean(table.getValueAt(i, 10).toString()));
             if (Boolean.valueOf(table.getValueAt(i, 10).toString())){
                 list.add(pickProdaja(table, i));
             }
         }
-        System.out.println("sve prodaja velicina liste: " + list.size());
         return list;
     }
     

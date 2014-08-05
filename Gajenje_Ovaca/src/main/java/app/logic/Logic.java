@@ -143,6 +143,10 @@ public class Logic {
         return db.getAllDays();
     }
 
+    public Dan getDan(Integer id) {
+        return db.getDan(id);
+    }
+
    
 
 

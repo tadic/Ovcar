@@ -1,5 +1,6 @@
 package app.gajenje_ovaca;
 
+import app.Reports.OvcaIzvestaj;
 import app.database.DBServer;
 import app.database.DataBase;
 import app.gajenje_ovaca.gui.dnevnik.Dnevnik;
@@ -27,6 +28,7 @@ public class PocetnaStrana extends javax.swing.JFrame {
      //jToolBar1.setBackground(Color.yellow);
      repaint();
      setVisible(true);
+    // OvcaIzvestaj.createRaport();
         
     }
     

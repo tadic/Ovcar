@@ -7,7 +7,6 @@ package app.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,7 +20,7 @@ public class Vakcinacija {
     @ManyToOne
     private Aktivnost aktivnost;
     
-    @OneToOne
+    @ManyToOne
     private Ovca ovca;
     private Boolean jelRedovno;
     private String razlog;

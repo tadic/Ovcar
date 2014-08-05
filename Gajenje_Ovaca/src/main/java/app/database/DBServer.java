@@ -64,7 +64,7 @@ public class DBServer {
 
         config.setDefaultServer(false);
         config.setRegister(false);
-        
+         config.addClass(Ovca.class);
         config.addClass(Dan.class);
         config.addClass(Linija.class);
         config.addClass(Uginuce.class);
@@ -75,7 +75,7 @@ public class DBServer {
         config.addClass(Vakcinacija.class);
         config.addClass(Prodaja.class);
         config.addClass(Jagnjenje.class);
-        config.addClass(Ovca.class);
+      //  config.addClass(Ovca.class);
         
         
         if (dropAndCreateDatabase) {

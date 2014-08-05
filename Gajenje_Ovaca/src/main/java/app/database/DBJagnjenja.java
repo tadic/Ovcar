@@ -41,7 +41,7 @@ public class DBJagnjenja {
     private void deleteOldJagnjenja(Aktivnost staraAktivnost, Aktivnost novaAktivnost){
         for (Jagnjenje j: staraAktivnost.getListaJagnjenja()){
             if (!novaAktivnost.getListaJagnjenja().contains(j)){
-                deleteSheep(j.getJagnje());
+                deleteSheep(j.getSheep());
                 server.delete(j);
             }
         }
@@ -61,8 +61,8 @@ public class DBJagnjenja {
     private void updateJagnjenja(Aktivnost a){
         String datumJagnjenja = a.getDan().toString();
         for (Jagnjenje j: a.getListaJagnjenja()){
-            //saveSheep(j.getJagnje());
-            j.getJagnje().setDatumRodjenja(datumJagnjenja);
+            //saveSheep(j.getSheep());
+            j.getSheep().setDatumRodjenja(datumJagnjenja);
             updateJagnjenje(j, a);    // prvo update jagnjenje da bi definitivno dobilo id i jagnjetov id
             
         }
@@ -75,13 +75,13 @@ public class DBJagnjenja {
             
             jagnjenje.setJelZivo(j.isJelZivo());
             jagnjenje.setNapomena(j.getNapomena());
-            j.getJagnje().setId(jagnjenje.getJagnje().getId());
-            saveSheep(j.getJagnje());
+            j.getSheep().setId(jagnjenje.getSheep().getId());
+            saveSheep(j.getSheep());
             server.save(jagnjenje);
             
         }else{
             j.setAktivnost(a);
-            saveSheep(j.getJagnje());
+            saveSheep(j.getSheep());
             server.save(j);
         }
     }
@@ -89,9 +89,9 @@ public class DBJagnjenja {
         a.getDan().getAktivnosti().add(a);// unesi u panel
         String datumJagnjenja = a.getDan().toString();
             for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
-                jagnjenje.getJagnje().setDatumRodjenja(datumJagnjenja);
-               // System.out.println("majka ovca: "+ a.getDan().toString());
-                saveSheep(jagnjenje.getJagnje());
+                jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
+                System.out.println("Ulazimo");
+                saveSheep(jagnjenje.getSheep());
             }
             if (a.getDan().getId()==null){ // ako ga nema u bazi, napravi ga
              //   System.out.println("dan: "+ a.getDan().toString());
@@ -118,10 +118,11 @@ public class DBJagnjenja {
     }
     
     private void setMother(Ovca sheep){
-      
+      System.out.println("Provera majke");
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             if (majka==null){   
+                    System.out.println("Nije pronasao majku sa tom znakom "+ sheep.getMajka().getOznaka());
                sheep.getMajka().setPol('ž');// ako majka nije postojala u bazi       
                server.save(sheep.getMajka());   // snimi majku kao 'nepoznatu' i uzmi njen id
                majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
@@ -194,7 +195,7 @@ public class DBJagnjenja {
 
     public void deleteActivity(Aktivnost a) {
         for (Jagnjenje j: a.getListaJagnjenja()){
-            deleteSheep(j.getJagnje());
+            deleteSheep(j.getSheep());
         }
         server.delete(a);
     }
