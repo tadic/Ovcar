@@ -372,7 +372,10 @@ public String getPpol(){
         return "-";
     }
     public String getLleglo(){
+        if (leglo !=null){
         return String.valueOf(leglo);
+        }
+        return "?";
     }
     public String getMmajka(){
         if (majka!=null){

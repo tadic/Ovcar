@@ -56,7 +56,13 @@ public class Podaci_ovaca extends javax.swing.JPanel {
          if (jNaFarmi.isSelected()){
              comboFilter = RowFilter.regexFilter("na farmi");
          }
-         RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(jTrazi.getText());
+         String polFilter = "";
+         if (jTrazi3.getSelectedIndex()==2){
+             polFilter = "muško";
+         } else if(jTrazi3.getSelectedIndex()==1){
+             polFilter = "žensko";
+         }  
+         RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(polFilter);
          RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jTrazi1.getText());
          RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          
          filters.add(comboFilter);
@@ -97,9 +103,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
            v.add("žensko");
         }
 
-        v.add(o.getProcenatR());
+        v.add(o.getProcR());
         v.add(o.getStarost());
-        v.add(o.getLeglo());
+        v.add(o.getLleglo());
         v.add(""+ o.procenatJagnjenja());
         if (o.getOtac()==null){
               v.add("nepoznat");
@@ -144,7 +150,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jTrazi = new javax.swing.JTextField();
         jNaFarmi = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jTrazi1 = new javax.swing.JTextField();
@@ -153,6 +158,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jSnimi = new javax.swing.JButton();
         jPrikazi = new javax.swing.JButton();
         jSnimi1 = new javax.swing.JButton();
+        jTrazi3 = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -245,17 +251,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(11).setPreferredWidth(0);
         jTable1.getColumnModel().getColumn(11).setMaxWidth(0);
 
-        jTrazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTraziActionPerformed(evt);
-            }
-        });
-        jTrazi.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTraziKeyReleased(evt);
-            }
-        });
-
         jNaFarmi.setSelected(true);
         jNaFarmi.setText("na farmi");
         jNaFarmi.addActionListener(new java.awt.event.ActionListener() {
@@ -278,8 +273,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         });
 
-        jCounter.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jCounter.setFont(new java.awt.Font("Lucida Grande", 0, 32)); // NOI18N
         jCounter.setForeground(new java.awt.Color(153, 0, 51));
+        jCounter.setText("(124)");
 
         jSnimi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jSnimi.setText("Snimi");
@@ -298,6 +294,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         });
 
+        jSnimi1.setBackground(new java.awt.Color(0, 255, 0));
         jSnimi1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jSnimi1.setText("Štampaj");
         jSnimi1.addActionListener(new java.awt.event.ActionListener() {
@@ -306,33 +303,38 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
         });
 
+        jTrazi3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sva grla", "ženska grla", "muška grla" }));
+        jTrazi3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTrazi3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jNaFarmi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jSnimi1)
                         .addGap(18, 18, 18)
                         .addComponent(jSnimi)
@@ -350,21 +352,21 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                             .addComponent(jNaFarmi)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTrazi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1)
                                 .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSnimi1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -398,11 +400,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             repaint();
         }
     }//GEN-LAST:event_jTable1KeyPressed
-
-    private void jTraziKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTraziKeyReleased
-        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-                jCounter.setText("("+ jTable1.getRowCount() + ")");
-    }//GEN-LAST:event_jTraziKeyReleased
 
     private void jTrazi1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrazi1KeyReleased
         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
@@ -447,26 +444,34 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             resetTable(listOfSheep);
     }//GEN-LAST:event_jSnimiActionPerformed
 
-    private void jTraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTraziActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTraziActionPerformed
-
     private void jSnimi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimi1ActionPerformed
        ArrayList<Ovca> list = new ArrayList<Ovca>();
         String f1 = "-";
         if (jNaFarmi.isSelected()){
            f1 = "na farmi";
        }
-        String f2 = jTrazi.getText();
+        String f2 = jTrazi3.getSelectedItem().toString();
         String f3 = jTrazi1.getText();
         String f4 = jTrazi2.getText();
         for (int i=0; i<jTable1.getRowCount(); i++){
             int selectedRow = jTable1.convertRowIndexToModel(i);
             Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
-            list.add(logic.getOvca(id));
+            Ovca o = logic.getOvca(id);
+            if (o.getOtac()!=null){
+                o.setOtac(logic.getOvca(o.getOtac().getId()));
+            }
+            if (o.getMajka()!=null){
+                o.setMajka(logic.getOvca(o.getMajka().getId()));
+            }
+            list.add(o);
         }
         new ListaOvacaIzvestaj(list, f1, f2, f3, f4).create();
     }//GEN-LAST:event_jSnimi1ActionPerformed
+
+    private void jTrazi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrazi3ActionPerformed
+         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jTrazi3ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
@@ -478,8 +483,8 @@ public class Podaci_ovaca extends javax.swing.JPanel {
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jSnimi1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTrazi;
     private javax.swing.JTextField jTrazi1;
     private javax.swing.JTextField jTrazi2;
+    private javax.swing.JComboBox jTrazi3;
     // End of variables declaration//GEN-END:variables
 }

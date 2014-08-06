@@ -132,8 +132,8 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         jTrazi1 = new javax.swing.JTextField();
         jTrazi2 = new javax.swing.JTextField();
         jCounter = new javax.swing.JLabel();
-        jSnimi = new javax.swing.JButton();
         jPrikazi = new javax.swing.JButton();
+        jSnimi1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -240,16 +240,8 @@ public class AktivnostiPanel extends javax.swing.JPanel {
             }
         });
 
-        jCounter.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        jCounter.setFont(new java.awt.Font("Lucida Grande", 0, 30)); // NOI18N
         jCounter.setForeground(new java.awt.Color(153, 0, 51));
-
-        jSnimi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jSnimi.setText("Snimi");
-        jSnimi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSnimiActionPerformed(evt);
-            }
-        });
 
         jPrikazi.setBackground(new java.awt.Color(0, 153, 153));
         jPrikazi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
@@ -260,18 +252,25 @@ public class AktivnostiPanel extends javax.swing.JPanel {
             }
         });
 
+        jSnimi1.setBackground(new java.awt.Color(0, 255, 0));
+        jSnimi1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jSnimi1.setText("Štampaj");
+        jSnimi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSnimi1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -283,9 +282,9 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jSnimi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jSnimi1)
+                        .addGap(18, 18, 18)
                         .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -304,12 +303,12 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSnimi1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -355,35 +354,23 @@ public class AktivnostiPanel extends javax.swing.JPanel {
 
     private void jPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrikaziActionPerformed
             if (jTable1.getSelectedRow()!= -1){
-            int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-            String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
-            Ovca o = logic.getOvca(Integer.parseInt(id));
-            mainPanel.removeAll();
-            mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
-            mainPanel.revalidate();
-            repaint();
-            }
-    }//GEN-LAST:event_jPrikaziActionPerformed
+                int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+                String id = jTable1.getModel().getValueAt(clickedRow,6).toString();
+                Aktivnost a = logic.getActivityWithId(Integer.parseInt(id));
 
-    private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
-            for (int i=0; i<jTable1.getRowCount(); i++){
-                int selectedRow = jTable1.convertRowIndexToModel(i);
-                Object aktuelno = jTable1.getModel().getValueAt(selectedRow,12);
-                if (aktuelno!=null){
-                    System.out.println(aktuelno.toString());
-                    String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
-                    Ovca o = logic.getOvca(Integer.parseInt(id));
-                    o.setAktuelno(aktuelno.toString());
-                    logic.updateOvca(o);
-                }
-            }
-            listOfDays = logic.getAllDays();
-            resetTable(listOfDays);
-    }//GEN-LAST:event_jSnimiActionPerformed
+                logic.setSelectedDay(a.getDan().getDate());
+                System.err.println(logic.getSelectedDay().toString());
+                new BelezenjeAktivnosti(mainPanel, logic, a).showEditPanel();
+            }       
+    }//GEN-LAST:event_jPrikaziActionPerformed
 
     private void jTraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTraziActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTraziActionPerformed
+
+    private void jSnimi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimi1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSnimi1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
@@ -391,7 +378,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jPrikazi;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jSnimi;
+    private javax.swing.JButton jSnimi1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi;
     private javax.swing.JTextField jTrazi1;

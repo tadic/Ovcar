@@ -348,7 +348,12 @@ public class PocetnaStrana extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton19MouseEntered
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
+     mainPanel.setLayout(new GridLayout());
+     mainPanel.removeAll();
+     mainPanel.add(new NapraviIzvestaj(logic, mainPanel));
+     mainPanel.revalidate();
+     repaint();
+     setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton20MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton20MouseExited
