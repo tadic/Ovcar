@@ -253,7 +253,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
             
         }
     }
-        public static float round(float d, int decimalPlace) {
+    public static float round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();
@@ -310,7 +310,15 @@ public class Aktivnost implements Comparable<Aktivnost> {
         this.radovi = radovi;
     }
     
-    
+    public String getVrstaAkt(){
+        return this.getVrstaAktivnosti().getName();
+    }
+    public String getDatum(){
+        return this.getDan().toString();
+    }
+    public String getTrosak(){
+        return String.valueOf(Aktivnost.round(this.troskovi, 2));
+    }
     
     
 

@@ -83,7 +83,7 @@ public class DBServer {
             config.setDdlRun(true);
            // config.setDebugSql(true);
         }
-     
+        config.setDefaultServer(true);
         return EbeanServerFactory.create(config);
     }
    private void seedDatabase(EbeanServer server) throws OptimisticLockException {

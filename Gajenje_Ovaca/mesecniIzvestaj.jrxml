@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="900" pageHeight="1300" columnWidth="840" leftMargin="40" rightMargin="20" topMargin="40" bottomMargin="20" uuid="f03ee7f1-ca80-4200-81b7-6f29cdb75b6e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="mesec" class="java.lang.String"/>
+	<parameter name="godina" class="java.lang.String"/>
+	<parameter name="nabavljenoOvaca" class="java.lang.String"/>
+	<parameter name="nabavljenoOvnova" class="java.lang.String"/>
+	<parameter name="nabavljenoJaganjaca" class="java.lang.String"/>
+	<parameter name="ojagnjenoJaganjaca" class="java.lang.String"/>
+	<parameter name="prodatoOvaca" class="java.lang.String"/>
+	<parameter name="prodatoOvnova" class="java.lang.String"/>
+	<parameter name="prodatoJaganjaca" class="java.lang.String"/>
+	<parameter name="uginuloOvaca" class="java.lang.String"/>
+	<parameter name="uginuloOvnova" class="java.lang.String"/>
+	<parameter name="uginuloJaganjaca" class="java.lang.String"/>
+	<parameter name="ovaca" class="java.lang.String"/>
+	<parameter name="ovnova" class="java.lang.String"/>
+	<parameter name="jaganjaca" class="java.lang.String"/>
+	<parameter name="ovacaKraj" class="java.lang.String"/>
+	<parameter name="ovnovaKraj" class="java.lang.String"/>
+	<parameter name="jaganjacaKraj" class="java.lang.String"/>
+	<parameter name="sviPocetak" class="java.lang.String"/>
+	<parameter name="sviKraj" class="java.lang.String"/>
+	<parameter name="sviUginulo" class="java.lang.String"/>
+	<parameter name="sviNabavljeno" class="java.lang.String"/>
+	<parameter name="sviProdato" class="java.lang.String"/>
+	<parameter name="sviPromena" class="java.lang.String"/>
+	<parameter name="promenaOvaca" class="java.lang.String"/>
+	<parameter name="promenaOvnova" class="java.lang.String"/>
+	<parameter name="promenaJaganjaca" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59">
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="62" y="0" width="227" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Mesečni izveštaj za]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="290" y="1" width="487" height="35" forecolor="#330000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$P{mesec}  + " " + $P{godina}+ " godine"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="263" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="0" y="0" width="126" height="35"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Brojno stanje:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="126" y="65" width="349" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="204" y="44" width="41" height="22"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ovaca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="272" y="44" width="60" height="22"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ovnova]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="357" y="43" width="60" height="22"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[jagnjadi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="110" y="96" width="77" height="28"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[nabavljeno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="110" y="126" width="77" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ojagnjeno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="110" y="149" width="77" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[prodato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="110" y="172" width="77" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[uginulo]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="192" y="43" width="1" height="199"/>
+			</line>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="204" y="102" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nabavljenoOvaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="364" y="102" width="41" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nabavljenoJaganjaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="276" y="102" width="41" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nabavljenoOvnova}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="204" y="125" width="41" height="22"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="276" y="125" width="41" height="22"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="364" y="125" width="41" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenoJaganjaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="204" y="150" width="33" height="20" forecolor="#006633"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prodatoOvaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="204" y="172" width="33" height="20" forecolor="#990000"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{uginuloOvaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="281" y="150" width="33" height="20" forecolor="#006633"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prodatoOvnova}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="368" y="149" width="33" height="20" forecolor="#006633"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prodatoJaganjaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="281" y="172" width="33" height="20" forecolor="#990000"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{uginuloOvnova}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="368" y="172" width="33" height="20" forecolor="#990000"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{uginuloJaganjaca}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="126" y="194" width="349" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="109" y="194" width="77" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[promena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="69" y="69" width="118" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Početak meseca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="84" y="222" width="103" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KRAJ MESECA]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="126" y="217" width="349" height="1" forecolor="#660000"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="204" y="71" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ovaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="281" y="71" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ovnova}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="368" y="71" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jaganjaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="204" y="222" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ovacaKraj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="282" y="223" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ovnovaKraj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="369" y="223" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jaganjacaKraj}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="126" y="93" width="349" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="422" y="40" width="1" height="199"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="430" y="43" width="94" height="21"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ukupno grla]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="71" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviPocetak}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="197" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviPromena}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="223" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviKraj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="101" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviNabavljeno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="170" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviUginulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="434" y="125" width="41" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenoJaganjaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="438" y="148" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sviProdato}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="203" y="197" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{promenaOvaca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="283" y="197" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{promenaOvnova}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="369" y="197" width="33" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{promenaJaganjaca}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="124" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="0" y="22" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="14fa9326-dff7-44b0-8556-49169dc64cd2" x="682" y="22" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="cc870106-7cfd-40de-9d6d-2b3f0575912c" x="762" y="22" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

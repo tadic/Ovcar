@@ -7,6 +7,7 @@
 	<parameter name="filter2" class="java.lang.String"/>
 	<parameter name="filter3" class="java.lang.String"/>
 	<parameter name="filter4" class="java.lang.String"/>
+	<parameter name="count" class="java.lang.String"/>
 	<field name="oznaka" class="java.lang.String"/>
 	<field name="nadimak" class="java.lang.String"/>
 	<field name="procR" class="java.lang.String"/>
@@ -24,7 +25,7 @@
 	<title>
 		<band height="59">
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="62" y="0" width="168" height="35"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="62" y="0" width="133" height="35"/>
 				<textElement>
 					<font size="24"/>
 				</textElement>
@@ -77,6 +78,13 @@
 				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="702" y="44" width="100" height="15" forecolor="#660000"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$P{filter4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="195" y="0" width="79" height="35" forecolor="#660000"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{count}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -164,58 +172,80 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="0" y="1" width="60" height="20" forecolor="#660000"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="0" y="1" width="60" height="12" forecolor="#660000"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{oznaka}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="61" y="1" width="60" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="61" y="1" width="60" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nadimak}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="121" y="1" width="47" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="121" y="1" width="47" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{procR} + "%"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="168" y="1" width="52" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="168" y="1" width="52" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{starost}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="220" y="0" width="54" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="220" y="0" width="54" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ppol}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="274" y="1" width="73" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="274" y="1" width="73" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{poreklo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="347" y="0" width="67" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="347" y="0" width="67" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{ootac}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="414" y="0" width="70" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="414" y="0" width="70" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{mmajka}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="484" y="0" width="29" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="484" y="0" width="29" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{lleglo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="513" y="1" width="55" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="513" y="1" width="55" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" stretchType="RelativeToBandHeight" x="568" y="0" width="234" height="20"/>
-				<textElement/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" stretchType="RelativeToBandHeight" x="568" y="0" width="234" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{opis}]]></textFieldExpression>
 			</textField>
 		</band>

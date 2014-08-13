@@ -146,7 +146,6 @@ public class Logic {
     public Dan getDan(Integer id) {
         return db.getDan(id);
     }
-
    
 
 

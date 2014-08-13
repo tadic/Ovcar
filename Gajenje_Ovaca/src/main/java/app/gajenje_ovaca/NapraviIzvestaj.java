@@ -4,7 +4,12 @@
  */
 package app.gajenje_ovaca;
 
+import app.Reports.MesecniIzvestaj;
 import app.logic.Logic;
+import app.model.Aktivnost;
+import app.model.Dan;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -41,7 +46,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMesec = new javax.swing.JComboBox();
-        jMesec1 = new javax.swing.JComboBox();
+        jGodina = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -59,11 +64,11 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
             }
         });
 
-        jMesec1.setBackground(new java.awt.Color(0, 204, 204));
-        jMesec1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014" }));
-        jMesec1.addActionListener(new java.awt.event.ActionListener() {
+        jGodina.setBackground(new java.awt.Color(0, 204, 204));
+        jGodina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014" }));
+        jGodina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMesec1ActionPerformed(evt);
+                jGodinaActionPerformed(evt);
             }
         });
 
@@ -99,7 +104,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jMesec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jMesec1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jGodina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(475, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -117,7 +122,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jMesec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMesec1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jGodina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,12 +135,16 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMesecActionPerformed
 
-    private void jMesec1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMesec1ActionPerformed
+    private void jGodinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGodinaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMesec1ActionPerformed
+    }//GEN-LAST:event_jGodinaActionPerformed
 
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int mesec = jMesec.getSelectedIndex();
+        String godina = jGodina.getSelectedItem().toString();
+        //List<Aktivnost> listaDo = getAktivnostiDo(mesec, Integer.parseInt(godina));
+        new MesecniIzvestaj(logic, mesec, godina).create();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -145,9 +154,11 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jGodina;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JComboBox jMesec;
-    private javax.swing.JComboBox jMesec1;
     // End of variables declaration//GEN-END:variables
+
+
 }

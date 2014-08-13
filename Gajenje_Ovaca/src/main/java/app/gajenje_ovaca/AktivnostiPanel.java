@@ -4,6 +4,8 @@
  */
 package app.gajenje_ovaca;
 
+import app.Reports.ListaAktivnostiIzvestaj;
+import app.Reports.ListaOvacaIzvestaj;
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.BelezenjeAktivnosti;
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JButtonCellEditor;
 import app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti.JButtonRenderer;
@@ -133,7 +135,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         jTrazi2 = new javax.swing.JTextField();
         jCounter = new javax.swing.JLabel();
         jPrikazi = new javax.swing.JButton();
-        jSnimi1 = new javax.swing.JButton();
+        jStampaj = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -252,12 +254,12 @@ public class AktivnostiPanel extends javax.swing.JPanel {
             }
         });
 
-        jSnimi1.setBackground(new java.awt.Color(0, 255, 0));
-        jSnimi1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jSnimi1.setText("Štampaj");
-        jSnimi1.addActionListener(new java.awt.event.ActionListener() {
+        jStampaj.setBackground(new java.awt.Color(0, 255, 0));
+        jStampaj.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jStampaj.setText("Štampaj");
+        jStampaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSnimi1ActionPerformed(evt);
+                jStampajActionPerformed(evt);
             }
         });
 
@@ -283,7 +285,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jSnimi1)
+                        .addComponent(jStampaj)
                         .addGap(18, 18, 18)
                         .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -307,7 +309,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSnimi1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jStampaj, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -368,9 +370,22 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTraziActionPerformed
 
-    private void jSnimi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimi1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jSnimi1ActionPerformed
+    private void jStampajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajActionPerformed
+       ArrayList<Aktivnost> list = new ArrayList<Aktivnost>();
+        String f2 = jTrazi.getText();
+        String f3 = jTrazi1.getText();
+        String f4 = jTrazi2.getText();
+        for (int i=0; i<jTable1.getRowCount(); i++){
+            int selectedRow = jTable1.convertRowIndexToModel(i);
+            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,6).toString());
+            Aktivnost a = logic.getActivityWithId(id);
+            Dan d = logic.getDan(a.getDan().getId());
+            a.setDan(d);
+
+            list.add(a);
+        }
+        new ListaAktivnostiIzvestaj(list, f2, f3, f4).create();        // TODO add your handling code here:
+    }//GEN-LAST:event_jStampajActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
@@ -378,7 +393,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jPrikazi;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton jSnimi1;
+    private javax.swing.JButton jStampaj;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi;
     private javax.swing.JTextField jTrazi1;

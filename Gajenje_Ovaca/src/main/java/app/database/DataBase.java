@@ -12,6 +12,7 @@ import app.model.Ovca;
 import app.model.VrsteAktivnosti;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.Expr;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -254,6 +255,7 @@ public class DataBase {
     public Dan getDan(Integer id) {
         return server.find(Dan.class, id);
     }
+
 
 
 

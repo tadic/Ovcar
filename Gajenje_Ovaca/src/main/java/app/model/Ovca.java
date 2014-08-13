@@ -445,6 +445,48 @@ public String getPpol(){
         }
         return "" + n + " grla";
     }
+    private Integer parseMesec(String datum){
+        return Integer.parseInt(datum.substring(3, 5));
+    }
+    private Integer parseGodina(String datum){
+        return Integer.parseInt(datum.substring(6, 10));
+    }
+     public boolean wasJagnje(int mesec, int godina){
+        if (this.datumRodjenja!=null && datumRodjenja.length()>0){
+            int rmonth = Integer.parseInt(datumRodjenja.substring(3, 5));
+            int ryear = Integer.parseInt(datumRodjenja.substring(6));
+            return   (12*(godina-ryear) + mesec-rmonth)<7;
+        }    
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ovca other = (Ovca) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+     /**
+     *
+     * @param o
+     * @return
+     */
+
     
     
 }
