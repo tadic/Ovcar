@@ -40,6 +40,7 @@ public class MesecniIzvestaj {
     private Logic logic;
     private String godina;
     private Integer mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega;
+    private float sviRashodi, sviPrihodi;
     private List<String> meseci = Arrays.asList("Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul",
                                                 "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar");
     private Map<String, Object> params = new HashMap<String, Object>();
@@ -55,6 +56,8 @@ public class MesecniIzvestaj {
     
     public void create(){
         osnovniPodatci();
+        sviRashodi = 0;
+        sviPrihodi = 0;
         promenaJaganjaca = 0;
         promenaOvaca = 0;
         promenaOvnova = 0;
@@ -67,7 +70,7 @@ public class MesecniIzvestaj {
         try
         {
             String reportSource = "mesecniIzvestaj.jrxml";
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(getAktivnostiDo(++mesec, Integer.parseInt(godina)));
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(getAktivnostiU(mesec, Integer.parseInt(godina)));
             
             
             JasperDesign dis=JRXmlLoader.load(reportSource); 
@@ -206,10 +209,11 @@ public class MesecniIzvestaj {
     
     private void setNabavke(ArrayList<Aktivnost> nabavke){
         Integer jagnjadi = 0;
+        float trosak = 0;
         Integer ovnova = 0;
         Integer ovaca = 0;
         for (Aktivnost a: nabavke){
-            System.out.println("sd");
+            trosak += a.getTroskovi();
             for (NabavkaOvaca no: a.getNabavljenaGrla()){
                 Ovca o = logic.getOvca(no.getSheep().getId());
                 if (o.wasJagnje(mesec, Integer.parseInt(godina))) {
@@ -226,17 +230,19 @@ public class MesecniIzvestaj {
         params.put("nabavljenoOvnova", ovnova.toString()); 
         params.put("nabavljenoJaganjaca", jagnjadi.toString()); 
         params.put("nabavljenoOvaca", ovaca.toString()); 
+        params.put("nabavkaOvacaRashod", String.valueOf(Aktivnost.round(trosak, 0))); 
+        sviRashodi += trosak;
         promenaJaganjaca += jagnjadi;
         promenaOvaca += ovaca;
         promenaOvnova += ovnova;
         promenaSvega += svi;
     }
-        private void setProdaje(ArrayList<Aktivnost> prodaje){
+     private void setProdaje(ArrayList<Aktivnost> prodaje){
         Integer jagnjadi = 0;
         Integer ovnova = 0;
         Integer ovaca = 0;
         for (Aktivnost a: prodaje){
-            System.out.println("sd");
+            sviPrihodi += a.getTroskovi();
             for (Prodaja p: a.getProdaje()){
                 Ovca o = logic.getOvca(p.getOvca().getId());
                 if (o.wasJagnje(mesec, Integer.parseInt(godina))) {
@@ -248,11 +254,13 @@ public class MesecniIzvestaj {
                 }
             }
         }
+        
         Integer svi = jagnjadi + ovaca + ovnova;
         params.put("sviProdato", svi.toString()); 
         params.put("prodatoOvaca", ovaca.toString()); 
         params.put("prodatoJaganjaca", jagnjadi.toString());
-        params.put("prodatoOvnova", ovnova.toString()); 
+        params.put("prodatoOvnova", ovnova.toString());
+        params.put("prodajaPrihod", String.valueOf(Aktivnost.round(sviPrihodi, 1))); 
         promenaJaganjaca -= jagnjadi;
         promenaOvaca -= ovaca;
         promenaOvnova -= ovnova;
@@ -264,6 +272,7 @@ public class MesecniIzvestaj {
         ArrayList<Aktivnost> listaNabavki = new ArrayList<Aktivnost>();
         ArrayList<Aktivnost> listaUginuca = new ArrayList<Aktivnost>();
         ArrayList<Aktivnost> listaProdaja = new ArrayList<Aktivnost>();
+        ArrayList<Aktivnost> listaRashoda = new ArrayList<Aktivnost>();
         for (Aktivnost a: getAktivnostiU(mesec, Integer.parseInt(godina))){
              if (a.getVrstaAktivnosti().getName().equals("Jagnjenje")){
                 listaJagnjenja.add(a);
@@ -273,19 +282,44 @@ public class MesecniIzvestaj {
                  listaUginuca.add(a);
              } else if (a.getVrstaAktivnosti().getName().equals("Prodaja")){
                  listaProdaja.add(a);
+             }  else if (a.getVrstaAktivnosti().getName().equals("Radovi/nabavke")){
+                 listaRashoda.add(a);
              }
         }
         setJagnjenja(listaJagnjenja);
         setNabavke(listaNabavki);
         setUginuca(listaUginuca);
         setProdaje(listaProdaja);
+        setRashode(listaRashoda);
     }
     
+    private void setRashode(List<Aktivnost> listaRashoda){
+        float hrana = 0;
+        float objekat = 0;
+        float ostalo = 0;
+        for (Aktivnost a: listaRashoda){
+            if (a.getRadovi().getRazlog().equals("hrana")){
+                hrana += a.getTroskovi();
+            } else if (a.getRadovi().getRazlog().equals("hrana")){
+                objekat += a.getTroskovi();
+            } else {
+                ostalo += a.getTroskovi();
+            }       
+        }
+        sviRashodi += hrana + objekat + ostalo;
+        params.put("hranaRashod", String.valueOf(Aktivnost.round(hrana, 0))); 
+        params.put("objekatRashod", String.valueOf(Aktivnost.round(objekat, 0))); 
+        params.put("ostaloRashod", String.valueOf(Aktivnost.round(ostalo, 0))); 
+     //   params.put("hranaRashod", String.valueOf(Aktivnost.round(hrana, 1))); 
+        
+    }
     private void setPromene(){
        params.put("promenaOvaca", promenaOvaca.toString()); 
        params.put("promenaOvnova", promenaOvnova.toString()); 
        params.put("promenaJaganjaca", promenaJaganjaca.toString()); 
        params.put("sviPromena", promenaSvega.toString()); 
+       params.put("sviRashodi", String.valueOf(Aktivnost.round(sviRashodi, 1))); 
+       params.put("suma", String.valueOf(Aktivnost.round(sviPrihodi - sviRashodi, 1))); 
     }
     private void osnovniPodatci(){
         params.put("mesec", meseci.get(mesec)); 
