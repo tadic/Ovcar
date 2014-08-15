@@ -406,7 +406,7 @@
 				<text><![CDATA[UKUPNO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="398" y="70" width="95" height="35" forecolor="#660000"/>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="412" y="70" width="95" height="35" forecolor="#660000"/>
 				<textElement verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
@@ -492,7 +492,7 @@
 				<text><![CDATA[objekat i infr.]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="119" y="72" width="46" height="33" forecolor="#660000"/>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="129" y="72" width="46" height="33" forecolor="#660000"/>
 				<textElement verticalAlignment="Top">
 					<font size="18" isBold="false"/>
 				</textElement>
@@ -557,44 +557,44 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="64" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="c328c191-4432-49d5-b7e7-58ec86b3ac02" x="-11" y="44" width="54" height="14" backcolor="#CCCCCC"/>
+				<reportElement uuid="c328c191-4432-49d5-b7e7-58ec86b3ac02" mode="Opaque" x="-11" y="44" width="54" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[datum]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7dbeec41-ddbe-4064-b0dc-6d06395a99b9" x="40" y="44" width="70" height="14" backcolor="#CCCCCC"/>
+				<reportElement uuid="7dbeec41-ddbe-4064-b0dc-6d06395a99b9" mode="Opaque" x="40" y="44" width="78" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[vrstaAkt]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="acc68200-d57b-42a9-9702-52e09e491411" x="112" y="44" width="157" height="14" backcolor="#CCCCCC"/>
+				<reportElement uuid="acc68200-d57b-42a9-9702-52e09e491411" mode="Opaque" x="118" y="44" width="157" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[bilans]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bb82c294-7c3d-4df7-9715-f1e9ec9e42d1" x="257" y="45" width="47" height="14" backcolor="#CCCCCC"/>
+				<reportElement uuid="bb82c294-7c3d-4df7-9715-f1e9ec9e42d1" mode="Opaque" x="257" y="44" width="47" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[troskovi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7ea0b185-4dee-48c5-88dd-b2ed2096a683" x="307" y="44" width="68" height="14" backcolor="#CCCCCC"/>
+				<reportElement uuid="7ea0b185-4dee-48c5-88dd-b2ed2096a683" mode="Opaque" x="305" y="44" width="71" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[lokacija]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="61959943-2990-4c3d-9d1b-32b707a950a6" x="376" y="45" width="133" height="14" backcolor="#666666"/>
+				<reportElement uuid="61959943-2990-4c3d-9d1b-32b707a950a6" mode="Opaque" x="376" y="44" width="133" height="14" backcolor="#CCCCCC"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -626,7 +626,7 @@
 				<textFieldExpression><![CDATA[$F{vrstaAkt}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="7c52076d-ed0a-4289-b83a-22cda7e4f345" stretchType="RelativeToTallestObject" x="115" y="0" width="140" height="14"/>
+				<reportElement uuid="7c52076d-ed0a-4289-b83a-22cda7e4f345" stretchType="RelativeToTallestObject" x="120" y="-1" width="140" height="14"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
