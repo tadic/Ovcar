@@ -26,7 +26,7 @@
 		<band height="59">
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="62" y="0" width="133" height="35"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
 				<text><![CDATA[Lista ovaca]]></text>
@@ -80,8 +80,8 @@
 				<textFieldExpression><![CDATA[$P{filter4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="195" y="0" width="79" height="35" forecolor="#660000"/>
-				<textElement>
+				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="204" y="0" width="79" height="35" forecolor="#660000"/>
+				<textElement verticalAlignment="Middle">
 					<font size="22"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{count}]]></textFieldExpression>
@@ -170,7 +170,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
 				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="0" y="1" width="60" height="12" forecolor="#660000"/>
 				<textElement>
