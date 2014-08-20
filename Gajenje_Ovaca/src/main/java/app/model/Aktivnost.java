@@ -317,7 +317,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
         return this.getDan().toString();
     }
     public String getTrosak(){
-        return String.valueOf(Aktivnost.round(this.troskovi, 2));
+        return String.valueOf(Aktivnost.round(this.troskovi, 0));
     }
     
     
