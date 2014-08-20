@@ -494,7 +494,7 @@
 			<textField>
 				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="129" y="72" width="87" height="33" forecolor="#660000"/>
 				<textElement verticalAlignment="Middle">
-					<font size="18" isBold="false"/>
+					<font size="16" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{sviKraj} + "kom."]]></textFieldExpression>
 			</textField>
