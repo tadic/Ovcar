@@ -202,6 +202,7 @@ public String getPpol(){
     public String getOpis() {
             return opis;
     }
+    
 
     public void setOpis(String opis) {
             this.opis = opis;
@@ -254,6 +255,12 @@ public String getPpol(){
 
     public void setLinija(Linija linija) {
         this.linija = linija;
+    }
+    public String getLlinija(){
+        if (linija !=null){
+        return linija.getImeLinije();
+        }
+        return "nepoznata";
     }
 
     public void setLeglo(Object valueAt) {

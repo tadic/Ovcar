@@ -18,6 +18,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -845,7 +846,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
 
         jPanelLecenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lečenja (1)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
-        jTableLecenja.setFont(new java.awt.Font("Damascus", 0, 14)); // NOI18N
+        jTableLecenja.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTableLecenja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1019,7 +1020,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jPDFSnimiButton.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPDFSnimiButton.setText("Preuzmi PDF");
+        jPDFSnimiButton.setText("Štampaj");
         jPDFSnimiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPDFSnimiButtonActionPerformed(evt);
@@ -1271,8 +1272,10 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         ovca.setPracenje(jDosije.getText());
     }
     private void jPDFSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFSnimiButtonActionPerformed
-        if (jPDFSnimiButton.getText().equals("Preuzmi PDF")){
-            OvcaIzvestaj report = new OvcaIzvestaj(logic, ovca);
+        if (jPDFSnimiButton.getText().equals("Štampaj")){
+            ArrayList<Ovca> list = new ArrayList<Ovca>();
+            list.add(ovca);
+            OvcaIzvestaj report = new OvcaIzvestaj(logic, list);
             report.create();
         } else {
             azurirajOvcu();        

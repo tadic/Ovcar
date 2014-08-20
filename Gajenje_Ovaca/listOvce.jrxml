@@ -253,19 +253,24 @@
 	<pageFooter>
 		<band height="42">
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="0" y="22" width="140" height="20"/>
+				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="140" y="22" width="140" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="14fa9326-dff7-44b0-8556-49169dc64cd2" x="682" y="22" width="80" height="20"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Strana "+$V{PAGE_NUMBER}+" od"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement uuid="cc870106-7cfd-40de-9d6d-2b3f0575912c" x="762" y="22" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="35513bfc-8e97-4a81-b683-c26614ce5fbf" x="1" y="21" width="135" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Lista ovaca - izveštaj  -"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

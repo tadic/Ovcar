@@ -298,9 +298,9 @@ public class MesecniIzvestaj {
         float objekat = 0;
         float ostalo = 0;
         for (Aktivnost a: listaRashoda){
-            if (a.getRadovi().getRazlog().equals("hrana")){
+            if (a.getRadovi().getRazlog().equals("priprema/nabavka hrane")){
                 hrana += a.getTroskovi();
-            } else if (a.getRadovi().getRazlog().equals("hrana")){
+            } else if (a.getRadovi().getRazlog().equals("objekat i infrastruktura")){
                 objekat += a.getTroskovi();
             } else {
                 ostalo += a.getTroskovi();

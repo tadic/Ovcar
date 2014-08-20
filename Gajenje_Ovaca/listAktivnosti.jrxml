@@ -20,7 +20,7 @@
 	<title>
 		<band height="59">
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="62" y="0" width="182" height="35"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="52" y="0" width="182" height="35"/>
 				<textElement>
 					<font size="24"/>
 				</textElement>
@@ -63,7 +63,7 @@
 				<textFieldExpression><![CDATA[$P{filter4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="244" y="0" width="71" height="35"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="234" y="0" width="71" height="35"/>
 				<textElement>
 					<font size="22"/>
 				</textElement>
@@ -166,7 +166,7 @@
 	<pageFooter>
 		<band height="42">
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="0" y="22" width="140" height="20"/>
+				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="148" y="22" width="140" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -179,6 +179,11 @@
 				<reportElement uuid="cc870106-7cfd-40de-9d6d-2b3f0575912c" x="762" y="22" width="40" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="35513bfc-8e97-4a81-b683-c26614ce5fbf" x="1" y="21" width="147" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Lista aktivnosti - izveštaj  -"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
