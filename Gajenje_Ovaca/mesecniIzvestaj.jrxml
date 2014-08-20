@@ -89,7 +89,7 @@
 			</staticText>
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="410" y="148" width="40" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
@@ -250,7 +250,7 @@
 				<textFieldExpression><![CDATA[$P{suma}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="188" y="107" width="1" height="138"/>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="188" y="111" width="1" height="138"/>
 			</line>
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-14" y="181" width="77" height="16"/>
@@ -330,8 +330,8 @@
 				<textFieldExpression><![CDATA[$P{ovaca}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="409" y="181" width="40" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="410" y="181" width="40" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
@@ -364,8 +364,8 @@
 				<text><![CDATA[ojagnjeno]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="365" y="197" width="36" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="369" y="197" width="36" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
@@ -416,7 +416,7 @@
 				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="295" y="211" width="200" height="1" forecolor="#660000"/>
 			</line>
 			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="65" y="106" width="1" height="139"/>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="65" y="111" width="1" height="139"/>
 			</line>
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-40" y="231" width="103" height="20"/>
@@ -492,7 +492,7 @@
 				<text><![CDATA[objekat i infr.]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="120" y="72" width="87" height="33" forecolor="#660000"/>
+				<reportElement uuid="044d6999-f783-4576-8f9e-07e49e71eefb" x="129" y="72" width="87" height="33" forecolor="#660000"/>
 				<textElement verticalAlignment="Middle">
 					<font size="18" isBold="false"/>
 				</textElement>
@@ -535,7 +535,7 @@
 			</staticText>
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="410" y="165" width="40" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
@@ -549,7 +549,7 @@
 			</textField>
 			<staticText>
 				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="410" y="132" width="40" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
@@ -658,7 +658,7 @@
 	<pageFooter>
 		<band height="42">
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="75" y="22" width="140" height="20"/>
+				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="80" y="22" width="140" height="20"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
