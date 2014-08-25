@@ -65,7 +65,7 @@
 	<field name="mmajka" class="java.lang.String"/>
 	<field name="otac.status" class="java.lang.String"/>
 	<field name="status" class="java.lang.String"/>
-	<field name="vakcinacije" class="java.lang.String"/>
+	<field name="vakcinacije.razlog" class="java.lang.String"/>
 	<detail>
 		<band height="328" splitType="Stretch">
 			<staticText>
@@ -245,6 +245,16 @@
 					<font size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dosije}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="92de1aec-c095-4228-8601-b302a086f908" x="348" y="167" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[vakcinacije]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="713933bd-d918-4663-bc3d-eaf48b4f4fa7" x="448" y="167" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[""+$F{vakcinacije.razlog}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

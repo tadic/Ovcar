@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ovcaIzvestaj_subreport2" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="95fc184b-2a40-44bf-8fbf-9c84ac6abf47">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="napomena" class="java.lang.String"/>
+	<field name="razlog" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1abc2646-e7c8-442b-9b5c-c3b31fcfbb65" x="328" y="59" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[napomena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="972703e1-c6a2-476e-a1c5-afffc90e6246" x="231" y="59" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[razlog]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="be99f1b6-a8dc-4716-b6ea-06787418b224" x="331" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{napomena}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bb83d6f4-deb1-48c4-9a37-57db44bfae7f" x="231" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{razlog}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
