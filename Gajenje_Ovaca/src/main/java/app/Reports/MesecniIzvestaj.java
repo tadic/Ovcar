@@ -40,7 +40,7 @@ public class MesecniIzvestaj {
     private Logic logic;
     private String godina;
     private Integer mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega;
-    private float sviRashodi, sviPrihodi;
+    private float sviRashodi, sviPrihodi, nabavkaOvacaRashod;
     private List<String> meseci = Arrays.asList("Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul",
                                                 "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar");
     private Map<String, Object> params = new HashMap<String, Object>();
@@ -62,6 +62,7 @@ public class MesecniIzvestaj {
         promenaOvaca = 0;
         promenaOvnova = 0;
         promenaSvega = 0;
+        nabavkaOvacaRashod = 0;
         setPodatkeDoZadatogDatuma(mesec, "ovaca", "ovnova", "jaganjaca", "sviPocetak");
         setPodatkeDoZadatogDatuma(mesec+1, "ovacaKraj", "ovnovaKraj", "jaganjacaKraj", "sviKraj");
         setPodatkeZaTrazeniMesec();
@@ -209,11 +210,10 @@ public class MesecniIzvestaj {
     
     private void setNabavke(ArrayList<Aktivnost> nabavke){
         Integer jagnjadi = 0;
-        float trosak = 0;
         Integer ovnova = 0;
         Integer ovaca = 0;
         for (Aktivnost a: nabavke){
-            trosak += a.getTroskovi();
+            nabavkaOvacaRashod += a.getTroskovi();
             for (NabavkaOvaca no: a.getNabavljenaGrla()){
                 Ovca o = logic.getOvca(no.getSheep().getId());
                 if (o.wasJagnje(mesec, Integer.parseInt(godina))) {
@@ -230,8 +230,7 @@ public class MesecniIzvestaj {
         params.put("nabavljenoOvnova", ovnova.toString()); 
         params.put("nabavljenoJaganjaca", jagnjadi.toString()); 
         params.put("nabavljenoOvaca", ovaca.toString()); 
-        params.put("nabavkaOvacaRashod", String.valueOf(Aktivnost.round(trosak, 0))); 
-        sviRashodi += trosak;
+
         promenaJaganjaca += jagnjadi;
         promenaOvaca += ovaca;
         promenaOvnova += ovnova;
@@ -302,10 +301,14 @@ public class MesecniIzvestaj {
                 hrana += a.getTroskovi();
             } else if (a.getRadovi().getRazlog().equals("objekat i infrastruktura")){
                 objekat += a.getTroskovi();
+            } else if (a.getRadovi().getRazlog().equals("kapara za ovce")) {
+                nabavkaOvacaRashod += a.getTroskovi();
             } else {
                 ostalo += a.getTroskovi();
             }       
         }
+        params.put("nabavkaOvacaRashod", String.valueOf(Aktivnost.round(nabavkaOvacaRashod, 0))); 
+        sviRashodi += nabavkaOvacaRashod;
         sviRashodi += hrana + objekat + ostalo;
         params.put("hranaRashod", String.valueOf(Aktivnost.round(hrana, 0))); 
         params.put("objekatRashod", String.valueOf(Aktivnost.round(objekat, 0))); 

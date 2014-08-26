@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -419,7 +420,7 @@ public class GodisnjiIzvestaj {
                 ostalo += a.getTroskovi();
             }       
         }
-        sviRashodi += hrana + objekat + ostalo;
+        sviRashodi += hrana + objekat + ostalo + kapara;
         params.put("hranaRashod", Aktivnost.round(hrana, 0)); 
         params.put("nabavkaOvacaRashod", (Float)params.get("nabavkaOvacaRashod") + Aktivnost.round(kapara, 0)); 
         params.put("objekatRashod", Aktivnost.round(objekat, 0)); 
@@ -436,6 +437,7 @@ public class GodisnjiIzvestaj {
        params.put("suma", String.valueOf(Aktivnost.round(sviPrihodi - sviRashodi, 1))); 
     }
     private void osnovniPodatci(){
+        
         params.put("mesec", meseci.get(mesec)); 
         params.put("godina", godina); 
         params.put("startDate", (new java.util.Date()).toString());
