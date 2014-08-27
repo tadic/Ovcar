@@ -108,8 +108,7 @@ public class GodisnjiIzvestaj {
                         m.setOjagnjeno(m.getOjagnjeno()+1);
                         m.setBrojOvaca(m.getBrojOvaca()+1);
                         if (j.getSheep().getProcenatR()==100.0){
-                            m.setBrojR(m.getBrojR()+1);
-                           
+                            m.setBrojR(m.getBrojR()+1);  
                         }
                     }else {
                          m.setOjagnjenoMrtvih(m.getOjagnjenoMrtvih()+1);
@@ -129,6 +128,9 @@ public class GodisnjiIzvestaj {
                     m.setPrihodi(a.getTroskovi());
             } else if (a.getVrstaAktivnosti().getName().equals("Uginuce")){
                     m.setBrojOvaca(m.getBrojOvaca() - 1);
+                    if (a.getUginuce().getO().getProcenatR()==100.0){
+                            m.setBrojR(m.getBrojR()-1);  
+                     }
             } else if (a.getVrstaAktivnosti().getName().equals("Radovi/nabavke")){
                 if (a.getRadovi().getRazlog().equals("priprema/nabavka hrane")){
                     m.setRashodiHrana(m.getRashodiHrana()+a.getTroskovi());
