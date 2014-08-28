@@ -450,7 +450,9 @@ private JPanel mainPanel;
         jNapomena.setText(aktivnost.getNapomena());
         jTextTroskovi.setText(Float.toString(aktivnost.getTroskovi()));
 //setTableRows();
-         
+        if (aktivnost.getProdaje()==null || aktivnost.getProdaje().isEmpty()){
+            jLokacija.setText("s.Jasenica");
+        }
         paintColumns();
         resetTable(logic.getSvaZivaGrla());
         

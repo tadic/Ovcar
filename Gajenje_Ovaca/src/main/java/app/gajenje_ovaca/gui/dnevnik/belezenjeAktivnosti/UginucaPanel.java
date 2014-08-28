@@ -229,7 +229,7 @@ private JPanel mainPanel;
 
     
     private void setPanel(){
-        jGrlo.setModel(new DefaultComboBoxModel(logic.getSvaZivaGrla().toArray()));
+        jGrlo.setModel(new DefaultComboBoxModel(logic.getAllSheep().toArray()));
         AutoCompleteDecorator.decorate(this.jGrlo);
         jNameOfActivity.setText(aktivnost.getVrstaAktivnosti().getName());
         jColorLabel.setBackground(new Color(aktivnost.getVrstaAktivnosti().getColor()));
@@ -240,8 +240,13 @@ private JPanel mainPanel;
     }
     private void fillUginuce(){
         if (aktivnost.getUginuce()!=null){
-            jGrlo.setSelectedItem(aktivnost.getUginuce().getO().toString());
+            Ovca uginulaOvca = logic.getOvca(aktivnost.getUginuce().getO().getId());
+            if (uginulaOvca!=null){
+            jGrlo.setSelectedItem(uginulaOvca.toString());
+            }
             jRazlog.setText(aktivnost.getUginuce().getRazlog());
+        } else {
+            jLokacija.setText("s.Jasenica");
         }
     }
 

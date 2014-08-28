@@ -534,6 +534,8 @@ private JPanel mainPanel;
             jRadioButton1.setSelected(aktivnost.getVakcinacije().get(0).getJelRedovno());
             jRadioButton2.setSelected(!aktivnost.getVakcinacije().get(0).getJelRedovno());
             applayFilters();
+        } else {
+            jLokacija.setText("s.Jasenica");
         }
         
     }

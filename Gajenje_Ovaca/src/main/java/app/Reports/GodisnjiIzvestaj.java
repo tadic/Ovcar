@@ -125,6 +125,11 @@ public class GodisnjiIzvestaj {
                 }
             } else if (a.getVrstaAktivnosti().getName().equals("Prodaja")){
                     m.setBrojOvaca(m.getBrojOvaca() - a.getProdaje().size());
+                    for (Prodaja p:a.getProdaje()){
+                        if (p.getOvca().getProcenatR()==100.0){
+                            m.setBrojR(m.getBrojR()-1);  
+                        }
+                    }
                     m.setPrihodi(a.getTroskovi());
             } else if (a.getVrstaAktivnosti().getName().equals("Uginuce")){
                     m.setBrojOvaca(m.getBrojOvaca() - 1);

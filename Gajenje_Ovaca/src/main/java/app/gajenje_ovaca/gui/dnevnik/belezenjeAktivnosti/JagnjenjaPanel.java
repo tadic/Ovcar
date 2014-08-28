@@ -4,34 +4,22 @@
  */
 package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 
-import app.gajenje_ovaca.OvcaPrikaz;
 import app.gajenje_ovaca.gui.dnevnik.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Jagnjenje;
-import app.model.NabavkaOvaca;
 import app.model.Ovca;
-import apple.laf.JRSUIConstants;
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.BoxLayout;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -249,6 +237,8 @@ private JPanel mainPanel;
         if (jagnjenjePanel.getComponents().length>0){
             JagnjenjePanel jp = (JagnjenjePanel) jagnjenjePanel.getComponent(0);
             jp.uvecajSe();
+        } else {
+            jLokacija.setText("s.Jasenica");
         }
         //setTableRows();
         

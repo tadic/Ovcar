@@ -111,7 +111,7 @@ private JPanel mainPanel;
 
         jRazog.setEditable(true);
         jRazog.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jRazog.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "priprema/nabavka hrane", "objekat i infrastruktura", "troškovi prevoza", " ", " " }));
+        jRazog.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "priprema/nabavka hrane", "objekat i infrastruktura", "troškovi prevoza", "prostirka", "nabavka lekova", "kapara za ovce", " ", " " }));
         jRazog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRazogActionPerformed(evt);
@@ -271,6 +271,8 @@ private JPanel mainPanel;
             jRazog.setSelectedItem(aktivnost.getRadovi().getRazlog());
             jSta.setText(aktivnost.getRadovi().getStaSeRadilo_Nabavilo());
             jKolicina.setText(aktivnost.getRadovi().getKolicina());
+        } else {
+            jLokacija.setText("s.Jasenica");
         }
     }
 
