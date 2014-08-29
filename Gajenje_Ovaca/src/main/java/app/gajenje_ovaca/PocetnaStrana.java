@@ -9,27 +9,45 @@ import app.logic.Logic;
 import app.model.Aktivnost;
 import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 
 public class PocetnaStrana extends javax.swing.JFrame {
     Logic logic;
     
     public PocetnaStrana() {
+        login();
         DataBase dataBase = new DataBase(false);
         logic = new Logic(dataBase);
         getContentPane().setBackground(Color.white);
         setTitle("Farma ovaca");
         initComponents();
-     mainPanel.setLayout(new GridLayout());
-     mainPanel.add(new Dnevnik(logic, mainPanel));
-     mainPanel.revalidate();
-     jToolBar1.setOpaque(true);
-     //jToolBar1.setBackground(Color.yellow);
-     repaint();
-     setVisible(true);
+        mainPanel.setLayout(new GridLayout());
+        mainPanel.add(new Dnevnik(logic, mainPanel));
+        mainPanel.revalidate();
+        jToolBar1.setOpaque(true);
+        repaint();
+        setVisible(true);
     // OvcaIzvestaj.createRaport();
         
+    }
+    private void login(){
+        JPasswordField pf = new JPasswordField();
+        while (true){
+        int okCxl = JOptionPane.showConfirmDialog(null, pf, "Lozinka", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (okCxl == JOptionPane.OK_OPTION) {
+              String password = new String(pf.getPassword());
+              if (password.equals("r")){
+                  break;
+              } else {
+                  pf.setText("");
+              }
+            } else {
+                System.exit(0);
+            }
+        }
     }
     
     private void setJagnjenja(Aktivnost aktivnost){
