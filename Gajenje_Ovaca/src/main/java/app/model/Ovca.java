@@ -284,7 +284,7 @@ public String getPpol(){
             int ryear = Integer.parseInt(datumRodjenja.substring(6));
             return   12*(cyear-ryear) + cmonth-rmonth;
         }
-        return null;
+        return 0;
     }
     
     public String getStarost(){

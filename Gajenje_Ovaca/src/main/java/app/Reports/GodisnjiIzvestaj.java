@@ -57,6 +57,7 @@ public class GodisnjiIzvestaj {
     
     public void create(){
         osnovniPodatci();
+        starosnaRaspodela();
         jagnjenja = 0;
         sviRashodi = 0;
         sviPrihodi = 0;
@@ -96,6 +97,31 @@ public class GodisnjiIzvestaj {
         {
             ex.printStackTrace();
         }
+    }
+    private void starosnaRaspodela(){
+        List<Ovca> list = logic.getSvaZivaGrla();
+        Integer jaganjci=0;
+        Integer ovceDoDveGod = 0;
+        Integer ovceOdDveDoCetiri=0;
+        Integer ovceOdCetiriDoSest=0;
+        Integer ovcePrekoSest=0;
+        for (Ovca o:list){
+            if (o.starostUMesecima()<7){
+                jaganjci++;
+            } else {
+                switch (o.starostUMesecima()/24){
+                    case 0: ovceDoDveGod ++; break;
+                    case 1: ovceOdDveDoCetiri ++; break;
+                    case 2: ovceOdCetiriDoSest ++; break;
+                    default: ovcePrekoSest ++; break;
+                }
+            }
+        }
+        params.put("jagnjadi", jaganjci); 
+        params.put("ovceDoDveGod", ovceDoDveGod); 
+        params.put("ovceOdDveDoCetiriGod", ovceOdDveDoCetiri);
+        params.put("ovceOdCetiriDoSestGod", ovceOdCetiriDoSest);
+        params.put("ovcePrekoSestGod", ovcePrekoSest);        
     }
     
     private Meseci popuniMesec(String naziv, List<Aktivnost> aktivnosti){
