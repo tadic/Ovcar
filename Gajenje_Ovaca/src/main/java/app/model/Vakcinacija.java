@@ -5,6 +5,7 @@
 package app.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -17,7 +18,7 @@ public class Vakcinacija {
     @Id
     private Integer id;
     
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     private Aktivnost aktivnost;
     
     @ManyToOne

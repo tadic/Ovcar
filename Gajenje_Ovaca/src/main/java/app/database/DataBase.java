@@ -61,7 +61,10 @@ public class DataBase {
 
     public List<Ovca> getAllSheep() {
          List<Ovca> list = server.find(Ovca.class).findList();
-         System.out.println("hei ima li koga lista je ovde "+ server.find(Ovca.class).findRowCount()+" "+list.size());
+         for(Ovca o:list){
+             o.getOtac();
+             o.getMajka();
+         }
          return list;
     }
 

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -40,9 +41,9 @@ public class Ovca {
     private float procenatR;
     private String datumRodjenja;
     private char pol; // m ili z
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Ovca otac; 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Ovca majka;
     private String opis;
     private String pracenje;

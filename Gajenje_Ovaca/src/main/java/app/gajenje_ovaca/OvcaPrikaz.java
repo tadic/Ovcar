@@ -12,7 +12,7 @@ import app.model.Jagnjenje;
 import app.model.Linija;
 import app.model.Ovca;
 import app.model.Vakcinacija;
-import com.apple.laf.AquaTextFieldBorder;
+import com.sun.java.swing.plaf.motif.MotifBorders;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -167,13 +166,14 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     if (j.getSheep().getPol()=='m'){
                         brojMuskih++;
                     }
-                    datum = j.getAktivnost().getDan().toString();
+                    datum = logic.getDan(j.getAktivnost().getDan().getId()).toString();
                 }
             }
             insertRowInTable(tm, vectorFrom(datum, brojJagnjadi, zivih, brojJagnjadi-brojMuskih, napomena));
             jTableJagnjenja.setModel(tm);        
         }
-         setTitleToPanel(jPanelJagnjenja, "Jagnjenja (" + tm.getRowCount() + ")");
+      
+         setTitleToPanel(jPanelJagnjenja, "Jagnjenja (" + tm.getRowCount() + ") - " + o.procenatJagnjenja());
          setBoldFontToColumn(jTableJagnjenja, 1);
     }
     
@@ -189,10 +189,10 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         tm2.setRowCount(0);
         for (Vakcinacija v: o.getVakcinacije()){
             if (v.getJelRedovno()){
-                insertRowInTable(tm1, vectorFrom(v.getAktivnost().getDan().toString(), 
+                insertRowInTable(tm1, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
                         v.getRazlog(), v.getSredstvo(), v.getNapomena()));
             } else {
-                insertRowInTable(tm2, vectorFrom(v.getAktivnost().getDan().toString(), 
+                insertRowInTable(tm2, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
                         v.getRazlog(), v.getSredstvo(), v.getNapomena()));
             }
         }
@@ -304,10 +304,10 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jOtkaziButton = new javax.swing.JButton();
         jIzmeniButton = new javax.swing.JButton();
 
-        jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTezina.setEditable(false);
-        jTezina.setFont(new java.awt.Font("Damascus", 0, 14)); // NOI18N
+        jTezina.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTezina.setForeground(new java.awt.Color(0, 0, 153));
         jTezina.setText("    ");
         jTezina.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +454,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanelNabavka.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Nabavljena 24-12-2014 s. Korićani", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelNabavka.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Nabavljena 24-12-2014 s. Korićani", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jCenaNabavke.setEditable(false);
         jCenaNabavke.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -525,7 +525,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanelDosije.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Dosije", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelDosije.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Dosije", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jDosije.setEditable(false);
         jDosije.setColumns(20);
@@ -750,7 +750,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jPanelJagnjenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Jagnjenja (2)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelJagnjenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Jagnjenja (2)", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTableJagnjenja.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTableJagnjenja.setModel(new javax.swing.table.DefaultTableModel(
@@ -796,10 +796,21 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelVakcinacije.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Redovna vakcinacija (5)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelVakcinacije.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Redovna vakcinacija (5)", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTableVakcinacije.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -844,7 +855,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelLecenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lečenja (1)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelLecenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lečenja (1)", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
         jTableLecenja.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTableLecenja.setModel(new javax.swing.table.DefaultTableModel(
@@ -855,7 +866,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Datum", "Razlog", "Lek", "Napomena"
             }
         ));
         jTableLecenja.setEnabled(false);
@@ -878,7 +889,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanelProdaja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prodata 25-09-2015", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelProdaja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prodata 25-09-2015", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
         jPanelProdaja.setEnabled(false);
 
         jOznaka8.setEditable(false);
@@ -971,7 +982,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .addComponent(jOznaka9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanelUginuce.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Uginula 25-09-2015", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+        jPanelUginuce.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Uginula 25-09-2015", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
         jPanelUginuce.setForeground(new java.awt.Color(0, 0, 153));
 
         jRazlogUginuca.setEditable(false);
@@ -1199,7 +1210,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
 
     private void prepareForEdit(JTextField jtext){
         jtext.setEditable(true);
-        jtext.setBorder(new AquaTextFieldBorder());
+        jtext.setBorder(new MotifBorders.BevelBorder(true, Color.darkGray, Color.lightGray));
         jtext.setBackground(new Color(245,245,200));
     }
     private void disableEdit(JTextField jtext){
