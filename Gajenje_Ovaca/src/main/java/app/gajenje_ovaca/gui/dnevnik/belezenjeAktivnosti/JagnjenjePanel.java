@@ -7,19 +7,16 @@ package app.gajenje_ovaca.gui.dnevnik.belezenjeAktivnosti;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Jagnjenje;
-import app.model.NabavkaOvaca;
 import app.model.Ovca;
-import app.model.VrsteAktivnosti;
+import app.config.*;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.ComboBoxEditor;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -28,6 +25,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  */
 public class JagnjenjePanel extends javax.swing.JPanel {
 private List<Jagnjenje> listaJagnjenja;
+private List<Ovca> listaOvaca, listaOvnova;
 private  Logic logic;
 private JagnjenjaPanel parent;
     /**
@@ -57,10 +55,6 @@ private JagnjenjaPanel parent;
     private void fillPanel(){
       //  System.out.println("Velicina1 liste: "+listaJagnjenja.size());
         if (listaJagnjenja!=null && !listaJagnjenja.isEmpty()){
-           
-           // System.out.println("Velicina2 liste: "+listaJagnjenja.size());
-            jOvca.setSelectedItem(listaJagnjenja.get(0).getOvca().toString());
-            jOvan.setSelectedItem(listaJagnjenja.get(0).getSheep().getOtac().toString());
             DefaultTableModel tb = (DefaultTableModel) jTableJagnjaci.getModel();
             int n=1;
             
@@ -72,6 +66,7 @@ private JagnjenjaPanel parent;
              jSpinField2.setValue(listaJagnjenja.size());
         }
     }
+    
     private Vector vectorFrom(Jagnjenje j, int n){
         Vector v = new Vector();
         v.add(n);
@@ -88,30 +83,36 @@ private JagnjenjaPanel parent;
     }
     
     private void setComboBox(){
-        jOvca.setModel(new DefaultComboBoxModel(ovceZaJagnjenje().toArray()));
-        jOvan.setModel(new DefaultComboBoxModel(logic.listaOvnova().toArray()));
+        listaOvaca = Arrays.asList(ovceZaJagnjenje());
+        jOvca.setModel(new MyComboBoxModel(ovceZaJagnjenje()));
+        listaOvnova = logic.listaOvnova();
+        jOvan.setModel(new MyComboBoxModel(logic.listaOvnova().toArray(new Ovca[listaOvnova.size()])));
+        if (listaJagnjenja!=null && !listaJagnjenja.isEmpty()){
+                   Ovca ovca = listaJagnjenja.get(0).getOvca();
+                   Ovca otac = listaJagnjenja.get(0).getSheep().getOtac();
+                   jOvca.setSelectedItem(ovca);
+                   jOvan.setSelectedItem(otac);
+        }
     }
     
-    private ArrayList<String> ovceZaJagnjenje(){
-       ArrayList<String> list = new ArrayList<String>();
-       System.out.println("velicina liste" + logic);
-       for (Ovca ovca:logic.getOvceZaJagnjenje()){
-               list.add(ovca.toString());
-       }
-       return list;
+    private Ovca[] ovceZaJagnjenje(){
+       List<Ovca> list = logic.getOvceZaJagnjenje();
+       Ovca[] olist = list.toArray(new Ovca[list.size()]);
+       
+       return olist;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel14 = new javax.swing.JLabel();
-        jOvca = new javax.swing.JComboBox();
+        jOvca = new javax.swing.JComboBox<Ovca>();
         jLabel15 = new javax.swing.JLabel();
         jSpinField2 = new com.toedter.components.JSpinField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableJagnjaci = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
-        jOvan = new javax.swing.JComboBox();
+        jOvan = new javax.swing.JComboBox<Ovca>();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
@@ -134,7 +135,6 @@ private JagnjenjaPanel parent;
         jLabel14.setText("Ovca:");
 
         jOvca.setEditable(true);
-        jOvca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "jedan", "dva", "tri", "cetri" }));
         jOvca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOvcaActionPerformed(evt);
@@ -153,6 +153,7 @@ private JagnjenjaPanel parent;
             }
         });
 
+        jTableJagnjaci.setAutoCreateRowSorter(true);
         jTableJagnjaci.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jTableJagnjaci.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,7 +178,6 @@ private JagnjenjaPanel parent;
                 return canEdit [columnIndex];
             }
         });
-        jTableJagnjaci.setAutoCreateRowSorter(true);
         jTableJagnjaci.setColumnSelectionAllowed(true);
         jTableJagnjaci.setRowHeight(30);
         jTableJagnjaci.setRowMargin(0);
@@ -200,7 +200,6 @@ private JagnjenjaPanel parent;
         jLabel16.setText("Otac");
 
         jOvan.setEditable(true);
-        jOvan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nepoznat" }));
         jOvan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jOvanActionPerformed(evt);
@@ -279,10 +278,11 @@ private JagnjenjaPanel parent;
                 }
             } 
     }//GEN-LAST:event_jSpinField2PropertyChange
-
+//problem
     private float calculatePercentR(){
-        Ovca majka = logic.getOvca(Ovca.parseOznaka(jOvca.getSelectedItem().toString()));
-        Ovca otac = logic.getOvca(Ovca.parseOznaka(jOvan.getSelectedItem().toString()));
+        Ovca majka;
+        majka = (Ovca) jOvca.getSelectedItem();
+        Ovca otac = (Ovca) jOvan.getSelectedItem();
         float percentR = 0;
         if (otac!=null && majka!=null){
             percentR = Aktivnost.round((majka.getProcenatR()+otac.getProcenatR())/2, 1);
@@ -368,11 +368,11 @@ private JagnjenjaPanel parent;
     
     public ArrayList<Jagnjenje> getJagnjenja(){
         ArrayList<Jagnjenje> list = new ArrayList<Jagnjenje>();
-        Ovca majka = logic.getOvca(Ovca.parseOznaka(jOvca.getSelectedItem().toString()));
+        Ovca majka = (Ovca) jOvca.getSelectedItem();
+        Ovca otac = (Ovca) jOvan.getSelectedItem();
         if (majka==null){
             return null;
         }
-        Ovca otac = logic.getOvca(Ovca.parseOznaka(jOvan.getSelectedItem().toString()));
         if (otac==null){
                 otac = new Ovca("zamišljen", Ovca.parseOznaka(jOvan.getSelectedItem().toString()), 'm');
         }
@@ -397,8 +397,8 @@ private JagnjenjaPanel parent;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JComboBox jOvan;
-    private javax.swing.JComboBox jOvca;
+    private javax.swing.JComboBox<Ovca> jOvan;
+    private javax.swing.JComboBox<Ovca> jOvca;
     private javax.swing.JScrollPane jScrollPane2;
     private com.toedter.components.JSpinField jSpinField2;
     private javax.swing.JTable jTableJagnjaci;

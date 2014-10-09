@@ -107,9 +107,9 @@ public class Logic {
     public List<Ovca> getAllSheep() {
         return db.getAllSheep();
     }
-    public Ovca getOvca(String oznaka) {
-       return db.getOvca(oznaka);
-    }
+//    public Ovca getOvca(String oznaka) {
+//       return db.getOvca(oznaka);
+//    }
 
     public void updateOvca(Ovca ovca) {
         db.update(ovca);

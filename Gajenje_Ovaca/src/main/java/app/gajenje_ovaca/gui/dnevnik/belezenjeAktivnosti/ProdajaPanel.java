@@ -98,7 +98,6 @@ private JPanel mainPanel;
 
         jminutaPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "15", "30", "45"}));
         jminutaPocetak.setAutoscrolls(true);
-        jminutaPocetak.setOpaque(true);
         jminutaPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jminutaPocetakStateChanged(evt);
@@ -133,7 +132,6 @@ private JPanel mainPanel;
         jColorLabel.setOpaque(true);
 
         jsatiPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}));
-        jsatiPocetak.setOpaque(true);
         jsatiPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jsatiPocetakStateChanged(evt);
@@ -196,20 +194,21 @@ private JPanel mainPanel;
             }
         });
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "nadimak", "oznaka", "pol", "starost", "težina", "cena po kg(€)", "cena €", "kupac", "napomena", "aktuelno", "selekcija"
+                "nadimak", "oznaka", "pol", "starost", "težina", "cena po kg(€)", "cena €", "kupac", "napomena", "aktuelno", "selekcija", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true, false, true
+                false, false, false, false, true, true, true, true, true, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,7 +219,6 @@ private JPanel mainPanel;
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoCreateRowSorter(true);
         jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowHeight(30);
         jTable1.setRowMargin(0);
@@ -236,6 +234,9 @@ private JPanel mainPanel;
         jTable1.getColumnModel().getColumn(8).setResizable(false);
         jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(10).setMaxWidth(60);
+        jTable1.getColumnModel().getColumn(11).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(2);
+        jTable1.getColumnModel().getColumn(11).setMaxWidth(2);
 
         jLabel10.setText("_________________________________________________");
 
@@ -555,7 +556,7 @@ private JPanel mainPanel;
 
     private Prodaja pickProdaja(TableModel table, int n){
         Prodaja p = new Prodaja();
-        Ovca o = logic.getOvca(table.getValueAt(n, 1).toString());
+        Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 11).toString()));
         p.setTezina((table.getValueAt(n, 4)));
         p.setCenaKg((table.getValueAt(n, 5)));
         p.setCenaGrla((table.getValueAt(n, 6)));
@@ -647,6 +648,7 @@ private JPanel mainPanel;
             v.add(o.getAktuelno());
             v.add(true);
         }
+        v.add(o.getId());
         return v;
     }
     

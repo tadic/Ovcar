@@ -242,7 +242,7 @@ private JPanel mainPanel;
         if (aktivnost.getUginuce()!=null){
             Ovca uginulaOvca = logic.getOvca(aktivnost.getUginuce().getO().getId());
             if (uginulaOvca!=null){
-            jGrlo.setSelectedItem(uginulaOvca.toString());
+            jGrlo.setSelectedItem(uginulaOvca);
             }
             jRazlog.setText(aktivnost.getUginuce().getRazlog());
         } else {
@@ -272,12 +272,13 @@ private JPanel mainPanel;
         }
     }//GEN-LAST:event_jSnimiButtonActionPerformed
 
-
+//problem
     private boolean pickUginuce(){
         String oznaka = Ovca.parseOznaka(jGrlo.getSelectedItem().toString());
+        Ovca o = (Ovca)jGrlo.getSelectedItem();
         Uginuce uginuce = new Uginuce();
         System.out.println("Parsirana oznaka: " + oznaka);
-        uginuce.setO(logic.getOvca(oznaka));
+        uginuce.setO(o);
         uginuce.setRazlog(jRazlog.getText());
         aktivnost.setUginuce(uginuce);
         return uginuce.getO()!=null;
