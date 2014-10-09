@@ -173,8 +173,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jLabel2.setSize(new java.awt.Dimension(40, 16));
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTable1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jTable1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -201,7 +202,6 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoCreateRowSorter(true);
         jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowHeight(35);
         jTable1.setRowMargin(2);
@@ -225,11 +225,12 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jTable1.getColumnModel().getColumn(0).setMinWidth(100);
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(90);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(0).setMaxWidth(120);
-        jTable1.getColumnModel().getColumn(1).setMinWidth(35);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(1).setMinWidth(80);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(200);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTable1.getColumnModel().getColumn(2).setMaxWidth(60);
         jTable1.getColumnModel().getColumn(3).setMinWidth(5);
@@ -250,6 +251,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(11).setMinWidth(0);
         jTable1.getColumnModel().getColumn(11).setPreferredWidth(0);
         jTable1.getColumnModel().getColumn(11).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(13).setMinWidth(50);
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(13).setMaxWidth(80);
 
         jNaFarmi.setSelected(true);
         jNaFarmi.setText("na farmi");
