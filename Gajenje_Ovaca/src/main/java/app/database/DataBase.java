@@ -10,12 +10,8 @@ import app.model.Linija;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.VrsteAktivnosti;
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.Expr;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**

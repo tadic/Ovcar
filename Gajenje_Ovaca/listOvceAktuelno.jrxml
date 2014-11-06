@@ -99,56 +99,56 @@
 				<text><![CDATA[oznaka]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="60" y="0" width="60" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="60" y="0" width="76" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[nadimak]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="120" y="0" width="47" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="136" y="0" width="47" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[% R]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="167" y="0" width="53" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="183" y="0" width="53" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[starost]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="220" y="0" width="54" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="237" y="0" width="54" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[pol]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="274" y="0" width="73" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="279" y="0" width="73" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[poreklo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="336" y="0" width="29" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="351" y="0" width="29" height="20" backcolor="#CCCCCC"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[leglo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="365" y="0" width="60" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="381" y="0" width="60" height="20" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="426" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="433" y="0" width="100" height="20" backcolor="#CCCCCC"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
@@ -166,56 +166,56 @@
 				<textFieldExpression><![CDATA[$F{oznaka}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="61" y="1" width="60" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="60" y="1" width="78" height="12"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nadimak}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="121" y="1" width="47" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="138" y="1" width="46" height="12"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{procR} + "%"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="168" y="1" width="52" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="183" y="1" width="52" height="12"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{starost}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="220" y="0" width="54" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="237" y="0" width="45" height="12"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ppol}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="274" y="1" width="73" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="282" y="1" width="73" height="12"/>
 				<textElement>
-					<font size="9"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{poreklo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="344" y="0" width="29" height="12"/>
-				<textElement>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="353" y="0" width="29" height="12"/>
+				<textElement textAlignment="Center">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lleglo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="366" y="1" width="55" height="12"/>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="378" y="1" width="55" height="12"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9650bde7-bb2c-4fcf-9cf7-f04c079737cf" x="428" y="0" width="100" height="13"/>
+				<reportElement uuid="9650bde7-bb2c-4fcf-9cf7-f04c079737cf" x="434" y="0" width="100" height="13"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{aktuelno}]]></textFieldExpression>
 			</textField>
