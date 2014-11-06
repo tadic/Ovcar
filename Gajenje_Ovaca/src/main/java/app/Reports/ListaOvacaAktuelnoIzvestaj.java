@@ -28,11 +28,11 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author ivantadic
  */
-public class ListaOvacaIzvestaj {
+public class ListaOvacaAktuelnoIzvestaj {
     private List<Ovca> list;
     private String f1, f2, f3,f4;
     private Map<String, Object> params = new HashMap<String, Object>();
-    public ListaOvacaIzvestaj(List<Ovca> list, String f1, String f2, String f3, String f4){
+    public ListaOvacaAktuelnoIzvestaj(List<Ovca> list, String f1, String f2, String f3, String f4){
         this.list = list;
         this.f1 = f1;
         this.f2 = f2;
@@ -41,17 +41,13 @@ public class ListaOvacaIzvestaj {
     }
     public void create(){
         osnovniPodatci();
-        rodjenje();        
         try
         {
-            String reportSource = "listOvce.jrxml";
+            String reportSource = "listOvceAktuelno.jrxml";
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-            
-            
+                   
             JasperDesign dis=JRXmlLoader.load(reportSource); 
-            JasperReport jasperReport = JasperCompileManager.compileReport(dis);
-
-            
+            JasperReport jasperReport = JasperCompileManager.compileReport(dis);           
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport, params, dataSource);
@@ -72,9 +68,6 @@ public class ListaOvacaIzvestaj {
         params.put("count", "(" + list.size() + ")"); 
 
         params.put("startDate", (new java.util.Date()).toString());
-    }
-    private void rodjenje(){
-
     }
         
 }
