@@ -63,7 +63,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("mesec:");
 
-        jMesec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "januar", "februar", "mart", "april", "maj", "jun", "jul", "avgust", "septembar", "novembar", "decembar" }));
+        jMesec.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "januar", "februar", "mart", "april", "maj", "jun", "jul", "avgust", "septembar", "oktobar", "novembar", "decembar" }));
         jMesec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMesecActionPerformed(evt);
