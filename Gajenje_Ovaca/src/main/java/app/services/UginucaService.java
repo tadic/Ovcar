@@ -25,33 +25,13 @@ public class UginucaService extends ActivityService{
         ovcaService = new OvcaService(server);
     }
     
-    @Transactional
-    public void saveActivity(Aktivnost a) {  
-        if (a.getId()==null){
-            createActivity(a);
-        } else{
-            updateActivity(a);
-        }
-    } 
-    
     public void updateActivity(Aktivnost a){
         Aktivnost act = server.find(Aktivnost.class, a.getId());  
         setActivity(act, a);
-        server.save(act);
-        updateUginuce(a);
+        updateUginuce(act);
+        saveDayAndActivity(act.getDan(), act);
     }
     
-    
-    private void setActivity(Aktivnost act, Aktivnost a){
-        act.setDan(a.getDan());
-        act.setLokacija(a.getLokacija());
-        act.setNapomena(a.getNapomena());
-        act.setVremePocetka(a.getVremePocetka());
-        act.setVremeZavrsetka(a.getVremeZavrsetka());
-        act.setVrstaAktivnosti(a.getVrstaAktivnosti());
-        act.setTroskovi(a.getTroskovi());
-        act.setBilans(a.getBilans());
-    }
     
     private void updateUginuce(Aktivnost a){
         Uginuce u = server.find(Uginuce.class).where().like("a_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)  
@@ -66,23 +46,12 @@ public class UginucaService extends ActivityService{
         server.save(u);
     }
 
-    private void createActivity(Aktivnost a){
-        a.getDan().getAktivnosti().add(a);// unesi u panel
+    public void createActivity(Aktivnost a){
         ovcaService.setStatus(a.getUginuce().getO(), "uginulo");
-        snimiAktivnost(a);
-        a.getUginuce().setA(a);
-        server.save(a.getUginuce());
+       // a.getUginuce().setA(a);
+        //server.save(a.getUginuce());
+        saveDayAndActivity(a.getDan(), a);
         
-    }
-    
-    private void snimiAktivnost(Aktivnost a){
-        if (a.getDan().getId()==null){ // ako ga nema u bazi, napravi ga
-            server.save(a.getDan());
-        } else{
-           Dan d = server.find(Dan.class).where().like("datum", a.getDan().getDatum().toString()).findUnique();  
-           d.getAktivnosti().add(a);
-           server.save(d);
-        }
     }
     
 

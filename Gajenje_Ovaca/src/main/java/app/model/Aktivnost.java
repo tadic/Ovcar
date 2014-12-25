@@ -44,7 +44,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Jagnjenje> listaJagnjenja;
     
-    @ManyToOne(fetch= FetchType.EAGER)
+    @ManyToOne
     private Dan dan;
 
     private Integer vremePocetka; // sati puta 100 plus minuta

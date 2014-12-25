@@ -16,79 +16,45 @@ import com.avaje.ebean.EbeanServer;
  */
 public class ProdajaService extends ActivityService {
     
+    private OvcaService ovcaService;
+    
     public ProdajaService(EbeanServer server){
         super(server);
+        ovcaService = new OvcaService(server);
     }
     
-    public void saveActivity(Aktivnost a) {  
-        if (a.getId()==null){
-            createActivity(a);
-        } else{
-            updateActivity(a);
-        }
-    } 
     
     public void updateActivity(Aktivnost a){
         Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
         setActivity(act, a);
         updateProdaje(a);
-        server.save(act);
+        saveDayAndActivity(act.getDan(), act);
     }
     
-    private void createActivity(Aktivnost a){
-            a.getDan().getAktivnosti().add(a);// unesi u panel
+    public void createActivity(Aktivnost a){
             for (Prodaja prodaja: a.getProdaje()){
-                saveSheep(prodaja.getOvca(), "prodato");
+                ovcaService.saveSheepStatus(prodaja.getOvca(), "prodato");
             }
-            if (a.getDan().getId()==null){ // ako ga nema u bazi, napravi ga
-                server.save(a.getDan());
-            } else{
-               Dan d = server.find(Dan.class).where().like("datum", a.getDan().getDatum().toString()).findUnique();  
-               d.getAktivnosti().add(a);
-               server.save(d);
-            }
+            saveDayAndActivity(a.getDan(), a);
     }
     
-    
-    private void setActivity(Aktivnost act, Aktivnost a){
-        act.setDan(a.getDan());
-        act.setLokacija(a.getLokacija());
-        act.setNapomena(a.getNapomena());
-        act.setVremePocetka(a.getVremePocetka());
-        act.setVremeZavrsetka(a.getVremeZavrsetka());
-        act.setVrstaAktivnosti(a.getVrstaAktivnosti());
-        act.setTroskovi(a.getTroskovi());
-        act.setBilans(a.getBilans());
-        act.setProdaje(a.getProdaje());
-}
-    
-    
-    public void saveSheep(Ovca sheep, String status){
-            Ovca o = server.find(Ovca.class, sheep.getId());  
-            o.setStatus(status);
-            server.save(o);
-    }
-    
-  
     private void updateProdaje(Aktivnost a){
         Aktivnost staraAktivnost = server.find(Aktivnost.class, a.getId());
         for (Prodaja p:staraAktivnost.getProdaje()){
-            saveSheep(p.getOvca(), "na farmi");
             server.delete(p);
+            ovcaService.undoStatus(p.getOvca());
         }
         for (Prodaja p: a.getProdaje()){
-            saveSheep(p.getOvca(), "prodato");
+            ovcaService.saveSheepStatus(p.getOvca(), "prodato");
         }
     }
     
     public void deleteActivity(Aktivnost a) {
         Aktivnost act = server.find(Aktivnost.class, a.getId());
-        for (Prodaja p: a.getProdaje()){
-            Ovca o = p.getOvca();
-            o.setStatus("na farmi");
-            server.save(o);
+        server.delete(act);
+        for (Prodaja p: act.getProdaje()){
+            ovcaService.undoStatus(p.getOvca());
         }
-        server.delete(a);
     }
     
 }

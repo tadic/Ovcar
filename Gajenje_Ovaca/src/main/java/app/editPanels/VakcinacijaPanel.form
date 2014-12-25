@@ -88,9 +88,15 @@
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLokacija" min="-2" pref="132" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jDatum" max="32767" attributes="0"/>
+                  <Component id="jLokacija" pref="132" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -118,12 +124,24 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jNameOfActivity" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="jColorLabel" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jNameOfActivity" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="jColorLabel" min="-2" pref="38" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jDatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jminutaPocetak" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
@@ -218,7 +236,6 @@
           </SpinnerModel>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
-        <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jminutaPocetakStateChanged"/>
@@ -339,7 +356,6 @@
             <ListItem value="22"/>
           </SpinnerModel>
         </Property>
-        <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jsatiPocetakStateChanged"/>
@@ -757,6 +773,19 @@
           <Connection code="jRadioButton2.isSelected()" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Lecenje"/>
+      </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="jDatum">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd.MM.yyyy"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Monaco" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Datum"/>
       </Properties>
     </Component>
   </SubComponents>

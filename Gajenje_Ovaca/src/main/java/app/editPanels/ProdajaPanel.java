@@ -8,6 +8,7 @@ import app.mainPanels.Dnevnik;
 import app.helpers.ColorColumnRenderer;
 import app.logic.Logic;
 import app.model.Aktivnost;
+import app.model.Dan;
 import app.model.Ovca;
 import app.model.Prodaja;
 import java.awt.BasicStroke;
@@ -90,6 +91,8 @@ private JPanel mainPanel;
         jSelekcija = new javax.swing.JCheckBox();
         jLabel11 = new javax.swing.JLabel();
         jNameOfActivity = new javax.swing.JLabel();
+        jDatum = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel7.setText("do:");
 
@@ -329,6 +332,11 @@ private JPanel mainPanel;
         jNameOfActivity.setForeground(new java.awt.Color(153, 0, 0));
         jNameOfActivity.setText("Hranjenje");
 
+        jDatum.setDateFormatString("dd.MM.yyyy");
+
+        jLabel1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
+        jLabel1.setText("Datum");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,9 +375,13 @@ private JPanel mainPanel;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLokacija, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLokacija, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -391,9 +403,12 @@ private JPanel mainPanel;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jColorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jColorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jminutaPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,6 +466,8 @@ private JPanel mainPanel;
         if (aktivnost.getProdaje()==null || aktivnost.getProdaje().isEmpty()){
             jLokacija.setText("s.Jasenica");
         }
+        jDatum.setCalendar(aktivnost.getDan().getDate());
+
         paintColumns();
         resetTable(logic.getSvaZivaGrla());
         
@@ -573,6 +590,8 @@ private JPanel mainPanel;
       
         aktivnost.setProdaje(pickSveProdaje());
         aktivnost.setBilans(createBilans());
+        aktivnost.setDan(new Dan(jDatum.getCalendar()));
+
     }
 
     private void jminutaPocetakStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jminutaPocetakStateChanged
@@ -672,8 +691,10 @@ private JPanel mainPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jColorLabel;
     private javax.swing.JLabel jCounter;
+    private com.toedter.calendar.JDateChooser jDatum;
     private javax.swing.JTextField jFilter1;
     private javax.swing.JTextField jFilter2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

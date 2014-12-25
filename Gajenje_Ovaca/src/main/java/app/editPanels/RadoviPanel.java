@@ -7,6 +7,7 @@ package app.editPanels;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
+import app.model.Dan;
 import app.model.Radovi;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -60,6 +61,8 @@ private JPanel mainPanel;
         jTroskovi = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jNameOfActivity = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jDatum = new com.toedter.calendar.JDateChooser();
 
         jColorLabel.setBackground(new java.awt.Color(102, 255, 102));
         jColorLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -187,6 +190,11 @@ private JPanel mainPanel;
         jNameOfActivity.setForeground(new java.awt.Color(153, 0, 0));
         jNameOfActivity.setText("Uginuce");
 
+        jLabel1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
+        jLabel1.setText("Datum");
+
+        jDatum.setDateFormatString("dd.MM.yyyy");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -194,24 +202,6 @@ private JPanel mainPanel;
             .add(org.jdesktop.layout.GroupLayout.TRAILING, nabavkaPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jSnimiButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton2))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(21, 21, 21)
-                                .add(jColorLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(883, Short.MAX_VALUE)
-                                .add(jLabel3)
-                                .add(18, 18, 18)))
-                        .add(jLokacija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
@@ -221,7 +211,27 @@ private JPanel mainPanel;
                                 .add(20, 20, 20)
                                 .add(jLabel5)))
                         .add(0, 771, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1)
+                    .add(layout.createSequentialGroup()
+                        .add(21, 21, 21)
+                        .add(jColorLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 309, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(555, 555, 555)
+                        .add(jLabel1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jDatum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                .add(jSnimiButton)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jButton2))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                .add(jLabel3)
+                                .add(18, 18, 18)
+                                .add(jLokacija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -236,6 +246,10 @@ private JPanel mainPanel;
                         .add(91, 91, 91))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel1)
+                            .add(jDatum, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel3)
                             .add(jLokacija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -263,6 +277,8 @@ private JPanel mainPanel;
         jLokacija.setText(aktivnost.getLokacija());
         jTroskovi.setText(Float.toString(aktivnost.getTroskovi()-0.01F));
         jNapomena.setText(aktivnost.getNapomena());
+        jDatum.setCalendar(aktivnost.getDan().getDate());
+
         fillRadovi();
         
     }
@@ -313,7 +329,8 @@ private JPanel mainPanel;
         aktivnost.setTroskovi(jTroskovi.getText());
         aktivnost.setNapomena(jNapomena.getText());
         aktivnost.setRadovi(pickRadovi());
-        
+        aktivnost.setDan(new Dan(jDatum.getCalendar()));
+
         aktivnost.setBilans(createBilans());
     }
 
@@ -355,7 +372,9 @@ private JPanel mainPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jColorLabel;
+    private com.toedter.calendar.JDateChooser jDatum;
     private javax.swing.JTextField jKolicina;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

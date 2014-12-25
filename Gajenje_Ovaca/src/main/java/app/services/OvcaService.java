@@ -31,21 +31,21 @@ public class OvcaService {
     }
     
     
-     public void update(Ovca sheep) {
-        setOtac(sheep);                     // povezi ovcu sa ocem i majkom iz baze
-        setMother(sheep);
+     public void saveSheep(Ovca sheep) {
+        linkToFather(sheep);                     // povezi ovcu sa ocem i majkom iz baze
+        linkToMother(sheep);
         if (sheep.getId()!=null){           // ako je ovca vec postojala u bazi, pronadji original i uskladi data
             Ovca o = server.find(Ovca.class, sheep.getId());  
             setSheep(o,sheep);
             System.err.println("Trenutak pre snimanja novi otac :" + o.getOtac().getOznaka());
             server.save(o);
-            server.save(o.getOtac());
+            server.save(o.getOtac());  //????????????? ne znam sto ovo mora!?!?!?!?
             System.err.println("novi otac id:" + o.getOtac().getId());
             return;
         }
         server.save(sheep); 
     }
-     private void setMother(Ovca sheep){
+     private void linkToMother(Ovca sheep){
      //   System.out.println("Majka: " + sheep.getMajka());
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
@@ -60,7 +60,7 @@ public class OvcaService {
         }
     }
 
-    private void setOtac(Ovca sheep){
+    private void linkToFather(Ovca sheep){
         if (sheep.getOtac().getOznaka()!= null){ //ako je oznaka vec uneta kroz formular
             Ovca otac = server.find(Ovca.class).where().like("oznaka", sheep.getOtac().getOznaka().toString()).findUnique();  
             if (otac==null){       
@@ -79,21 +79,15 @@ public class OvcaService {
          //   System.out.println("step 1");
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
             Ovca stariOtac = staraOvca.getOtac();
-                    System.out.println("Stari otac: " + stariOtac);
-                    if (stariOtac==null || stariOtac.getId()==sheep.getOtac().getId()){
-                        return;
-                    }
-                //    System.out.println("step 2, status: " + stariOtac.getStatus());
-                    if (stariOtac.getStatus()!=null && stariOtac.getStatus().equals("zamisljena")){
-                      //  System.out.println("step 2");
-                        List<Ovca> listaSinova = server.find(Ovca.class).where().like("otac_id", stariOtac.getId().toString()).findList();
-                        if (listaSinova.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-                            System.out.println("brise se stari otac");
-                            server.delete(stariOtac);
-                        }
-                    }
+            System.out.println("Stari otac: " + stariOtac);
+            if (stariOtac==null || stariOtac.getId()==sheep.getOtac().getId()){
+                return;
+            }
+        //    System.out.println("step 2, status: " + stariOtac.getStatus());
+            ocistiOca(stariOtac);
         }
     }
+    
     private void proveriStaruMajku(Ovca sheep){
         if (sheep.getId()!=null){
             Ovca staraOvca = server.find(Ovca.class, sheep.getId());
@@ -102,14 +96,9 @@ public class OvcaService {
             if (staraMajka==null || staraMajka.getId()==sheep.getMajka().getId()){
                 return;
             }
-            if (staraMajka.getStatus()!=null && staraMajka.getStatus().equals("zamisljena")){
-                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("majka_id", staraMajka.getId().toString()).findList();
-                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
-             //       System.out.println("step 3");
-                    server.delete(staraMajka);
-                }
-            }
-        }
+            ocistiMajku(staraMajka);
+        }       
+        
     }
 
     private void setSheep(Ovca ovca1, Ovca ovca2){
@@ -165,12 +154,42 @@ public class OvcaService {
         }
     }
     
-    public void setStatus(Ovca ovca, String s){
+    public void setStatus(Ovca ovca, String status){
         Ovca o = server.find(Ovca.class, ovca.getId());
         if (o!=null){
-            o.setStatus(s);
+            o.setStatus(status);
             server.save(o);
         }
+    }
+    
+    public void deleteSheep(Ovca o){
+            ocistiMajku(o.getMajka());
+            ocistiOca(o.getOtac());
+            server.delete(o);
+    }
+    
+    private void ocistiMajku(Ovca o){
+            if (o.getStatus()!=null && o.getStatus().equals("zamisljena")){
+                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("majka_id", o.getId().toString()).findList();
+                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
+                    server.delete(o);
+                }
+            }
+    }
+    
+    private void ocistiOca(Ovca o){
+            if (o.getStatus()!=null && o.getStatus().equals("zamisljena")){
+                List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("otac_id", o.getId().toString()).findList();
+                if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga
+                    server.delete(o);
+                }
+            }
+    }
+    
+    public void saveSheepStatus(Ovca sheep, String status){
+            Ovca o = server.find(Ovca.class, sheep.getId());  
+            o.setStatus(status);
+            server.save(o);
     }
     
 }

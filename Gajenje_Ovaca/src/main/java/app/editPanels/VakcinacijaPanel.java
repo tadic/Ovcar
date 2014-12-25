@@ -8,6 +8,7 @@ import app.helpers.ColorColumnRenderer;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
+import app.model.Dan;
 import app.model.Ovca;
 import app.model.Vakcinacija;
 import java.awt.Color;
@@ -93,12 +94,13 @@ private JPanel mainPanel;
         jSredstvo = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jDatum = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel7.setText("do:");
 
         jminutaPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "15", "30", "45"}));
         jminutaPocetak.setAutoscrolls(true);
-        jminutaPocetak.setOpaque(true);
         jminutaPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jminutaPocetakStateChanged(evt);
@@ -133,7 +135,6 @@ private JPanel mainPanel;
         jColorLabel.setOpaque(true);
 
         jsatiPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}));
-        jsatiPocetak.setOpaque(true);
         jsatiPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jsatiPocetakStateChanged(evt);
@@ -370,6 +371,11 @@ private JPanel mainPanel;
         jRadioButton2.setSelected(jRadioButton2.isSelected());
         jRadioButton2.setText("Lecenje");
 
+        jDatum.setDateFormatString("dd.MM.yyyy");
+
+        jLabel1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
+        jLabel1.setText("Datum");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -428,9 +434,13 @@ private JPanel mainPanel;
                             .add(jSredstvo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 732, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jRazlog, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 732, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLokacija, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 132, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel3)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1))
+                .add(18, 18, 18)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jDatum, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jLokacija, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .add(21, 21, 21))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
@@ -451,11 +461,19 @@ private JPanel mainPanel;
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(15, 15, 15)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jColorLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(36, 36, 36)
+                    .add(layout.createSequentialGroup()
+                        .add(15, 15, 15)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jNameOfActivity, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jColorLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(36, 36, 36))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jDatum, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1))
+                        .add(28, 28, 28)))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jminutaPocetak, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
@@ -525,6 +543,8 @@ private JPanel mainPanel;
         jLokacija.setText(aktivnost.getLokacija());
         jNapomena.setText(aktivnost.getNapomena());
         jTextTroskovi.setText(Float.toString(aktivnost.getTroskovi()));
+        jDatum.setCalendar(aktivnost.getDan().getDate());
+
 //setTableRows();
         paintColumns();
         resetTable(logic.getSvaZivaGrla());
@@ -657,7 +677,7 @@ private JPanel mainPanel;
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setTroskovi(jTextTroskovi.getText());
         aktivnost.setNapomena(jNapomena.getText());
-      
+        aktivnost.setDan(new Dan(jDatum.getCalendar()));
         aktivnost.setBilans(createBilans());
         return true;
     }
@@ -779,8 +799,10 @@ private JPanel mainPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jColorLabel;
     private javax.swing.JLabel jCounter;
+    private com.toedter.calendar.JDateChooser jDatum;
     private javax.swing.JTextField jFilter1;
     private javax.swing.JTextField jFilter2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

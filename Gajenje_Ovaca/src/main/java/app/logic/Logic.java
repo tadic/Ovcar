@@ -107,7 +107,7 @@ public class Logic {
     }
 
     public void updateOvca(Ovca ovca) {
-        ovcaService.update(ovca);
+        ovcaService.saveSheep(ovca);
     }
 
     public void delete(Aktivnost aktivnost) {

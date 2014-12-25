@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -22,7 +23,7 @@ public class Dan implements Serializable  {
     
     private Integer datum;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="dan", fetch= FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Aktivnost> aktivnosti;
     
     public Dan(){
@@ -84,7 +85,10 @@ public class Dan implements Serializable  {
     }
 
     public List<Aktivnost> getAktivnosti() {
+        if (aktivnosti!=null){
         return aktivnosti;
+        } 
+        return new ArrayList<Aktivnost>();
     }
 
     public void setAktivnosti(List<Aktivnost> aktivnosti) {
