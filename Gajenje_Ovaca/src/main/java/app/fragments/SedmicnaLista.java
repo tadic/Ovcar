@@ -158,9 +158,9 @@ public class SedmicnaLista extends javax.swing.JPanel {
             g.setColor(new Color(202, 202, 202));
             //g.drawString(getTimeString(i), 10, TOP_MARGIN + i*64);
             
-            g.drawLine(5, TOP_MARGIN + (i*72)-5, 400, TOP_MARGIN + (i*72)-5);
+            g.drawLine(5, TOP_MARGIN + (i*72)-5, 600, TOP_MARGIN + (i*72)-5);
             g.setColor(new Color(230, 227, 227));
-            g.drawLine(5, TOP_MARGIN + (i*72)+31, 400, TOP_MARGIN + (i*72)+31);
+            g.drawLine(5, TOP_MARGIN + (i*72)+31, 600, TOP_MARGIN + (i*72)+31);
     }
     repaint();
 }
@@ -223,7 +223,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel2.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel2.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel2.setText("Понедељак");
+        dayNameLabel2.setText("Ponedeljak");
 
         dayNameLabel7.setFont(new java.awt.Font("Noteworthy", 1, 13)); // NOI18N
         dayNameLabel7.setForeground(new java.awt.Color(0, 153, 153));
@@ -234,7 +234,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel1.setText("(нема активности)");
+        jLabel1.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelPonedeljakLayout = new javax.swing.GroupLayout(panelPonedeljak);
         panelPonedeljak.setLayout(panelPonedeljakLayout);
@@ -268,11 +268,11 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel8.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel8.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel8.setText("Уторак");
+        dayNameLabel8.setText("Utorak");
 
         jLabel2.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel2.setText("(нема активности)");
+        jLabel2.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelUtorakLayout = new javax.swing.GroupLayout(panelUtorak);
         panelUtorak.setLayout(panelUtorakLayout);
@@ -308,11 +308,11 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel9.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel9.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel9.setText("Среда");
+        dayNameLabel9.setText("Sreda");
 
         jLabel3.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel3.setText("(нема активности)");
+        jLabel3.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelSredaLayout = new javax.swing.GroupLayout(panelSreda);
         panelSreda.setLayout(panelSredaLayout);
@@ -341,7 +341,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel11.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel11.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel11.setText("Четвртак");
+        dayNameLabel11.setText("Četvrtak");
 
         dayNameLabel3.setFont(new java.awt.Font("Noteworthy", 1, 13)); // NOI18N
         dayNameLabel3.setForeground(new java.awt.Color(0, 153, 153));
@@ -350,7 +350,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel4.setText("(нема активности)");
+        jLabel4.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelCetvrtakLayout = new javax.swing.GroupLayout(panelCetvrtak);
         panelCetvrtak.setLayout(panelCetvrtakLayout);
@@ -388,11 +388,11 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel12.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel12.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel12.setText("Петак");
+        dayNameLabel12.setText("Petak");
 
         jLabel5.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel5.setText("(нема активности)");
+        jLabel5.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelPetakLayout = new javax.swing.GroupLayout(panelPetak);
         panelPetak.setLayout(panelPetakLayout);
@@ -430,11 +430,11 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel13.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel13.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel13.setText("Субота");
+        dayNameLabel13.setText("Subota");
 
         jLabel6.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel6.setText("(нема активности)");
+        jLabel6.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelSubotaLayout = new javax.swing.GroupLayout(panelSubota);
         panelSubota.setLayout(panelSubotaLayout);
@@ -467,7 +467,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
         dayNameLabel10.setFont(new java.awt.Font("Noteworthy", 1, 16)); // NOI18N
         dayNameLabel10.setForeground(new java.awt.Color(0, 153, 153));
         dayNameLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dayNameLabel10.setText("Недеља");
+        dayNameLabel10.setText("Nedelja");
 
         dayNameLabel5.setFont(new java.awt.Font("Noteworthy", 1, 13)); // NOI18N
         dayNameLabel5.setForeground(new java.awt.Color(0, 153, 153));
@@ -477,7 +477,7 @@ public class SedmicnaLista extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Noteworthy", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 0, 0));
-        jLabel7.setText("(нема активности)");
+        jLabel7.setText("(nema aktivnosti)");
 
         javax.swing.GroupLayout panelNedeljaLayout = new javax.swing.GroupLayout(panelNedelja);
         panelNedelja.setLayout(panelNedeljaLayout);

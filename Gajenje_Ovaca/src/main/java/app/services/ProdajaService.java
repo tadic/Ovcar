@@ -9,6 +9,7 @@ import app.model.Dan;
 import app.model.Ovca;
 import app.model.Prodaja;
 import com.avaje.ebean.EbeanServer;
+import com.avaje.ebean.annotation.Transactional;
 
 /**
  *
@@ -26,8 +27,9 @@ public class ProdajaService extends ActivityService {
     
     public void updateActivity(Aktivnost a){
         Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
-        setActivity(act, a);
         updateProdaje(a);
+        setActivity(act, a);
+
         saveDayAndActivity(act.getDan(), act);
     }
     
@@ -38,15 +40,25 @@ public class ProdajaService extends ActivityService {
             saveDayAndActivity(a.getDan(), a);
     }
     
-    private void updateProdaje(Aktivnost a){
-        Aktivnost staraAktivnost = server.find(Aktivnost.class, a.getId());
+    @Transactional
+    private void updateProdaje(Aktivnost novaAktivnost){
+        Aktivnost staraAktivnost = server.find(Aktivnost.class, novaAktivnost.getId());
+        izbrisiStareProdaje(staraAktivnost);
+        postaviNoveProdaje(staraAktivnost, novaAktivnost);
+    }
+
+    public void izbrisiStareProdaje(Aktivnost staraAktivnost){
         for (Prodaja p:staraAktivnost.getProdaje()){
-            server.delete(p);
             ovcaService.undoStatus(p.getOvca());
         }
-        for (Prodaja p: a.getProdaje()){
+        staraAktivnost.getProdaje().clear();  
+    }
+    
+    public void postaviNoveProdaje(Aktivnost staraAktivnost, Aktivnost novaAktivnost){
+        for (Prodaja p: novaAktivnost.getProdaje()){
             ovcaService.saveSheepStatus(p.getOvca(), "prodato");
         }
+        staraAktivnost.setProdaje(novaAktivnost.getProdaje());
     }
     
     public void deleteActivity(Aktivnost a) {
@@ -54,6 +66,13 @@ public class ProdajaService extends ActivityService {
         server.delete(act);
         for (Prodaja p: act.getProdaje()){
             ovcaService.undoStatus(p.getOvca());
+        }
+    }
+    
+    private void deleteProdaja(Prodaja p){
+        if (p.getId()!=null){
+            Prodaja prodaja = server.find(Prodaja.class, p.getId());
+            server.delete(prodaja);
         }
     }
     

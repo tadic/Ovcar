@@ -328,7 +328,7 @@ private JPanel mainPanel;
         jNameOfActivity.setForeground(new java.awt.Color(153, 0, 0));
         jNameOfActivity.setText("Hranjenje");
 
-        jLabel18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jLabel18.setText("Ukupan trošak (€):");
 
         jTextTroskovi.addActionListener(new java.awt.event.ActionListener() {
@@ -364,12 +364,22 @@ private JPanel mainPanel;
         jredovno.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jRadioButton1.setSelected(jRadioButton1.isSelected());
-        jRadioButton1.setText("Vekcinacija");
+        jRadioButton1.setText("Vakcinacija");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         jredovno.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jRadioButton2.setSelected(jRadioButton2.isSelected());
-        jRadioButton2.setText("Lecenje");
+        jRadioButton2.setText("Lečenje");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jDatum.setDateFormatString("dd.MM.yyyy");
 
@@ -385,7 +395,7 @@ private JPanel mainPanel;
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(jLabel5)
-                        .add(1025, 1066, Short.MAX_VALUE))
+                        .addContainerGap())
                     .add(jScrollPane1)))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(12, 12, 12)
@@ -417,7 +427,7 @@ private JPanel mainPanel;
                                         .add(jLabel9)
                                         .add(1, 1, 1)
                                         .add(jminutaKraj, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 265, Short.MAX_VALUE)
                                         .add(jLabel18))
                                     .add(layout.createSequentialGroup()
                                         .add(jRadioButton1)
@@ -739,6 +749,14 @@ private JPanel mainPanel;
             jButton1.setText("Selektuj sve");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
     private void setSelekcijaTo(boolean b) {
         DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
         for (int i=0; i<tm.getRowCount(); i++){

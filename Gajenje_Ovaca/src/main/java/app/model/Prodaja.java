@@ -4,6 +4,7 @@
  */
 package app.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ public class Prodaja {
     
     @ManyToOne
     private Aktivnost aktivnost;
-    @OneToOne
+    @OneToOne(cascade= CascadeType.PERSIST)
     private Ovca ovca;
     
     private double cenaGrla;

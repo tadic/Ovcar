@@ -22,8 +22,7 @@ public class VakcinacijaService extends ActivityService{
         Aktivnost staraAct = server.find(Aktivnost.class, a.getId());         
         izbrisiVisakPodaktivnosti(staraAct, a);
         setActivity(staraAct, a);
-        updateSubActivities();
-        saveDayAndActivity(a.getDan(), a);
+        saveDayAndActivity(staraAct.getDan(), staraAct);
     }
     
     public void createActivity(Aktivnost a){
@@ -42,8 +41,5 @@ public class VakcinacijaService extends ActivityService{
         server.delete(a);
     }
 
-    private void updateSubActivities() {
-        return;
-    }
     
 }

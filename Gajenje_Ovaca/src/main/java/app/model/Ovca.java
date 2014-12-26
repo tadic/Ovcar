@@ -30,7 +30,7 @@ public class Ovca {
     private NabavkaOvaca nabavka;
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovca")
     private List<Vakcinacija> vakcinacije;
-    @OneToOne(mappedBy = "ovca")
+    @OneToOne(cascade= CascadeType.ALL, mappedBy = "ovca")
     private Prodaja prodaja;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="ovca")
     private List<Jagnjenje> listaJagnjenja;

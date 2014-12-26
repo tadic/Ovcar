@@ -107,7 +107,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x43d;&#x435;&#x434;&#x435;&#x459;&#x430;&#x43a;"/>
+            <Property name="text" type="java.lang.String" value="Ponedeljak"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dayNameLabel7">
@@ -134,7 +134,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -196,7 +196,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x423;&#x442;&#x43e;&#x440;&#x430;&#x43a;"/>
+            <Property name="text" type="java.lang.String" value="Utorak"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -207,7 +207,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -266,7 +266,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x421;&#x440;&#x435;&#x434;&#x430;"/>
+            <Property name="text" type="java.lang.String" value="Sreda"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -277,7 +277,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -327,7 +327,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x427;&#x435;&#x442;&#x432;&#x440;&#x442;&#x430;&#x43a;"/>
+            <Property name="text" type="java.lang.String" value="&#x10c;etvrtak"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dayNameLabel3">
@@ -353,7 +353,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -418,7 +418,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x41f;&#x435;&#x442;&#x430;&#x43a;"/>
+            <Property name="text" type="java.lang.String" value="Petak"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -429,7 +429,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -494,7 +494,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x421;&#x443;&#x431;&#x43e;&#x442;&#x430;"/>
+            <Property name="text" type="java.lang.String" value="Subota"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -505,7 +505,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -555,7 +555,7 @@
               <Color blue="99" green="99" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="&#x41d;&#x435;&#x434;&#x435;&#x459;&#x430;"/>
+            <Property name="text" type="java.lang.String" value="Nedelja"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dayNameLabel5">
@@ -584,7 +584,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="(&#x43d;&#x435;&#x43c;&#x430; &#x430;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x441;&#x442;&#x438;)"/>
+            <Property name="text" type="java.lang.String" value="(nema aktivnosti)"/>
           </Properties>
         </Component>
       </SubComponents>
