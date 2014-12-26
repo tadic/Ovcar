@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -36,7 +37,10 @@ public class Ovca {
     
     @OneToOne(mappedBy = "sheep")
     private Jagnjenje rodjenje;
+    
+    @Column(unique=true)
     private String oznaka;
+    
     private String nadimak;
     private float procenatR;
     private String datumRodjenja;
