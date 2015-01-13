@@ -194,7 +194,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true, false
+                true, true, false, false, false, false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -406,15 +406,15 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         if (c== KeyEvent.VK_ENTER){
             int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
             String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
-            Ovca o = logic.getOvca(Integer.parseInt(id));
-            if (o.getOtac()!=null){
-                o.getOtac().getOznaka();
-            }
-            if (o.getMajka()!=null){
-                o.getMajka().getOznaka();
-            }
+//            Ovca o = logic.getOvca(Integer.parseInt(id));
+//            if (o.getOtac()!=null){
+//                o.getOtac().getOznaka();
+//            }
+//            if (o.getMajka()!=null){
+//                o.getMajka().getOznaka();
+//            }
             mainPanel.removeAll();
-            mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
+            mainPanel.add(new OvcaPrikaz(mainPanel, logic, Integer.parseInt(id)));
             mainPanel.revalidate();
             repaint();
         }
@@ -439,9 +439,8 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             if (jTable1.getSelectedRow()!= -1){
             int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
             String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
-            Ovca o = logic.getOvca(Integer.parseInt(id));
             mainPanel.removeAll();
-            mainPanel.add(new OvcaPrikaz(mainPanel, logic, o));
+            mainPanel.add(new OvcaPrikaz(mainPanel, logic, Integer.parseInt(id)));
             mainPanel.revalidate();
             repaint();
             }
@@ -450,14 +449,18 @@ public class Podaci_ovaca extends javax.swing.JPanel {
     private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
             for (int i=0; i<jTable1.getRowCount(); i++){
                 int selectedRow = jTable1.convertRowIndexToModel(i);
-                Object aktuelno = jTable1.getModel().getValueAt(selectedRow,12);
-                if (aktuelno!=null){
+                String aktuelno = (String) jTable1.getModel().getValueAt(selectedRow,12);
+                Object oznaka = jTable1.getModel().getValueAt(selectedRow,0);
+                Object nadimak = jTable1.getModel().getValueAt(selectedRow,1);
+               // if (aktuelno!=null){
                     System.out.println(aktuelno.toString());
                     String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
                     Ovca o = logic.getOvca(Integer.parseInt(id));
                     o.setAktuelno(aktuelno.toString());
+                    o.setOznaka(oznaka);
+                    o.setNadimak(nadimak);
                     logic.updateOvca(o);
-                }
+               // }
             }
             listOfSheep = logic.getAllSheep();
             resetTable(listOfSheep);
