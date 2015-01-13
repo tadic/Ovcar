@@ -46,21 +46,22 @@ public class UginucaService extends ActivityService{
         server.save(u);
     }
 
+    @Transactional
     public void createActivity(Aktivnost a){
-        ovcaService.setStatus(a.getUginuce().getO(), "uginulo");
-       // a.getUginuce().setA(a);
-        //server.save(a.getUginuce());
+        ovcaService.setStatus(a.getUginuce().getO(), "uginulo");       
         saveDayAndActivity(a.getDan(), a);
+        a.getUginuce().setA(a);
+        server.save(a.getUginuce());
         
     }
     
-
+    @Transactional
     public void deleteActivity(Aktivnost a) {
-        Uginuce u = server.find(Uginuce.class).where().like("a_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)          
-        server.delete(a);
-        server.delete(u);
-        
-        ovcaService.undoStatus(u.getO());
+        Uginuce u = server.find(Uginuce.class).where().like("a_id", a.getId().toString()).findUnique();
+        if (u!=null){
+            server.delete(a);
+            ovcaService.undoStatus(u.getO());
+        }
     }
     
 }

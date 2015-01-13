@@ -9,6 +9,7 @@ import app.logic.Logic;
 import app.model.Aktivnost;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
@@ -179,6 +181,8 @@ private void initComponents(){
 
     
     private void destroyThisAction(){
+        int result = JOptionPane.showConfirmDialog((Component) null, "Da li si siguran da želiš da izbrišeš ovu aktivnost?","alert", JOptionPane.YES_NO_CANCEL_OPTION);
+    
         DnevniPanel dnevni = (DnevniPanel) getParent();
         dnevni.deleteActivity(this);
     }

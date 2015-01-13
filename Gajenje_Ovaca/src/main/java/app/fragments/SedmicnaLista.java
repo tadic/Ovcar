@@ -158,9 +158,9 @@ public class SedmicnaLista extends javax.swing.JPanel {
             g.setColor(new Color(202, 202, 202));
             //g.drawString(getTimeString(i), 10, TOP_MARGIN + i*64);
             
-            g.drawLine(5, TOP_MARGIN + (i*72)-5, 600, TOP_MARGIN + (i*72)-5);
+            g.drawLine(5, TOP_MARGIN + (i*72)-5, 1000, TOP_MARGIN + (i*72)-5);
             g.setColor(new Color(230, 227, 227));
-            g.drawLine(5, TOP_MARGIN + (i*72)+31, 600, TOP_MARGIN + (i*72)+31);
+            g.drawLine(5, TOP_MARGIN + (i*72)+31, 1000, TOP_MARGIN + (i*72)+31);
     }
     repaint();
 }
@@ -487,10 +487,9 @@ public class SedmicnaLista extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(dayNameLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dayNameLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dayNameLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelNedeljaLayout.setVerticalGroup(
             panelNedeljaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -92,6 +92,7 @@ public class Ovcar extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 750));
 
         jToolBar1.setBackground(new java.awt.Color(51, 51, 51));
+        jToolBar1.setFloatable(false);
         jToolBar1.setForeground(new java.awt.Color(153, 0, 51));
         jToolBar1.setRollover(true);
         jToolBar1.setMinimumSize(new java.awt.Dimension(500, 31));

@@ -34,10 +34,15 @@ public class RadoviService extends ActivityService{
 
     public void createActivity(Aktivnost a){
         saveDayAndActivity(a.getDan(), a);
+        a.getRadovi().setAktivnost(a);
+        server.save(a.getRadovi());
     }    
     
     public void deleteActivity(Aktivnost a) {
+       // Radovi r = server.find(Radovi.class).where().like("aktivnost_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)  
         server.delete(a);
+        //server.delete(r);
+        
     }
     
 }

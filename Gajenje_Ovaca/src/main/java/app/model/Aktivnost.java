@@ -28,7 +28,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     private Integer id;  
     @OneToOne
     private VrsteAktivnosti vrstaAktivnosti;
-    @OneToOne(mappedBy = "a")
+    @OneToOne(mappedBy = "a", cascade= CascadeType.REMOVE)
     private Uginuce uginuce;
     @OneToOne(mappedBy="aktivnost")
     private Radovi radovi;
