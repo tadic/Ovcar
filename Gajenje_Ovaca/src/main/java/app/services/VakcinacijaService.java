@@ -17,26 +17,22 @@ public class VakcinacijaService extends ActivityService{
     }
      
 
-    
+    // metod radi tako sto brise sve stare vakcinacije i samu staru aktivnost i snima novu...
     public void updateActivity(Aktivnost a){
-        Aktivnost staraAct = server.find(Aktivnost.class, a.getId());         
-        izbrisiVisakPodaktivnosti(staraAct, a);
-        setActivity(staraAct, a);
-        saveDayAndActivity(staraAct.getDan(), staraAct);
+        Aktivnost act = server.find(Aktivnost.class, a.getId()); 
+        deleteActivity(act);
+        Aktivnost nova = new Aktivnost();
+        setActivity(nova, a);
+//        nova.setDan(null);
+        nova.setVakcinacije(a.getVakcinacije());
+        saveDayAndActivity(a.getDan(), nova);
+
     }
-    
+
     public void createActivity(Aktivnost a){
             saveDayAndActivity(a.getDan(), a);
     }
-
-  
-    private void izbrisiVisakPodaktivnosti(Aktivnost staraAktivnost, Aktivnost novaAktivnost){// ovaj slucaj je specifican i samo brise stare a ne updejtuje
-        for (Vakcinacija v:staraAktivnost.getVakcinacije()){
-            server.delete(v);
-        }
-    }
-
-
+    
     public void deleteActivity(Aktivnost a) {
         server.delete(a);
     }

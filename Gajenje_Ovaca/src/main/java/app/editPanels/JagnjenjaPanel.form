@@ -49,7 +49,27 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jsatiPocetak" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Component id="jminutaPocetak" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jsatiKraj" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Component id="jminutaKraj" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -83,6 +103,33 @@
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jDatum" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jminutaPocetak" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jsatiPocetak" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jminutaKraj" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jsatiKraj" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -291,6 +338,134 @@
     <Component class="com.toedter.calendar.JDateChooser" name="jDatum">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="dd.MM.yyyy"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jminutaPocetak">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel type="list">
+            <ListItem value="00"/>
+            <ListItem value="15"/>
+            <ListItem value="30"/>
+            <ListItem value="45"/>
+          </SpinnerModel>
+        </Property>
+        <Property name="autoscrolls" type="boolean" value="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jminutaPocetakStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="od:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="do:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jminutaKraj">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel type="list">
+            <ListItem value="00"/>
+            <ListItem value="15"/>
+            <ListItem value="30"/>
+            <ListItem value="45"/>
+          </SpinnerModel>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jminutaKrajStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jsatiKraj">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel type="list">
+            <ListItem value="00"/>
+            <ListItem value="01"/>
+            <ListItem value="02"/>
+            <ListItem value="03"/>
+            <ListItem value="04"/>
+            <ListItem value="05"/>
+            <ListItem value="06"/>
+            <ListItem value="07"/>
+            <ListItem value="08"/>
+            <ListItem value="09"/>
+            <ListItem value="10"/>
+            <ListItem value="11"/>
+            <ListItem value="12"/>
+            <ListItem value="13"/>
+            <ListItem value="14"/>
+            <ListItem value="15"/>
+            <ListItem value="16"/>
+            <ListItem value="17"/>
+            <ListItem value="18"/>
+            <ListItem value="19"/>
+            <ListItem value="20"/>
+            <ListItem value="21"/>
+            <ListItem value="22"/>
+            <ListItem value="23"/>
+          </SpinnerModel>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jsatiKrajStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Monaco" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Trajanje"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jsatiPocetak">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel type="list">
+            <ListItem value="00"/>
+            <ListItem value="01"/>
+            <ListItem value="02"/>
+            <ListItem value="03"/>
+            <ListItem value="04"/>
+            <ListItem value="05"/>
+            <ListItem value="06"/>
+            <ListItem value="07"/>
+            <ListItem value="08"/>
+            <ListItem value="09"/>
+            <ListItem value="10"/>
+            <ListItem value="11"/>
+            <ListItem value="12"/>
+            <ListItem value="13"/>
+            <ListItem value="14"/>
+            <ListItem value="15"/>
+            <ListItem value="16"/>
+            <ListItem value="17"/>
+            <ListItem value="18"/>
+            <ListItem value="19"/>
+            <ListItem value="20"/>
+            <ListItem value="21"/>
+            <ListItem value="22"/>
+          </SpinnerModel>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jsatiPocetakStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
     </Component>
   </SubComponents>

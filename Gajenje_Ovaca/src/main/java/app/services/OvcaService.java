@@ -32,7 +32,10 @@ public class OvcaService {
     
     
      public void saveSheep(Ovca sheep) {
-        linkToFather(sheep);                     // povezi ovcu sa ocem i majkom iz baze
+         
+         sheep.getOtac();
+        linkToFather(sheep);   
+                 sheep.getMajka();// povezi ovcu sa ocem i majkom iz baze
         linkToMother(sheep);
         if (sheep.getId()!=null){           // ako je ovca vec postojala u bazi, pronadji original i uskladi data
             Ovca o = server.find(Ovca.class, sheep.getId());  
@@ -46,7 +49,7 @@ public class OvcaService {
         server.save(sheep); 
     }
      private void linkToMother(Ovca sheep){
-     //   System.out.println("Majka: " + sheep.getMajka());
+        System.out.println("Majka: " + sheep.getMajka());
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             if (majka==null){   
@@ -61,6 +64,7 @@ public class OvcaService {
     }
 
     private void linkToFather(Ovca sheep){
+                System.out.println("Otac: " + sheep.getOtac());
         if (sheep.getOtac().getOznaka()!= null){ //ako je oznaka vec uneta kroz formular
             Ovca otac = server.find(Ovca.class).where().like("oznaka", sheep.getOtac().getOznaka().toString()).findUnique();  
             if (otac==null){       
@@ -190,6 +194,14 @@ public class OvcaService {
             Ovca o = server.find(Ovca.class, sheep.getId());  
             o.setStatus(status);
             server.save(o);
+    }
+
+    public void updateOvcaFromList(Ovca o) {
+        Ovca stara = server.find(Ovca.class, o.getId()); 
+        stara.setAktuelno(o.getAktuelno());
+        stara.setOznaka(o.getOznaka());
+        stara.setNadimak(o.getNadimak());
+        server.save(stara);
     }
     
 }

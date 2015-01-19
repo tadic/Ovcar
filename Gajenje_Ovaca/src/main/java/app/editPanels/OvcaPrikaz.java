@@ -201,15 +201,15 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         tm1.setRowCount(0);
         DefaultTableModel tm2 = (DefaultTableModel) jTableLecenja.getModel();
         tm2.setRowCount(0);
-        for (Vakcinacija v: o.getVakcinacije()){
-            if (v.getJelRedovno()){
-                insertRowInTable(tm1, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
-                        v.getRazlog(), v.getSredstvo(), v.getNapomena()));
-            } else {
-                insertRowInTable(tm2, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
-                        v.getRazlog(), v.getSredstvo(), v.getNapomena()));
-            }
-        }
+//        for (Vakcinacija v: o.getVakcinacije()){
+//            if (v.getJelRedovno()){
+//                insertRowInTable(tm1, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
+//                        v.getRazlog(), v.getSredstvo(), v.getNapomena()));
+//            } else {
+//                insertRowInTable(tm2, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
+//                        v.getRazlog(), v.getSredstvo(), v.getNapomena()));
+//            }
+//        }
         setTitleToPanel(jPanelVakcinacije, "Redovne vakcinacije (" + tm1.getRowCount() + ")");
         setTitleToPanel(jPanelLecenja, "Lečenja (" + tm2.getRowCount() + ")");
     }

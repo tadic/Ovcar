@@ -26,11 +26,19 @@ public class ProdajaService extends ActivityService {
     
     
     public void updateActivity(Aktivnost a){
-        Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
-        updateProdaje(a);
-        setActivity(act, a);
-
-        saveDayAndActivity(act.getDan(), act);
+//        Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
+//        updateProdaje(a);
+//        setActivity(act, a);
+//
+//        saveDayAndActivity(act.getDan(), act);
+//        
+//        
+        Aktivnost act = server.find(Aktivnost.class, a.getId()); 
+        deleteActivity(act);
+        Aktivnost nova = new Aktivnost();
+        setActivity(nova, a);
+        postaviNoveProdaje(nova, a);
+        createActivity(nova);
     }
     
     public void createActivity(Aktivnost a){
@@ -40,12 +48,12 @@ public class ProdajaService extends ActivityService {
             saveDayAndActivity(a.getDan(), a);
     }
     
-    @Transactional
-    private void updateProdaje(Aktivnost novaAktivnost){
-        Aktivnost staraAktivnost = server.find(Aktivnost.class, novaAktivnost.getId());
-        izbrisiStareProdaje(staraAktivnost);
-        postaviNoveProdaje(staraAktivnost, novaAktivnost);
-    }
+//    @Transactional
+//    private void updateProdaje(Aktivnost novaAktivnost){
+//        Aktivnost staraAktivnost = server.find(Aktivnost.class, novaAktivnost.getId());
+//        izbrisiStareProdaje(staraAktivnost);
+//        postaviNoveProdaje(staraAktivnost, novaAktivnost);
+//    }
 
     public void izbrisiStareProdaje(Aktivnost staraAktivnost){
         for (Prodaja p:staraAktivnost.getProdaje()){
@@ -66,13 +74,6 @@ public class ProdajaService extends ActivityService {
         server.delete(act);
         for (Prodaja p: act.getProdaje()){
             ovcaService.undoStatus(p.getOvca());
-        }
-    }
-    
-    private void deleteProdaja(Prodaja p){
-        if (p.getId()!=null){
-            Prodaja prodaja = server.find(Prodaja.class, p.getId());
-            server.delete(prodaja);
         }
     }
     

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -79,20 +80,23 @@ private JPanel mainPanel;
         jSnimiButton = new javax.swing.JButton();
         nabavkaPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jTextTroskovi = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jCounter = new javax.swing.JLabel();
-        jFilter1 = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jFilter2 = new javax.swing.JTextField();
-        jSelekcija = new javax.swing.JCheckBox();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jSelekcija = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList = new javax.swing.JTable();
         jNameOfActivity = new javax.swing.JLabel();
         jDatum = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jTextTroskovi = new javax.swing.JTextField();
 
         jLabel7.setText("do:");
 
@@ -185,15 +189,6 @@ private JPanel mainPanel;
         jLabel13.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jLabel13.setText("Broj grla:");
 
-        jLabel18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLabel18.setText("Ukupno u evrima");
-
-        jTextTroskovi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTroskoviActionPerformed(evt);
-            }
-        });
-
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -201,14 +196,14 @@ private JPanel mainPanel;
 
             },
             new String [] {
-                "nadimak", "oznaka", "pol", "starost", "težina", "cena po kg(€)", "cena €", "kupac", "napomena", "aktuelno", "selekcija", "id"
+                "nadimak", "oznaka", "pol", "starost", "težina", "cena po kg(€)", "cena €", "kupac", "napomena", "aktuelno", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true, true, false, true, false
+                false, false, false, false, true, true, true, true, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -227,16 +222,20 @@ private JPanel mainPanel;
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setMinWidth(5);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(5);
-        jTable1.getColumnModel().getColumn(6).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setMinWidth(25);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(5).setMinWidth(25);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(25);
         jTable1.getColumnModel().getColumn(6).setPreferredWidth(15);
-        jTable1.getColumnModel().getColumn(8).setResizable(false);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(8).setMinWidth(10);
         jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(10).setMaxWidth(60);
-        jTable1.getColumnModel().getColumn(11).setMinWidth(0);
-        jTable1.getColumnModel().getColumn(11).setPreferredWidth(2);
-        jTable1.getColumnModel().getColumn(11).setMaxWidth(2);
+        jTable1.getColumnModel().getColumn(9).setMinWidth(10);
+        jTable1.getColumnModel().getColumn(10).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(2);
+        jTable1.getColumnModel().getColumn(10).setMaxWidth(2);
 
         jLabel10.setText("_________________________________________________");
 
@@ -244,38 +243,64 @@ private JPanel mainPanel;
         jCounter.setForeground(new java.awt.Color(204, 0, 51));
         jCounter.setText("9");
 
-        jFilter1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFilter1ActionPerformed(evt);
-            }
-        });
-        jFilter1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jLabel14.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jLabel14.setText("Filter");
+
+        jSelekcija.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jFilter1KeyReleased(evt);
+                jSelekcijaKeyReleased(evt);
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLabel19.setText("Filteri:");
-
-        jFilter2.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText(">");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFilter2ActionPerformed(evt);
-            }
-        });
-        jFilter2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jFilter2KeyReleased(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        jSelekcija.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jSelekcija.setText("Selektovano");
-        jSelekcija.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("<");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSelekcijaActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
+
+        jButton6.setText(">>");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("<<");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Grlo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jList.setColumnSelectionAllowed(true);
+        jScrollPane4.setViewportView(jList);
 
         javax.swing.GroupLayout nabavkaPanelLayout = new javax.swing.GroupLayout(nabavkaPanel);
         nabavkaPanel.setLayout(nabavkaPanelLayout);
@@ -283,50 +308,65 @@ private JPanel mainPanel;
             nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(807, Short.MAX_VALUE))
-            .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1141, Short.MAX_VALUE)
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCounter)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextTroskovi, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSelekcija)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFilter2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(42, 42, 42)
+                                .addComponent(jCounter))
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 903, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         nabavkaPanelLayout.setVerticalGroup(
             nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
+            .addGroup(nabavkaPanelLayout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextTroskovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCounter)
-                    .addComponent(jFilter1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFilter2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSelekcija))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCounter)
+                            .addComponent(jLabel13))
+                        .addGap(18, 18, 18)
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
-
-        jLabel11.setText("_________________________________________________");
 
         jNameOfActivity.setFont(new java.awt.Font("Monaco", 1, 24)); // NOI18N
         jNameOfActivity.setForeground(new java.awt.Color(153, 0, 0));
@@ -337,66 +377,76 @@ private JPanel mainPanel;
         jLabel1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
         jLabel1.setText("Datum");
 
+        jLabel18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jLabel18.setText("Ukupno u evrima");
+
+        jTextTroskovi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextTroskoviActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSnimiButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(nabavkaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jColorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel18)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextTroskovi, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jsatiPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel8)
+                                    .addGap(1, 1, 1)
+                                    .addComponent(jminutaPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(13, 13, 13)
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jsatiKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel9)
+                                    .addGap(1, 1, 1)
+                                    .addComponent(jminutaKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLokacija, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                        .addGap(21, 21, 21))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(1025, 1056, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addComponent(jScrollPane1)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jsatiPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addGap(1, 1, 1)
-                        .addComponent(jminutaPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jsatiKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addGap(1, 1, 1)
-                        .addComponent(jminutaKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jColorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLokacija, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
-                .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jSnimiButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(28, 28, 28))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nabavkaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,10 +485,12 @@ private JPanel mainPanel;
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(jLabel6)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jTextTroskovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -447,7 +499,7 @@ private JPanel mainPanel;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -462,14 +514,24 @@ private JPanel mainPanel;
         jNapomena.setText(aktivnost.getNapomena());
         jTextTroskovi.setText(Float.toString(aktivnost.getTroskovi()));
 //setTableRows();
+        
+
         if (aktivnost.getProdaje()==null || aktivnost.getProdaje().isEmpty()){
             jLokacija.setText("s.Jasenica");
+        } else {
+            fillTable(aktivnost.getProdaje(), jTable1);
         }
         jDatum.setCalendar(aktivnost.getDan().getDate());
 
         paintColumns();
         resetTable(logic.getSvaZivaGrla());
         
+    }
+        private void fillTable(List<Prodaja> prodaje, JTable table){
+             DefaultTableModel model = (DefaultTableModel) table.getModel();
+            for (int i=0; i<prodaje.size(); i++){
+                model.addRow(vector2From(prodaje.get(i).getOvca()));
+            }
     }
 
 
@@ -482,35 +544,22 @@ private JPanel mainPanel;
     
     private List<RowFilter<TableModel,Object>> getFilters(){
          List<RowFilter<TableModel,Object>> filters = new ArrayList<RowFilter<TableModel,Object>>();
-         RowFilter<TableModel, Object> comboFilter = RowFilter.regexFilter("");
-         if (jSelekcija.isSelected()){
-             comboFilter = RowFilter.regexFilter("true");
-         }
-         RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(jFilter1.getText());
-         RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jFilter2.getText());
-         filters.add(filter1);
-         filters.add(filter2);
-         filters.add(comboFilter);
-         
 
+         RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(jSelekcija.getText());
+         filters.add(filter1);
          return filters;
     }
     private void resetTable(List<Ovca> list){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) jList.getModel();
 
         sorter = new TableRowSorter<TableModel>(model);
-        jTable1.setRowSorter(sorter);
+        jList.setRowSorter(sorter);
         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
         model.setRowCount(0);
         for (Ovca o: list){
             model.addRow(vectorFrom(o));
         }
-        if (aktivnost.getId()!=null){
-            for (Prodaja p: aktivnost.getProdaje()){
-                model.addRow(vectorFrom(p.getOvca()));
-            }
-            jSelekcija.setSelected(true);
-        }
+
         jCounter.setText("("+ jTable1.getRowCount() + ")");
        
     }
@@ -559,9 +608,7 @@ private JPanel mainPanel;
         List<Prodaja> list = new ArrayList<Prodaja>(); 
         TableModel table = jTable1.getModel();
         for (int i=0; i<table.getRowCount(); i++){
-            if (Boolean.valueOf(table.getValueAt(i, 10).toString())){
                 list.add(pickProdaja(table, i));
-            }
         }
         return list;
     }
@@ -569,7 +616,7 @@ private JPanel mainPanel;
 
     private Prodaja pickProdaja(TableModel table, int n){
         Prodaja p = new Prodaja();
-        Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 11).toString()));
+        Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 10).toString()));
         p.setTezina((table.getValueAt(n, 4)));
         p.setCenaKg((table.getValueAt(n, 5)));
         p.setCenaGrla((table.getValueAt(n, 6)));
@@ -609,28 +656,61 @@ private JPanel mainPanel;
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextTroskoviActionPerformed
 
-    private void jFilter1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFilter1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFilter1ActionPerformed
-
-    private void jFilter2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFilter2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFilter2ActionPerformed
-
-    private void jFilter1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFilter1KeyReleased
+    private boolean tableModelContaintsOvca(DefaultTableModel model, Ovca o){
+        for (int i=0; i<model.getRowCount(); i++){
+            if (model.getValueAt(i, 10)== o.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+    private void applayFilters(){
         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-        jCounter.setText("("+ jTable1.getRowCount() + ")");        // TODO add your handling code here:
-    }//GEN-LAST:event_jFilter1KeyReleased
+    }
+    
+    private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
+        applayFilters();
+        DefaultTableModel model = (DefaultTableModel) jList.getModel();
+        if (jList.getRowCount()>0){
+            jList.setRowSelectionInterval(0, 0);
+        }
+    }//GEN-LAST:event_jSelekcijaKeyReleased
 
-    private void jFilter2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFilter2KeyReleased
-        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-        jCounter.setText("("+ jTable1.getRowCount() + ")");        // TODO add your handling code here:
-    }//GEN-LAST:event_jFilter2KeyReleased
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int selectedRow = jList.getSelectedRow();
+        if (selectedRow>=0){
+            Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            if (!tableModelContaintsOvca(model, o)){
+                model.addRow(vector2From(o));
+            }
+        }
+        jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jSelekcijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSelekcijaActionPerformed
-        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-        jCounter.setText("("+ jTable1.getRowCount() + ")"); 
-    }//GEN-LAST:event_jSelekcijaActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (selectedRow>=0 && selectedRow<model.getRowCount()){
+            model.removeRow(selectedRow);
+            jCounter.setText("("+ jTable1.getRowCount() + ")");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Ovca o : logic.getSvaZivaGrla()){
+            model.addRow(vector2From(o));
+        }
+        jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     private String createBilans(){
@@ -640,7 +720,7 @@ private JPanel mainPanel;
         return sb.toString();
         
     }
-    private Vector vectorFrom(Ovca o){
+    private Vector vector2From(Ovca o){
         Vector v = new Vector(); 
         v.add(o.getNadimak());
         v.add(o.getOznaka());
@@ -653,7 +733,6 @@ private JPanel mainPanel;
             v.add(null); 
             v.add(null); 
             v.add(o.getAktuelno());
-            v.add(false);
         } else {
             v.add(o.getProdaja().getTezina());   
             v.add(o.getProdaja().getCenaKg()); 
@@ -661,7 +740,6 @@ private JPanel mainPanel;
             v.add(o.getProdaja().getKupac()); 
             v.add(o.getProdaja().getNapomena()); 
             v.add(o.getAktuelno());
-            v.add(true);
         }
         v.add(o.getId());
         return v;
@@ -686,19 +764,25 @@ private JPanel mainPanel;
         this.setBorder(border);
         //g2d.fillRect(0, 0, w, h);  
     }  
+    private Vector vectorFrom(Ovca o){
+        Vector v = new Vector(); 
+        v.add(o);
+        return v;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jColorLabel;
     private javax.swing.JLabel jCounter;
     private com.toedter.calendar.JDateChooser jDatum;
-    private javax.swing.JTextField jFilter1;
-    private javax.swing.JTextField jFilter2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -706,12 +790,14 @@ private JPanel mainPanel;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTable jList;
     private javax.swing.JTextField jLokacija;
     private javax.swing.JLabel jNameOfActivity;
     private javax.swing.JTextArea jNapomena;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JCheckBox jSelekcija;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jSelekcija;
     private javax.swing.JButton jSnimiButton;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextTroskovi;

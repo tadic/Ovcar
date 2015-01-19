@@ -74,6 +74,15 @@ private JPanel mainPanel;
         jSpinField1 = new com.toedter.components.JSpinField();
         jLabel1 = new javax.swing.JLabel();
         jDatum = new com.toedter.calendar.JDateChooser();
+        jminutaPocetak = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jminutaKraj = new javax.swing.JSpinner();
+        jsatiKraj = new javax.swing.JSpinner();
+        jLabel2 = new javax.swing.JLabel();
+        jsatiPocetak = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         jColorLabel.setBackground(new java.awt.Color(102, 255, 102));
         jColorLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -159,6 +168,46 @@ private JPanel mainPanel;
 
         jDatum.setDateFormatString("dd.MM.yyyy");
 
+        jminutaPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "15", "30", "45"}));
+        jminutaPocetak.setAutoscrolls(true);
+        jminutaPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jminutaPocetakStateChanged(evt);
+            }
+        });
+
+        jLabel6.setText("od:");
+
+        jLabel7.setText("do:");
+
+        jminutaKraj.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "15", "30", "45"}));
+        jminutaKraj.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jminutaKrajStateChanged(evt);
+            }
+        });
+
+        jsatiKraj.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"}));
+        jsatiKraj.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsatiKrajStateChanged(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
+        jLabel2.setText("Trajanje");
+
+        jsatiPocetak.setModel(new javax.swing.SpinnerListModel(new String[] {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"}));
+        jsatiPocetak.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jsatiPocetakStateChanged(evt);
+            }
+        });
+
+        jLabel9.setText("-");
+
+        jLabel8.setText("-");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,7 +238,26 @@ private JPanel mainPanel;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsatiPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addGap(1, 1, 1)
+                        .addComponent(jminutaPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jsatiKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addGap(1, 1, 1)
+                        .addComponent(jminutaKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -214,7 +282,27 @@ private JPanel mainPanel;
                         .addComponent(jNameOfActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jColorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
-                    .addComponent(jDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jminutaPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(5, 5, 5)
+                            .addComponent(jLabel8))
+                        .addComponent(jsatiPocetak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(jLabel7))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jminutaKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(5, 5, 5)
+                                    .addComponent(jLabel9))
+                                .addComponent(jsatiKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -245,7 +333,10 @@ private JPanel mainPanel;
     private void setPanel(){
         jNameOfActivity.setText(aktivnost.getVrstaAktivnosti().getName());
         jColorLabel.setBackground(new Color(aktivnost.getVrstaAktivnosti().getColor()));
-
+        jsatiPocetak.setValue(convertHours(aktivnost.pocetakUSatima()));
+        jminutaPocetak.setValue(convertHours(aktivnost.pocetakMinuta()));
+        jsatiKraj.setValue(convertHours(aktivnost.zavrsetakUSatima()));
+        jminutaKraj.setValue(convertHours(aktivnost.zavrsetakMinuta()));
 
         jLokacija.setText(aktivnost.getLokacija());
         jNapomena.setText(aktivnost.getNapomena());
@@ -260,6 +351,13 @@ private JPanel mainPanel;
 
         //setTableRows();
         
+    }
+    
+    private String convertHours(int h){
+        if (h<10){
+            return "0" + h;
+        } 
+        return "" + h;
     }
     private void setJagnjenjaPanels(){
         if (!aktivnost.getListaJagnjenja().isEmpty()){
@@ -313,6 +411,9 @@ private JPanel mainPanel;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void pickJagnjenja(){
+        aktivnost.setVremePocetka(pickint(jsatiPocetak)*100 + pickint(jminutaPocetak));
+        System.out.println("vreme pocetka: "+aktivnost.getVremePocetka());
+        aktivnost.setVremeZavrsetka(pickint(jsatiKraj)*100 + pickint(jminutaKraj));
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setNapomena(jNapomena.getText());
         aktivnost.getListaJagnjenja().clear();
@@ -327,7 +428,17 @@ private JPanel mainPanel;
         aktivnost.setDan(new Dan(jDatum.getCalendar()));
         aktivnost.setBilans(createBilans(ovaca, jaganjaca));
     }
-    
+                                    
+    private void keepTimePositive(){
+        int vremePocetka =   pickint(jsatiPocetak)*100 + pickint(jminutaPocetak);
+        int vremeZavrsetka = pickint(jsatiKraj)*100 + pickint(jminutaKraj);
+        int trajanje = vremeZavrsetka-vremePocetka;
+        if (trajanje <= 0){
+            jsatiKraj.setValue(convertHours(pickint(jsatiPocetak)+1));
+            jminutaKraj.setValue(convertHours(pickint(jminutaPocetak)));
+        }
+    }
+     
     private String createBilans(int o, int j){
         StringBuilder sb = new StringBuilder(Ovca.mnozinaOvca(o));
         sb.append(", ojagnjeno ").append(" ").append(Ovca.mnozinaJagnje(j));
@@ -365,6 +476,22 @@ private JPanel mainPanel;
         
     }//GEN-LAST:event_jSpinField1PropertyChange
 
+    private void jminutaPocetakStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jminutaPocetakStateChanged
+        keepTimePositive();
+    }//GEN-LAST:event_jminutaPocetakStateChanged
+
+    private void jminutaKrajStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jminutaKrajStateChanged
+        keepTimePositive();
+    }//GEN-LAST:event_jminutaKrajStateChanged
+
+    private void jsatiKrajStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsatiKrajStateChanged
+        keepTimePositive();
+    }//GEN-LAST:event_jsatiKrajStateChanged
+
+    private void jsatiPocetakStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jsatiPocetakStateChanged
+        keepTimePositive();
+    }//GEN-LAST:event_jsatiPocetakStateChanged
+
 
 
     public void smanjiSvePaneleJagnjenja(){
@@ -400,8 +527,13 @@ private JPanel mainPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jLokacija;
     private javax.swing.JLabel jNameOfActivity;
     private javax.swing.JTextArea jNapomena;
@@ -409,5 +541,9 @@ private JPanel mainPanel;
     private javax.swing.JButton jSnimiButton;
     private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JPanel jagnjenjePanel;
+    private javax.swing.JSpinner jminutaKraj;
+    private javax.swing.JSpinner jminutaPocetak;
+    private javax.swing.JSpinner jsatiKraj;
+    private javax.swing.JSpinner jsatiPocetak;
     // End of variables declaration//GEN-END:variables
 }

@@ -45,7 +45,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
         jScrollPane1.getViewport().setBackground(Color.white);
         setBoldFontToColumn(3, Color.black);
         setBoldFontToColumn(0, Color.red.darker());
-        setBoldFontToColumn(12, Color.black);
+        setBoldFontToColumn(1, Color.red.darker());
+        setBoldFontToColumn(12, Color.red.darker());
+        setBoldFontToColumn(13, Color.black);
         listOfSheep = logic.getAllSheep();
         //System.err.println("Velicina liste ovaca: " + listOfSheep.size());
         resetTable(listOfSheep);
@@ -453,13 +455,12 @@ public class Podaci_ovaca extends javax.swing.JPanel {
                 Object oznaka = jTable1.getModel().getValueAt(selectedRow,0);
                 Object nadimak = jTable1.getModel().getValueAt(selectedRow,1);
                // if (aktuelno!=null){
-                    System.out.println(aktuelno.toString());
                     String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
                     Ovca o = logic.getOvca(Integer.parseInt(id));
-                    o.setAktuelno(aktuelno.toString());
+                    o.setAktuelno(aktuelno);
                     o.setOznaka(oznaka);
                     o.setNadimak(nadimak);
-                    logic.updateOvca(o);
+                    logic.updateOvcaFromList(o);
                // }
             }
             listOfSheep = logic.getAllSheep();

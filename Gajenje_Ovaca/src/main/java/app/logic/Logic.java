@@ -145,6 +145,10 @@ public class Logic {
         ActivityServiceFactory serviceFactory = new ActivityServiceFactory(db.server());
         return serviceFactory.getService(aktivnost);
     }
+
+    public void updateOvcaFromList(Ovca o) {
+        ovcaService.updateOvcaFromList(o);
+    }
    
 
 }

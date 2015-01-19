@@ -22,10 +22,10 @@ public abstract class ActivityService {
      
     public void saveDayAndActivity(Dan dan, Aktivnost a){
             Dan d = server.find(Dan.class).where().like("datum", dan.getDatum().toString()).findUnique();  
-
+            
             if (d!=null){ // ako ga nema u bazi, napravi ga
-                d.getAktivnosti().add(a);
-                server.save(d);
+                     d.getAktivnosti().add(a);
+                     server.save(d);
             } else{
                dan.getAktivnosti().add(a);
                server.save(dan);
@@ -69,9 +69,16 @@ public abstract class ActivityService {
         act.setVrstaAktivnosti(a.getVrstaAktivnosti());
         act.setTroskovi(a.getTroskovi());
         act.setBilans(a.getBilans());
+        
+//        act.setUginuce(a.getUginuce());
+//        act.setProdaje(a.getProdaje());
+//        act.setRadovi(a.getRadovi());
+//        act.setVakcinacije(a.getVakcinacije());
+//        act.setListaJagnjenja(a.getListaJagnjenja());
+//        act.setNabavljenaGrla(a.getNabavljenaGrla());
+//        System.out.println("\n\nvreme pocetka: "+act.getVremePocetka());
     }
-    
-    @Transactional
+
     public void saveActivity(Aktivnost a) {  
         if (a.getId()==null){
             createActivity(a);
