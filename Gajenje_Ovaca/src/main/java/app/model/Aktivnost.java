@@ -39,12 +39,15 @@ public class Aktivnost implements Comparable<Aktivnost> {
     private List<Vakcinacija> vakcinacije;
     
     @OneToMany(cascade = CascadeType.ALL)
+    private List<Merenje> merenja;
+    
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Prodaja> prodaje;
     
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<Jagnjenje> listaJagnjenja;
     
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     private Dan dan;
 
     private Integer vremePocetka; // sati puta 100 plus minuta
@@ -321,6 +324,15 @@ public class Aktivnost implements Comparable<Aktivnost> {
         return String.valueOf(Aktivnost.round(this.troskovi, 0));
     }
 
+    public List<Merenje> getMerenja() {
+        return merenja;
+    }
+
+    public void setMerenja(List<Merenje> merenja) {
+        this.merenja = merenja;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 3;

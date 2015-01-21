@@ -19,11 +19,9 @@ public class VakcinacijaService extends ActivityService{
 
     // metod radi tako sto brise sve stare vakcinacije i samu staru aktivnost i snima novu...
     public void updateActivity(Aktivnost a){
-        Aktivnost act = server.find(Aktivnost.class, a.getId()); 
-        deleteActivity(act);
+        deleteActivity(a);
         Aktivnost nova = new Aktivnost();
         setActivity(nova, a);
-//        nova.setDan(null);
         nova.setVakcinacije(a.getVakcinacije());
         saveDayAndActivity(a.getDan(), nova);
 
@@ -34,7 +32,10 @@ public class VakcinacijaService extends ActivityService{
     }
     
     public void deleteActivity(Aktivnost a) {
-        server.delete(a);
+        Aktivnost act = server.find(Aktivnost.class, a.getId());
+        if (act!=null){
+            server.delete(act);
+        }
     }
 
     

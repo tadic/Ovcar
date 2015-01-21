@@ -573,6 +573,7 @@ private JPanel mainPanel;
             fillTable(aktivnost.getVakcinacije(), jTable1);
         } else {
             jLokacija.setText("s.Jasenica");
+            jCounter.setText("("+ jTable1.getRowCount() + ")");
         }
         
     }
@@ -583,6 +584,7 @@ private JPanel mainPanel;
                 model.addRow(vector2From(vakcinacije.get(i).getOvca()));
                 model.setValueAt(vakcinacije.get(i).getNapomena(), i, 4);
             }
+            jCounter.setText("("+ jTable1.getRowCount() + ")");
     }
 
     private void paintColumns(){

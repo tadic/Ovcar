@@ -29,7 +29,6 @@ private JPanel mainpanel;
     }
     
     public void showEditPanel(){
-        JPanel editPanel;
         if (aktivnost.getVrstaAktivnosti().getName().equals("Nabavka ovaca")){
             setPanel(new NabavkaOvacaPanel(mainpanel, logic, aktivnost));
         }   else if (aktivnost.getVrstaAktivnosti().getName().equals("Jagnjenje")){
@@ -40,6 +39,8 @@ private JPanel mainpanel;
             setPanel(new ProdajaPanel(mainpanel, logic, aktivnost));
         } else if (aktivnost.getVrstaAktivnosti().getName().equals("Vakcinacija/Lečenje")){
             setPanel(new VakcinacijaPanel(mainpanel, logic, aktivnost));
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Merenje")){
+            setPanel(new MerenjePanel(mainpanel, logic, aktivnost));
         } else {
             setPanel(new RadoviPanel(mainpanel, logic, aktivnost));
         }

@@ -5,6 +5,7 @@ import app.editPanels.JagnjenjaPanel;
 import app.logic.Logic;
 import app.mainPanels.AktivnostiPanel;
 import app.mainPanels.Dnevnik;
+import app.mainPanels.Merenja;
 import app.mainPanels.NapraviIzvestaj;
 import app.mainPanels.Podaci_ovaca;
 import app.model.Aktivnost;
@@ -176,7 +177,7 @@ public class Ovcar extends javax.swing.JFrame {
         jButton18.setBackground(new java.awt.Color(0, 204, 153));
         jButton18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jButton18.setForeground(new java.awt.Color(212, 212, 212));
-        jButton18.setText("Statistike");
+        jButton18.setText("Merenja");
         jButton18.setBorderPainted(false);
         jButton18.setContentAreaFilled(false);
         jButton18.setFocusPainted(false);
@@ -360,7 +361,12 @@ public class Ovcar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton18MouseEntered
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
+            mainPanel.setLayout(new GridLayout());
+            mainPanel.removeAll();
+            mainPanel.add(new Merenja(mainPanel, logic));
+            mainPanel.revalidate();
+            repaint();
+            setVisible(true);  
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton19MouseExited

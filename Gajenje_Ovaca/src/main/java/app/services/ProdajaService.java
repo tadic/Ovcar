@@ -26,13 +26,6 @@ public class ProdajaService extends ActivityService {
     
     
     public void updateActivity(Aktivnost a){
-//        Aktivnost act = server.find(Aktivnost.class).where().like("id", a.getId().toString()).findUnique();  
-//        updateProdaje(a);
-//        setActivity(act, a);
-//
-//        saveDayAndActivity(act.getDan(), act);
-//        
-//        
         Aktivnost act = server.find(Aktivnost.class, a.getId()); 
         deleteActivity(act);
         Aktivnost nova = new Aktivnost();

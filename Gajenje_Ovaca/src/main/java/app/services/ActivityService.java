@@ -59,6 +59,19 @@ public abstract class ActivityService {
     public List<NabavkaOvaca> getListOfNabavkaFor(Aktivnost aktivnost) {
         return  server.find(NabavkaOvaca.class).where().like("aktivnost_id", aktivnost.getId().toString()).findList();  
     }
+    
+    public List<Aktivnost> getPoslednjaMerenja(int maxCount) {
+        List<Aktivnost> list =  server.find(Aktivnost.class).where().like("vrsta_aktivnosti_id","7").findList();
+        
+    
+        for (Aktivnost a : list){
+            Integer datum = a.getDan().getDatum();
+        }
+        if (list.size()>maxCount){
+            return list.subList(list.size()-maxCount, list.size());
+        } 
+        return list;
+    }
 
     public void setActivity(Aktivnost act, Aktivnost a){
         act.setDan(a.getDan());

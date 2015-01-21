@@ -10,6 +10,7 @@ import app.model.Jagnjenje;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.Linija;
+import app.model.Merenje;
 import app.model.Prodaja;
 import app.model.Radovi;
 import app.model.Uginuce;
@@ -73,6 +74,7 @@ public final class DataBase {
         config.addClass(Vakcinacija.class);
         config.addClass(Prodaja.class);
         config.addClass(Jagnjenje.class);
+        config.addClass(Merenje.class);
       //  config.addClass(Ovca.class);
         
         

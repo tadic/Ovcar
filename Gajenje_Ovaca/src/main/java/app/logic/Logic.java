@@ -145,9 +145,18 @@ public class Logic {
         ActivityServiceFactory serviceFactory = new ActivityServiceFactory(db.server());
         return serviceFactory.getService(aktivnost);
     }
+    
+    private ActivityService activityService(){
+        ActivityServiceFactory serviceFactory = new ActivityServiceFactory(db.server());
+        return serviceFactory.getService(null);
+    }
 
     public void updateOvcaFromList(Ovca o) {
         ovcaService.updateOvcaFromList(o);
+    }
+
+    public List<Aktivnost> getPoslednjaMerenja() {
+        return activityService().getPoslednjaMerenja(5);
     }
    
 

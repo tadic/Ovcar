@@ -110,6 +110,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jLeglo.setText("?");
         }
         
+        jTezina.setText(String.valueOf(o.getTezinaNaRodjenju()));
+        
+        
     }
     private void setOsnovniPodaci(Ovca o){
         if (o.getPol()=='m'){
@@ -1269,6 +1272,12 @@ public class OvcaPrikaz extends javax.swing.JPanel {
      //   System.out.println("id "+ovca.getId());
         ovca.setOtac(pickOtac());
         ovca.setMajka(pickMajka());
+         try{
+             ovca.setTezinaNaRodjenju(Float.parseFloat(jTezina.getText()));
+        } catch (Exception e){
+            ovca.setTezinaNaRodjenju(0.0);
+        }
+        
         ovca.setOznaka(jOznaka.getText());
         ovca.setNadimak(jNadimak.getText());
         ovca.setProcenatR(jProcenatR.getText());

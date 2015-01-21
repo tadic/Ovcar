@@ -34,6 +34,8 @@ public class Ovca {
     private Prodaja prodaja;
     @OneToMany(cascade= CascadeType.ALL, mappedBy="ovca")
     private List<Jagnjenje> listaJagnjenja;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovca")
+    private List<Merenje> merenja;
     
     @OneToOne(mappedBy = "sheep")
     private Jagnjenje rodjenje;
@@ -470,6 +472,14 @@ public String getPpol(){
             return   (12*(godina-ryear) + mesec-rmonth)<7;
         }    
         return false;
+    }
+
+    public List<Merenje> getMerenja() {
+        return merenja;
+    }
+
+    public void setMerenja(List<Merenje> merenja) {
+        this.merenja = merenja;
     }
 
     @Override
