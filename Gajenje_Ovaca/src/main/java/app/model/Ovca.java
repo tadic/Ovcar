@@ -74,6 +74,7 @@ public class Ovca {
     public Ovca getMe(){
         return this;
     }
+    
     public Ovca(String status){
         this.status = status;
     }

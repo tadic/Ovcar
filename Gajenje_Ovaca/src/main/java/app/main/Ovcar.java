@@ -7,6 +7,7 @@ import app.mainPanels.AktivnostiPanel;
 import app.mainPanels.Dnevnik;
 import app.mainPanels.Merenja;
 import app.mainPanels.NapraviIzvestaj;
+import app.mainPanels.PlanPripusta;
 import app.mainPanels.Podaci_ovaca;
 import app.model.Aktivnost;
 import java.awt.Color;
@@ -77,7 +78,8 @@ public class Ovcar extends javax.swing.JFrame {
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
-        jLinijeButton = new javax.swing.JButton();
+        jPlanPripustaButton = new javax.swing.JButton();
+        jLinijeButton1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -250,30 +252,55 @@ public class Ovcar extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton20);
 
-        jLinijeButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLinijeButton.setForeground(new java.awt.Color(212, 212, 212));
-        jLinijeButton.setText("Linije");
-        jLinijeButton.setBorderPainted(false);
-        jLinijeButton.setContentAreaFilled(false);
-        jLinijeButton.setFocusPainted(false);
-        jLinijeButton.setFocusable(false);
-        jLinijeButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLinijeButton.setMargin(new java.awt.Insets(2, 10, 2, 10));
-        jLinijeButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jLinijeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPlanPripustaButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jPlanPripustaButton.setForeground(new java.awt.Color(212, 212, 212));
+        jPlanPripustaButton.setText("Plan pripusta");
+        jPlanPripustaButton.setBorderPainted(false);
+        jPlanPripustaButton.setContentAreaFilled(false);
+        jPlanPripustaButton.setFocusPainted(false);
+        jPlanPripustaButton.setFocusable(false);
+        jPlanPripustaButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPlanPripustaButton.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        jPlanPripustaButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPlanPripustaButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLinijeButtonMouseExited(evt);
+                jPlanPripustaButtonMouseExited(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLinijeButtonMouseEntered(evt);
+                jPlanPripustaButtonMouseEntered(evt);
             }
         });
-        jLinijeButton.addActionListener(new java.awt.event.ActionListener() {
+        jPlanPripustaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLinijeButtonActionPerformed(evt);
+                jPlanPripustaButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(jLinijeButton);
+        jToolBar1.add(jPlanPripustaButton);
+
+        jLinijeButton1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jLinijeButton1.setForeground(new java.awt.Color(212, 212, 212));
+        jLinijeButton1.setText("Linije");
+        jLinijeButton1.setBorderPainted(false);
+        jLinijeButton1.setContentAreaFilled(false);
+        jLinijeButton1.setFocusPainted(false);
+        jLinijeButton1.setFocusable(false);
+        jLinijeButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLinijeButton1.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        jLinijeButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLinijeButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLinijeButton1MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLinijeButton1MouseEntered(evt);
+            }
+        });
+        jLinijeButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLinijeButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jLinijeButton1);
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setPreferredSize(new java.awt.Dimension(1305, 700));
@@ -418,17 +445,34 @@ public class Ovcar extends javax.swing.JFrame {
      setVisible(true);
     }//GEN-LAST:event_dnevnikButtonActionPerformed
 
-    private void jLinijeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButtonMouseExited
-        jLinijeButton.setForeground(new Color(212,212,212));
-    }//GEN-LAST:event_jLinijeButtonMouseExited
+    private void jPlanPripustaButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlanPripustaButtonMouseExited
+        jPlanPripustaButton.setForeground(new Color(212,212,212));
+    }//GEN-LAST:event_jPlanPripustaButtonMouseExited
 
-    private void jLinijeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButtonMouseEntered
-        jLinijeButton.setForeground(Color.white);
-    }//GEN-LAST:event_jLinijeButtonMouseEntered
+    private void jPlanPripustaButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPlanPripustaButtonMouseEntered
+        jPlanPripustaButton.setForeground(Color.white);
+    }//GEN-LAST:event_jPlanPripustaButtonMouseEntered
 
-    private void jLinijeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLinijeButtonActionPerformed
+    private void jPlanPripustaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPlanPripustaButtonActionPerformed
+        mainPanel.setLayout(new GridLayout());
+        mainPanel.removeAll();
+        mainPanel.add(new PlanPripusta(mainPanel, logic));
+        mainPanel.revalidate();
+        repaint();
+        setVisible(true);
+    }//GEN-LAST:event_jPlanPripustaButtonActionPerformed
+
+    private void jLinijeButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButton1MouseExited
+       jPlanPripustaButton.setForeground(new Color(212,212,212));
+    }//GEN-LAST:event_jLinijeButton1MouseExited
+
+    private void jLinijeButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLinijeButton1MouseEntered
+        jPlanPripustaButton.setForeground(Color.white);
+    }//GEN-LAST:event_jLinijeButton1MouseEntered
+
+    private void jLinijeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLinijeButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLinijeButtonActionPerformed
+    }//GEN-LAST:event_jLinijeButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -470,8 +514,9 @@ public class Ovcar extends javax.swing.JFrame {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
-    private javax.swing.JButton jLinijeButton;
+    private javax.swing.JButton jLinijeButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jPlanPripustaButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;

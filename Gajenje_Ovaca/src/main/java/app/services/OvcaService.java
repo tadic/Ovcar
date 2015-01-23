@@ -23,6 +23,8 @@ public class OvcaService {
     
     public Ovca getOvca(int id) {
         Ovca o =  server.find(Ovca.class, id);
+        o.getOtac();
+        o.getMajka();
         return o;
     }
     
@@ -53,7 +55,11 @@ public class OvcaService {
         if (sheep.getMajka().getOznaka()!= null){ //ako je oznaka uneta kroz formu
             Ovca majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             if (majka==null){   
-               sheep.getMajka().setPol('ž');// ako majka nije postojala u bazi       
+               sheep.getMajka().setPol('ž');// ako majka nije postojala u bazi   
+               Ovca defaultOtac = server.find(Ovca.class).where().like("oznaka", "nepoznat").findUnique();  
+               Ovca defaultMajka = server.find(Ovca.class).where().like("oznaka", "nepoznata").findUnique();  
+               sheep.getMajka().setMajka(defaultMajka); 
+               sheep.getMajka().setOtac(defaultOtac);
                server.save(sheep.getMajka());   // snimi majku kao 'nepoznatu' i uzmi njen id
                majka = server.find(Ovca.class).where().like("oznaka", sheep.getMajka().getOznaka().toString()).findUnique();  
             
@@ -67,8 +73,12 @@ public class OvcaService {
                 System.out.println("Otac: " + sheep.getOtac());
         if (sheep.getOtac().getOznaka()!= null){ //ako je oznaka vec uneta kroz formular
             Ovca otac = server.find(Ovca.class).where().like("oznaka", sheep.getOtac().getOznaka().toString()).findUnique();  
-            if (otac==null){       
-               sheep.getOtac().setPol('m');     // ako otac nije postojala u bazi       
+            if (otac==null){     // ako otac nije postojala u bazi   
+               sheep.getOtac().setPol('m');  
+               Ovca defaultOtac = server.find(Ovca.class).where().like("oznaka", "nepoznat").findUnique();  
+               Ovca defaultMajka = server.find(Ovca.class).where().like("oznaka", "nepoznata").findUnique();  
+               sheep.getOtac().setMajka(defaultMajka); 
+               sheep.getOtac().setOtac(defaultOtac);
                server.save(sheep.getOtac());   // snimi oca kao 'nepoznatu' i uzmi njen id
                otac = server.find(Ovca.class).where().like("oznaka", sheep.getOtac().getOznaka().toString()).findUnique();  
             System.out.println("Kreiran je novi otac oznake" + otac.getOznaka());

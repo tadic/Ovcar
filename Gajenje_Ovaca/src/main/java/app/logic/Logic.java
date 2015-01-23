@@ -2,6 +2,7 @@
 package app.logic;
 
 import app.config.DataBase;
+import app.helpers.OvcaHelper;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Linija;
@@ -157,6 +158,11 @@ public class Logic {
 
     public List<Aktivnost> getPoslednjaMerenja() {
         return activityService().getPoslednjaMerenja(5);
+    }
+
+    public int izracunajKoleno(Ovca a, Ovca b) {
+        OvcaHelper ovcaHelper = new OvcaHelper(db.server());
+        return ovcaHelper.racunajKoleno(a, b);
     }
    
 
