@@ -30,14 +30,15 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class ListaOvacaAktuelnoIzvestaj {
     private List<Ovca> list;
-    private String f1, f2, f3,f4;
+    private String f1, f2, f3,f4, nazivListe;
     private Map<String, Object> params = new HashMap<String, Object>();
-    public ListaOvacaAktuelnoIzvestaj(List<Ovca> list, String f1, String f2, String f3, String f4){
+    public ListaOvacaAktuelnoIzvestaj(List<Ovca> list, String nazivListe, String f1, String f2, String f3, String f4){
         this.list = list;
         this.f1 = f1;
         this.f2 = f2;
         this.f3 = f3;
         this.f4 = f4;
+        this.nazivListe = nazivListe;
     }
     public void create(){
         osnovniPodatci();
@@ -66,7 +67,7 @@ public class ListaOvacaAktuelnoIzvestaj {
         params.put("filter3", f3); 
         params.put("filter4", f4); 
         params.put("count", "(" + list.size() + ")"); 
-
+params.put("nazivListe", nazivListe);
         params.put("startDate", (new java.util.Date()).toString());
     }
         

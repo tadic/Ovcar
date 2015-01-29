@@ -4,11 +4,10 @@
  */
 package app.model;
 
-import java.sql.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -18,12 +17,16 @@ import javax.persistence.OneToOne;
 public class Parenje {
     @Id 
     private Integer id;
-    @OneToOne(cascade = CascadeType.ALL)
+        
+    @ManyToOne(fetch= FetchType.EAGER)
+    private Aktivnost aktivnost;
+    @ManyToOne
     private Ovca ovca;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Ovca ovan;
-    private Date datumParenja;
-    private String komentar;
+
+    private String tip;
+    private String napomena;
     
     public Parenje(){
         
@@ -35,6 +38,14 @@ public class Parenje {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Aktivnost getAktivnost() {
+        return aktivnost;
+    }
+
+    public void setAktivnost(Aktivnost aktivnost) {
+        this.aktivnost = aktivnost;
     }
 
     public Ovca getOvca() {
@@ -53,20 +64,21 @@ public class Parenje {
         this.ovan = ovan;
     }
 
-    public Date getDatumParenja() {
-        return datumParenja;
+    public String getTip() {
+        return tip;
     }
 
-    public void setDatumParenja(Date datumParenja) {
-        this.datumParenja = datumParenja;
+    public void setTip(String tip) {
+        this.tip = tip;
     }
 
-    public String getKomentar() {
-        return komentar;
+    public String getNapomena() {
+        return napomena;
     }
 
-    public void setKomentar(String komentar) {
-        this.komentar = komentar;
+    public void setNapomena(String napomena) {
+        this.napomena = napomena;
     }
-    
+
+   
 }

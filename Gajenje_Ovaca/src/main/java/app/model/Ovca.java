@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 /**
  *
@@ -36,6 +38,10 @@ public class Ovca {
     private List<Jagnjenje> listaJagnjenja;
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovca")
     private List<Merenje> merenja;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovca")
+    private List<Parenje> parenja;
+    @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovan")
+    private List<Parenje> pripusti;
     
     @OneToOne(mappedBy = "sheep")
     private Jagnjenje rodjenje;
@@ -60,6 +66,9 @@ public class Ovca {
     @OneToOne(mappedBy = "o")
     private Uginuce uginuce;
     private float tezinaNaRodjenju;
+    private float tezinaDvaMeseca;
+    private float tezinaCetiriMeseca;
+
     private String aktuelno;
    // mozda ne treba private ArrayList<Date> listaJagnjenja;
     
@@ -294,7 +303,23 @@ public String getPpol(){
         }
         return 0;
     }
-    
+    public Integer starostUDanima(Calendar date){
+        if (this.datumRodjenja!=null && datumRodjenja.length()>0){
+            int cyear = date.get(Calendar.YEAR);
+            int cday = date.get(Calendar.DATE);
+            int cmonth = date.get(Calendar.MONTH);
+                   
+            int rmonth = Integer.parseInt(datumRodjenja.substring(3, 5))-1;
+            int ryear = Integer.parseInt(datumRodjenja.substring(6));
+            int rdate = Integer.parseInt(datumRodjenja.substring(0,2));
+     
+            int days = Days.daysBetween(new DateTime(new Date(ryear, rmonth, rdate)), 
+                    new DateTime(new Date(cyear, cmonth, cday))).getDays();
+            //Integer starostDana = 365*(cyear-ryear) + cday - d.getDate().DAY_OF_YEAR;
+            return   days;
+        }
+        return 0;
+    }
     public String getStarost(){
         Integer monthDifference = starostUMesecima();
         if (monthDifference!=null && status.equals("na farmi")){
@@ -415,51 +440,7 @@ public String getPpol(){
         this.vakcinacije = vakcinacije;
     }
     
-    public static String parseOznaka(String slog){
-        int i=slog.indexOf(" ");
-        if (i>0){
-            return slog.substring(0,i);
-        }
-        return slog;
-    }
     
-    
-    public static String mnozinaJagnje(int n){
-        switch (n%10){
-            case 1: return "" + n + " jagnje";
-            case 2: return "" + n + " jagnjeta";
-            case 3: return "" + n + " jagnjeta";
-            case 4: return "" + n + " jagnjeta";          
-        }
-        return "" + n + " jagnjadi";
-    }
-    public static String mnozinaOvan(int n){
-        switch (n%10){
-            case 1: return "" + n + " ovan";
-            case 2: return "" + n + " ovna";
-            case 3: return "" + n + " ovna";
-            case 4: return "" + n + " ovna";          
-        }
-        return "" + n + " ovnova";
-    }
-    
-    
-    public static String mnozinaOvca(int n){
-        switch (n%10){
-            case 1: return "" + n + " ovca";
-            case 2: return "" + n + " ovce";
-            case 3: return "" + n + " ovce";
-            case 4: return "" + n + " ovce";          
-        }
-        return "" + n + " ovaca";
-    }
-    
-        public static String mnozinaGro(int n){
-        switch (n%10){
-            case 1: return "" + n + " grlo";          
-        }
-        return "" + n + " grla";
-    }
     private Integer parseMesec(String datum){
         return Integer.parseInt(datum.substring(3, 5));
     }
@@ -504,8 +485,37 @@ public String getPpol(){
         }
         return true;
     }
-    
 
-    
+    public float getTezinaDvaMeseca() {
+        return tezinaDvaMeseca;
+    }
+
+    public void setTezinaDvaMeseca(float tezinaDvaMeseca) {
+        this.tezinaDvaMeseca = tezinaDvaMeseca;
+    }
+
+    public float getTezinaCetiriMeseca() {
+        return tezinaCetiriMeseca;
+    }
+
+    public void setTezinaCetiriMeseca(float tezinaCetiriMeseca) {
+        this.tezinaCetiriMeseca = tezinaCetiriMeseca;
+    }
+
+    public List<Parenje> getParenja() {
+        return parenja;
+    }
+
+    public void setParenja(List<Parenje> parenja) {
+        this.parenja = parenja;
+    }
+
+    public List<Parenje> getPripusti() {
+        return pripusti;
+    }
+
+    public void setPripusti(List<Parenje> pripusti) {
+        this.pripusti = pripusti;
+    }
     
 }

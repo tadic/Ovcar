@@ -214,5 +214,10 @@ public class OvcaService {
         stara.setNadimak(o.getNadimak());
         server.save(stara);
     }
+
+    public List<Ovca> getSveOvnove() {
+         return server.find(Ovca.class).where().like("status", "na farmi").like("pol", "m").findList();
+
+    }
     
 }

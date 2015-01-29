@@ -32,21 +32,16 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTrazi3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
                       <Component id="jTrazi1" min="-2" pref="176" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" pref="471" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jStampajSve1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jStampajSve" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jSnimi" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPrikazi" min="-2" pref="140" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
               </Group>
@@ -69,13 +64,11 @@
                   </Group>
                   <Component id="jLabel2" alignment="1" min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="455" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="519" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jSnimi" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jPrikazi" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="jStampajSve" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jStampajSve1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -143,7 +136,7 @@
                 <Column editable="true" title="aktuelno" type="java.lang.String"/>
                 <Column editable="false" title="id" type="java.lang.Integer"/>
                 <Column editable="false" title="Koleno" type="java.lang.String"/>
-                <Column editable="false" title="Poklapanje % krvi" type="java.lang.Float"/>
+                <Column editable="false" title="Poklapanje % krvi" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -245,34 +238,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSnimiActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jPrikazi">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="99" red="0" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monaco" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Prika&#x17e;i"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPrikaziActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jStampajSve">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="ff" red="0" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Monaco" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x160;tampaj sve"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jStampajSveActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jTrazi3">

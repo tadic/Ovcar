@@ -200,8 +200,6 @@ public class PlanPripusta extends javax.swing.JPanel {
         jTrazi1 = new javax.swing.JTextField();
         jCounter = new javax.swing.JLabel();
         jSnimi = new javax.swing.JButton();
-        jPrikazi = new javax.swing.JButton();
-        jStampajSve = new javax.swing.JButton();
         jTrazi3 = new javax.swing.JComboBox();
         jStampajSve1 = new javax.swing.JButton();
         nabavkaPanel = new javax.swing.JPanel();
@@ -239,7 +237,7 @@ public class PlanPripusta extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, true, false, false, false
@@ -309,24 +307,6 @@ public class PlanPripusta extends javax.swing.JPanel {
         jSnimi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSnimiActionPerformed(evt);
-            }
-        });
-
-        jPrikazi.setBackground(new java.awt.Color(0, 153, 153));
-        jPrikazi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jPrikazi.setText("Prikaži");
-        jPrikazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPrikaziActionPerformed(evt);
-            }
-        });
-
-        jStampajSve.setBackground(new java.awt.Color(0, 255, 0));
-        jStampajSve.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jStampajSve.setText("Štampaj sve");
-        jStampajSve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jStampajSveActionPerformed(evt);
             }
         });
 
@@ -440,20 +420,15 @@ public class PlanPripusta extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(345, 345, 345)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jStampajSve1)
                         .addGap(18, 18, 18)
-                        .addComponent(jStampajSve)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSnimi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jSnimi))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -470,12 +445,10 @@ public class PlanPripusta extends javax.swing.JPanel {
                             .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStampajSve, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStampajSve1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
             .addGroup(layout.createSequentialGroup()
@@ -521,29 +494,14 @@ public class PlanPripusta extends javax.swing.JPanel {
                  jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jTrazi1KeyReleased
 
-    private void jPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrikaziActionPerformed
-            if (jTable1.getSelectedRow()!= -1){
-            int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-            String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
-            mainPanel.removeAll();
-            mainPanel.add(new OvcaPrikaz(mainPanel, logic, Integer.parseInt(id)));
-            mainPanel.revalidate();
-            repaint();
-            }
-    }//GEN-LAST:event_jPrikaziActionPerformed
-
     private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
             for (int i=0; i<jTable1.getRowCount(); i++){
                 int selectedRow = jTable1.convertRowIndexToModel(i);
-                String aktuelno = (String) jTable1.getModel().getValueAt(selectedRow,12);
-                Object oznaka = jTable1.getModel().getValueAt(selectedRow,0);
-                Object nadimak = jTable1.getModel().getValueAt(selectedRow,1);
+                String aktuelno = (String) jTable1.getModel().getValueAt(selectedRow,5);
                // if (aktuelno!=null){
-                    String id = jTable1.getModel().getValueAt(selectedRow,11).toString();
+                    String id = jTable1.getModel().getValueAt(selectedRow,6).toString();
                     Ovca o = logic.getOvca(Integer.parseInt(id));
                     o.setAktuelno(aktuelno);
-                    o.setOznaka(oznaka);
-                    o.setNadimak(nadimak);
                     logic.updateOvcaFromList(o);
                // }
             }
@@ -551,34 +509,14 @@ public class PlanPripusta extends javax.swing.JPanel {
             //fillTable(null);
     }//GEN-LAST:event_jSnimiActionPerformed
 
-    private void jStampajSveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSveActionPerformed
-       ArrayList<Ovca> list = new ArrayList<Ovca>();
-        String f1 = "-";
-        String f2 = jTrazi3.getSelectedItem().toString();
-        String f3 = jTrazi1.getText();
-        for (int i=0; i<jTable1.getRowCount(); i++){
-            int selectedRow = jTable1.convertRowIndexToModel(i);
-            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
-            Ovca o = logic.getOvca(id);
-            if (o.getOtac()!=null){
-                o.setOtac(logic.getOvca(o.getOtac().getId()));
-            }
-            if (o.getMajka()!=null){
-                o.setMajka(logic.getOvca(o.getMajka().getId()));
-            }
-            list.add(o);
-        }
-//        new ListaOvacaIzvestaj(list, f1, f2, f3, f4).create();
-    }//GEN-LAST:event_jStampajSveActionPerformed
-
     private void jStampajSve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSve1ActionPerformed
-        ArrayList<Ovca> list = new ArrayList<Ovca>();
+        List<Ovca> list = new ArrayList<Ovca>();
         String f1 = "-";
         String f2 = jTrazi3.getSelectedItem().toString();
         String f3 = jTrazi1.getText();
         for (int i=0; i<jTable1.getRowCount(); i++){
             int selectedRow = jTable1.convertRowIndexToModel(i);
-            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
+            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,6).toString());
             Ovca o = logic.getOvca(id);
             if (o.getOtac()!=null){
                 o.setOtac(logic.getOvca(o.getOtac().getId()));
@@ -588,7 +526,7 @@ public class PlanPripusta extends javax.swing.JPanel {
             }
             list.add(o);
         }
-//        new ListaOvacaAktuelnoIzvestaj(list, f1, f2, f3).create();
+        new ListaOvacaAktuelnoIzvestaj(list, "Plan pripusta", f1, f2, f3, "").create();
     }//GEN-LAST:event_jStampajSve1ActionPerformed
 
     private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
@@ -598,12 +536,39 @@ public class PlanPripusta extends javax.swing.JPanel {
     private void jRacunajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRacunajActionPerformed
             int selectedRow = jList.getSelectedRow();
             if (selectedRow>=0){
-                Ovca a = (Ovca) jList.getValueAt(selectedRow, 0);
-                 Ovca b = logic.getOvca(25);
-                System.out.println("Ovce " + a.toString() +" i " + b.toString() + " su u srodstvu: "+ logic.izracunajKoleno(a,b));
+                Ovca ovan = (Ovca) jList.getValueAt(selectedRow, 0);
+                popuniKolena(ovan);
             }
     }//GEN-LAST:event_jRacunajActionPerformed
 
+    private void popuniKolena(Ovca ovan){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (int i=0; i<model.getRowCount(); i++){
+            Ovca o = logic.getOvca((Integer)model.getValueAt(i, 6));
+            float koleno = logic.izracunajKoleno(ovan, o);
+            model.setValueAt(parseKoleno(koleno), i, 7);
+            model.setValueAt(parseProcenat(koleno), i, 8);
+        }
+    }
+    private String parseProcenat(float koleno){
+        int n = (int) (koleno*10);
+        float procenat = 100;
+        for (int i=0; i<n/10; i++){
+            procenat = procenat/2;
+        }
+        if (n%10!=0){
+            return "<" + procenat + "%"; 
+        }
+        return "" + procenat + "%";
+    }
+    private String parseKoleno(float koleno){
+        int n = (int) (koleno*10);
+        if (n%10!=0){
+            return "" + n/10 + "+";
+        }
+        return "" + n/10;
+    }
+    
     private void jTrazi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrazi3ActionPerformed
            sorter2.setRowFilter(RowFilter.andFilter(getFilters2()));
                  jCounter.setText("("+ jTable1.getRowCount() + ")");
@@ -623,13 +588,11 @@ public class PlanPripusta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTable jList;
-    private javax.swing.JButton jPrikazi;
     private javax.swing.JButton jRacunaj;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jSelekcija;
     private javax.swing.JButton jSnimi;
-    private javax.swing.JButton jStampajSve;
     private javax.swing.JButton jStampajSve1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi1;

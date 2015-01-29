@@ -41,6 +41,8 @@ private JPanel mainpanel;
             setPanel(new VakcinacijaPanel(mainpanel, logic, aktivnost));
         } else if (aktivnost.getVrstaAktivnosti().getName().equals("Merenje")){
             setPanel(new MerenjePanel(mainpanel, logic, aktivnost));
+        } else if (aktivnost.getVrstaAktivnosti().getName().equals("Parenje")){
+            setPanel(new ParenjePanel(mainpanel, logic, aktivnost));
         } else {
             setPanel(new RadoviPanel(mainpanel, logic, aktivnost));
         }

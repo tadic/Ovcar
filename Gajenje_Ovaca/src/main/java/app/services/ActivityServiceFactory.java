@@ -16,6 +16,7 @@ public class ActivityServiceFactory {
         map.put("Vakcinacija/Lečenje", new VakcinacijaService(server));
         map.put("Radovi/nabavke", new RadoviService(server));
         map.put("Merenje", new MerenjeService(server));
+        map.put("Parenje", new ParenjeService(server));
     }
     
     public ActivityService getService(Aktivnost a){

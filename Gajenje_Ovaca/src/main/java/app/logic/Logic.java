@@ -160,9 +160,18 @@ public class Logic {
         return activityService().getPoslednjaMerenja(5);
     }
 
-    public int izracunajKoleno(Ovca a, Ovca b) {
+    public float izracunajKoleno(Ovca a, Ovca b) {
         OvcaHelper ovcaHelper = new OvcaHelper(db.server());
         return ovcaHelper.racunajKoleno(a, b);
+    }
+
+    public float getPrirast(Ovca o) {
+       OvcaHelper ovcaHelper = new OvcaHelper(db.server());
+       return ovcaHelper.dnevniPrirastCetiriMeseca(o) -0.01f;
+    }
+
+    public List<Ovca> getSveOvnove() {
+        return ovcaService.getSveOvnove();
     }
    
 

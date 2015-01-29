@@ -11,6 +11,7 @@ import app.model.Jagnjenje;
 import app.model.Ovca;
 import app.config.*;
 import app.editPanels.JagnjenjaPanel;
+import app.helpers.OvcaHelper;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -376,7 +377,7 @@ private JagnjenjaPanel parent;
             return null;
         }
         if (otac==null){
-                otac = new Ovca("zamišljen", Ovca.parseOznaka(jOvan.getSelectedItem().toString()), 'm');
+                otac = new Ovca("zamišljen", OvcaHelper.parseOznaka(jOvan.getSelectedItem().toString()), 'm');
         }
         TableModel tb = jTableJagnjaci.getModel();
         

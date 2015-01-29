@@ -57,9 +57,7 @@ public class Merenja extends javax.swing.JPanel {
     private List<RowFilter<TableModel,Object>> getFilters(){
          List<RowFilter<TableModel,Object>> filters = new ArrayList<RowFilter<TableModel,Object>>();
          RowFilter<TableModel, Object> comboFilter = RowFilter.regexFilter("");
-         if (jNaFarmi.isSelected()){
-             comboFilter = RowFilter.regexFilter("na farmi");
-         }
+
          String polFilter = "";
          if (jTrazi3.getSelectedIndex()==2){
              polFilter = "muško";
@@ -69,13 +67,19 @@ public class Merenja extends javax.swing.JPanel {
          RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(polFilter);
          RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jTrazi1.getText());
          RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          
-         filters.add(comboFilter);
          filters.add(filter1);
          filters.add(filter2);
          filters.add(filter3);
          
 
          return filters;
+    }
+    private void setSorter(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        sorter = new TableRowSorter<TableModel>(model);
+        jTable1.setRowSorter(sorter);
+      //  sorter.setRowFilter(RowFilter.andFilter(getFilters()));
     }
     
     private void setBoldFontToColumn(int n, Color color){
@@ -150,13 +154,19 @@ public class Merenja extends javax.swing.JPanel {
                 }
             }
         }       
+        setBoldFontToColumn(5, Color.red.darker());
+        setSorter();
     }
 
     private void ubaciOvcu(DefaultTableModel model, Ovca o){
         Vector v = new Vector();
         v.add(o.getOznaka());
         v.add(o.getNadimak());
-        v.add(o.getPol());
+        if (o.getPol()=='ž'){
+            v.add("žensko");
+        } else {
+            v.add("muško");
+        }
         v.add(o.getStarost());
         v.add(o.getLeglo());
         v.add(o.getAktuelno());
@@ -192,10 +202,8 @@ public class Merenja extends javax.swing.JPanel {
         jTrazi2 = new javax.swing.JTextField();
         jCounter = new javax.swing.JLabel();
         jSnimi = new javax.swing.JButton();
-        jPrikazi = new javax.swing.JButton();
         jStampajSve = new javax.swing.JButton();
         jTrazi3 = new javax.swing.JComboBox();
-        jStampajSve1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -227,7 +235,7 @@ public class Merenja extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                true, true, false, false, false, true, false, true, true, true, true, true
+                true, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -263,7 +271,7 @@ public class Merenja extends javax.swing.JPanel {
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(0).setMinWidth(90);
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(120);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(200);
         jTable1.getColumnModel().getColumn(1).setMinWidth(80);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(120);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(200);
@@ -273,9 +281,21 @@ public class Merenja extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(70);
         jTable1.getColumnModel().getColumn(4).setMaxWidth(70);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(250);
+        jTable1.getColumnModel().getColumn(5).setMaxWidth(400);
         jTable1.getColumnModel().getColumn(6).setMinWidth(0);
         jTable1.getColumnModel().getColumn(6).setPreferredWidth(0);
         jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(7).setResizable(false);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(8).setResizable(false);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(9).setResizable(false);
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(10).setResizable(false);
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(11).setResizable(false);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(25);
 
         jNaFarmi.setSelected(true);
         jNaFarmi.setText("na farmi");
@@ -311,15 +331,6 @@ public class Merenja extends javax.swing.JPanel {
             }
         });
 
-        jPrikazi.setBackground(new java.awt.Color(0, 153, 153));
-        jPrikazi.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jPrikazi.setText("Prikaži");
-        jPrikazi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPrikaziActionPerformed(evt);
-            }
-        });
-
         jStampajSve.setBackground(new java.awt.Color(0, 255, 0));
         jStampajSve.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jStampajSve.setText("Štampaj sve");
@@ -333,15 +344,6 @@ public class Merenja extends javax.swing.JPanel {
         jTrazi3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTrazi3ActionPerformed(evt);
-            }
-        });
-
-        jStampajSve1.setBackground(new java.awt.Color(255, 204, 51));
-        jStampajSve1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jStampajSve1.setText("Štampaj aktuelno");
-        jStampajSve1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jStampajSve1ActionPerformed(evt);
             }
         });
 
@@ -366,17 +368,13 @@ public class Merenja extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jNaFarmi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 630, Short.MAX_VALUE)
-                        .addComponent(jStampajSve1)
-                        .addGap(18, 18, 18)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jStampajSve)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSnimi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(jSnimi)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -401,9 +399,7 @@ public class Merenja extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStampajSve, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStampajSve1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jStampajSve, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -454,17 +450,6 @@ public class Merenja extends javax.swing.JPanel {
                  jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jTrazi2KeyReleased
 
-    private void jPrikaziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrikaziActionPerformed
-            if (jTable1.getSelectedRow()!= -1){
-            int clickedRow = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-            String id = jTable1.getModel().getValueAt(clickedRow,11).toString();
-            mainPanel.removeAll();
-            mainPanel.add(new OvcaPrikaz(mainPanel, logic, Integer.parseInt(id)));
-            mainPanel.revalidate();
-            repaint();
-            }
-    }//GEN-LAST:event_jPrikaziActionPerformed
-
     private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
             for (int i=0; i<jTable1.getRowCount(); i++){
                 int selectedRow = jTable1.convertRowIndexToModel(i);
@@ -513,40 +498,14 @@ public class Merenja extends javax.swing.JPanel {
                  jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jTrazi3ActionPerformed
 
-    private void jStampajSve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSve1ActionPerformed
-        ArrayList<Ovca> list = new ArrayList<Ovca>();
-        String f1 = "-";
-        if (jNaFarmi.isSelected()){
-           f1 = "na farmi";
-       }
-        String f2 = jTrazi3.getSelectedItem().toString();
-        String f3 = jTrazi1.getText();
-        String f4 = jTrazi2.getText();
-        for (int i=0; i<jTable1.getRowCount(); i++){
-            int selectedRow = jTable1.convertRowIndexToModel(i);
-            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
-            Ovca o = logic.getOvca(id);
-            if (o.getOtac()!=null){
-                o.setOtac(logic.getOvca(o.getOtac().getId()));
-            }
-            if (o.getMajka()!=null){
-                o.setMajka(logic.getOvca(o.getMajka().getId()));
-            }
-            list.add(o);
-        }
-        new ListaOvacaAktuelnoIzvestaj(list, f1, f2, f3, f4).create();
-    }//GEN-LAST:event_jStampajSve1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JCheckBox jNaFarmi;
-    private javax.swing.JButton jPrikazi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jStampajSve;
-    private javax.swing.JButton jStampajSve1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi1;
     private javax.swing.JTextField jTrazi2;

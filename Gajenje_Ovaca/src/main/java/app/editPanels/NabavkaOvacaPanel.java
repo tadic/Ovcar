@@ -6,6 +6,7 @@ package app.editPanels;
 
 import app.helpers.JDateChooserCellEditor;
 import app.helpers.JDateChooserRenderer;
+import app.helpers.OvcaHelper;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
@@ -598,10 +599,10 @@ private JPanel mainPanel;
     private String createBilans(){
         int muskih = brojMuskihGrla();
         int zenskih = aktivnost.getNabavljenaGrla().size()-muskih;
-        StringBuilder sb = new StringBuilder(Ovca.mnozinaGro(aktivnost.getNabavljenaGrla().size()));
+        StringBuilder sb = new StringBuilder(OvcaHelper.mnozinaGro(aktivnost.getNabavljenaGrla().size()));
         sb.append(": ");
-        sb.append(Ovca.mnozinaOvan(muskih));
-        sb.append(" i ").append(Ovca.mnozinaOvca(zenskih));
+        sb.append(OvcaHelper.mnozinaOvan(muskih));
+        sb.append(" i ").append(OvcaHelper.mnozinaOvca(zenskih));
         return sb.toString();
         
     }

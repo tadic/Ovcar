@@ -5,6 +5,7 @@
 package app.editPanels;
 
 import app.fragments.JagnjenjePanel;
+import app.helpers.OvcaHelper;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
@@ -440,8 +441,8 @@ private JPanel mainPanel;
     }
      
     private String createBilans(int o, int j){
-        StringBuilder sb = new StringBuilder(Ovca.mnozinaOvca(o));
-        sb.append(", ojagnjeno ").append(" ").append(Ovca.mnozinaJagnje(j));
+        StringBuilder sb = new StringBuilder(OvcaHelper.mnozinaOvca(o));
+        sb.append(", ojagnjeno ").append(" ").append(OvcaHelper.mnozinaJagnje(j));
         return sb.toString();
     }
     private void jSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiButtonActionPerformed

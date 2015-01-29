@@ -6,6 +6,7 @@ package app.editPanels;
 
 import app.mainPanels.Dnevnik;
 import app.helpers.ColorColumnRenderer;
+import app.helpers.OvcaHelper;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Dan;
@@ -715,7 +716,7 @@ private JPanel mainPanel;
     private String createBilans(){
         int komada = aktivnost.getProdaje().size();
         StringBuilder sb = new StringBuilder("Prodato ");
-        sb.append(Ovca.mnozinaGro(komada));
+        sb.append(OvcaHelper.mnozinaGro(komada));
         return sb.toString();
         
     }

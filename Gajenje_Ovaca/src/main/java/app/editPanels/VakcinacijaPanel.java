@@ -5,6 +5,7 @@
 package app.editPanels;
 
 import app.helpers.ColorColumnRenderer;
+import app.helpers.OvcaHelper;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
@@ -783,7 +784,7 @@ private JPanel mainPanel;
         StringBuilder sb = new StringBuilder();
             sb.append("Razlog ");
         sb.append(jRazlog.getText());
-        sb.append(" ").append(Ovca.mnozinaGro(komada)).append(", lek: ");
+        sb.append(" ").append(OvcaHelper.mnozinaGro(komada)).append(", lek: ");
         sb.append(jSredstvo.getText());
         return sb.toString();
         

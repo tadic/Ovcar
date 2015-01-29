@@ -11,6 +11,7 @@ import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.Linija;
 import app.model.Merenje;
+import app.model.Parenje;
 import app.model.Prodaja;
 import app.model.Radovi;
 import app.model.Uginuce;
@@ -23,9 +24,6 @@ import com.avaje.ebean.config.DataSourceConfig;
 import com.avaje.ebean.config.ServerConfig;
 import com.avaje.ebean.config.dbplatform.SQLitePlatform;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import javax.persistence.OptimisticLockException;
 
 /**
@@ -75,7 +73,7 @@ public final class DataBase {
         config.addClass(Prodaja.class);
         config.addClass(Jagnjenje.class);
         config.addClass(Merenje.class);
-      //  config.addClass(Ovca.class);
+        config.addClass(Parenje.class);
         
         
         if (dropAndCreateDatabase) {

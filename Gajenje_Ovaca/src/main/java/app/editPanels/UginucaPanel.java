@@ -4,6 +4,7 @@
  */
 package app.editPanels;
 
+import app.helpers.OvcaHelper;
 import app.mainPanels.Dnevnik;
 import app.logic.Logic;
 import app.model.Aktivnost;
@@ -293,7 +294,7 @@ private JPanel mainPanel;
 
 //problem
     private boolean pickUginuce(){
-        String oznaka = Ovca.parseOznaka(jGrlo.getSelectedItem().toString());
+        String oznaka = OvcaHelper.parseOznaka(jGrlo.getSelectedItem().toString());
         Ovca o = (Ovca)jGrlo.getSelectedItem();
         Uginuce uginuce = new Uginuce();
         System.out.println("Parsirana oznaka: " + oznaka);

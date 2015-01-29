@@ -517,7 +517,7 @@ public class Podaci_ovaca extends javax.swing.JPanel {
             }
             list.add(o);
         }
-        new ListaOvacaAktuelnoIzvestaj(list, f1, f2, f3, f4).create();
+        new ListaOvacaAktuelnoIzvestaj(list,"Lista ovaca",  f1, f2, f3, f4).create();
     }//GEN-LAST:event_jStampajSve1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

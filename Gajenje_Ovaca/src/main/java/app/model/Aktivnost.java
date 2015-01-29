@@ -26,14 +26,21 @@ public class Aktivnost implements Comparable<Aktivnost> {
 
     @Id
     private Integer id;  
+    
     @OneToOne
     private VrsteAktivnosti vrstaAktivnosti;
+    
     @OneToOne(mappedBy = "a", cascade= CascadeType.REMOVE)
     private Uginuce uginuce;
+    
     @OneToOne(mappedBy="aktivnost")
     private Radovi radovi;
+    
     @OneToMany(cascade = CascadeType.ALL)
     private List<NabavkaOvaca> nabavljenaGrla;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Parenje> parenja;
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<Vakcinacija> vakcinacije;
@@ -353,6 +360,14 @@ public class Aktivnost implements Comparable<Aktivnost> {
             return false;
         }
         return true;
+    }
+
+    public List<Parenje> getParenja() {
+        return parenja;
+    }
+
+    public void setParenja(List<Parenje> parenja) {
+        this.parenja = parenja;
     }
     
     
