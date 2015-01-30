@@ -79,6 +79,11 @@ public class Parenje {
     public void setNapomena(String napomena) {
         this.napomena = napomena;
     }
+    public void setNapomena(Object napomena){
+        if (napomena!=null){
+            this.napomena = napomena.toString();
+        }
+    }
 
    
 }

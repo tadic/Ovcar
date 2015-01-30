@@ -4,20 +4,18 @@
  */
 package app.fragments;
 
+import app.editPanels.JagnjenjaPanel;
 import app.helpers.MyComboBoxModel;
+import app.helpers.OvcaHelper;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Jagnjenje;
 import app.model.Ovca;
-import app.config.*;
-import app.editPanels.JagnjenjaPanel;
-import app.helpers.OvcaHelper;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -294,6 +292,10 @@ private JagnjenjaPanel parent;
     }
     private void jOvcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOvcaActionPerformed
         DefaultTableModel tm = (DefaultTableModel) jTableJagnjaci.getModel();
+        Ovca ovca = (Ovca)jOvca.getSelectedItem();
+        if (ovca!=null && ovca.getParenja()!=null && !ovca.getParenja().isEmpty()){
+            jOvan.setSelectedItem(ovca.getParenja().get(ovca.getParenja().size()-1).getOvan());
+        }
         setPercentRToTable(tm, calculatePercentR());
     }//GEN-LAST:event_jOvcaActionPerformed
 

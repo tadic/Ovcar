@@ -250,7 +250,7 @@ public String getPpol(){
     public String toString() {
         if (oznaka!=null){
             if (nadimak!=null){
-                return oznaka + " " + nadimak;
+                return nadimak + " " + oznaka;
             } else {
                 return oznaka + " " + oznaka;
             }

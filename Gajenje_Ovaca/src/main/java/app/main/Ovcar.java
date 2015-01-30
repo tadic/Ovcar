@@ -69,11 +69,17 @@ public class Ovcar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        jPopupMenu3 = new javax.swing.JPopupMenu();
+        jPopupMenu4 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         dnevnikButton = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         ovceButton = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
@@ -81,6 +87,12 @@ public class Ovcar extends javax.swing.JFrame {
         jPlanPripustaButton = new javax.swing.JButton();
         jLinijeButton1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
+
+        jMenu1.setText("File");
+        jMenuBar2.add(jMenu1);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -125,31 +137,6 @@ public class Ovcar extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(dnevnikButton);
-
-        jButton10.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(212, 212, 212));
-        jButton10.setText("Početna strana");
-        jButton10.setBorderPainted(false);
-        jButton10.setContentAreaFilled(false);
-        jButton10.setFocusPainted(false);
-        jButton10.setFocusable(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setMargin(new java.awt.Insets(2, 10, 2, 10));
-        jButton10.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton10MouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton10MouseEntered(evt);
-            }
-        });
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(jButton10);
 
         ovceButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         ovceButton.setForeground(new java.awt.Color(212, 212, 212));
@@ -351,18 +338,6 @@ public class Ovcar extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton10MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseExited
-          jButton10.setForeground(new Color(212,212,212));
-    }//GEN-LAST:event_jButton10MouseExited
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseEntered
-        jButton10.setForeground(Color.white);
-    }//GEN-LAST:event_jButton10MouseEntered
-
     private void ovceButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ovceButtonMouseExited
         ovceButton.setForeground(new Color(212,212,212));
     }//GEN-LAST:event_ovceButtonMouseExited
@@ -510,13 +485,19 @@ public class Ovcar extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dnevnikButton;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
     private javax.swing.JButton jLinijeButton1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jPlanPripustaButton;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
+    private javax.swing.JPopupMenu jPopupMenu3;
+    private javax.swing.JPopupMenu jPopupMenu4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;

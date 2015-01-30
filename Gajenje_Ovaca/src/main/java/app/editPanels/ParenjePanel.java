@@ -624,7 +624,7 @@ private JPanel mainPanel;
         Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 5).toString()));
         p.setTip(jTip.getSelectedItem().toString());
         p.setOvan((Ovca)jOvan.getSelectedItem());
-        p.setNapomena(table.getValueAt(n, 4).toString());
+        p.setNapomena(table.getValueAt(n, 4));
         p.setOvca(o);
         return p;
     }
