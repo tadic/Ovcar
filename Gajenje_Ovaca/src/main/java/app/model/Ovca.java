@@ -321,12 +321,15 @@ public String getPpol(){
         return 0;
     }
     public String getStarost(){
-        Integer monthDifference = starostUMesecima();
+        Integer dayDifference = starostUDanima(Calendar.getInstance());
+        Integer monthDifference = dayDifference/30;
         if (monthDifference!=null && status.equals("na farmi")){
             if (monthDifference>11){
                 float diff = (float)monthDifference/12 - 0.01f;
                 return Float.toString(round(diff, 1)) + " god."; 
-            } 
+            } else if (monthDifference<3){
+                return dayDifference.toString() + " dana";
+            }
             return String.valueOf(monthDifference) + " mes.";
         }
         return "-";

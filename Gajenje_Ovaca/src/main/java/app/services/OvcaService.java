@@ -129,6 +129,8 @@ public class OvcaService {
         ovca1.setMajka(ovca2.getMajka());
         ovca1.setAktuelno(ovca2.getAktuelno());
         ovca1.setTezinaNaRodjenju(ovca2.getTezinaNaRodjenju());
+        ovca1.setTezinaDvaMeseca(ovca2.getTezinaDvaMeseca());
+        ovca1.setTezinaCetiriMeseca(ovca2.getTezinaCetiriMeseca());
                 
     }
     

@@ -16,6 +16,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -669,23 +670,19 @@ private JPanel mainPanel;
     }
     
     private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
-        applayFilters();
-        DefaultTableModel model = (DefaultTableModel) jList.getModel();
-        if (jList.getRowCount()>0){
-            jList.setRowSelectionInterval(0, 0);
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            insertOvcaIntoTable();
+        } else {
+            applayFilters();
+            DefaultTableModel model = (DefaultTableModel) jList.getModel();
+            if (jList.getRowCount()>0){
+                jList.setRowSelectionInterval(0, 0);
+            }
         }
     }//GEN-LAST:event_jSelekcijaKeyReleased
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int selectedRow = jList.getSelectedRow();
-        if (selectedRow>=0){
-            Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            if (!tableModelContaintsOvca(model, o)){
-                model.addRow(vector2From(o));
-            }
-        }
-        jCounter.setText("("+ jTable1.getRowCount() + ")");
+        insertOvcaIntoTable();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -807,4 +804,16 @@ private JPanel mainPanel;
     private javax.swing.JSpinner jsatiPocetak;
     private javax.swing.JPanel nabavkaPanel;
     // End of variables declaration//GEN-END:variables
+
+    private void insertOvcaIntoTable() {
+        int selectedRow = jList.getSelectedRow();
+        if (selectedRow>=0){
+            Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            if (!tableModelContaintsOvca(model, o)){
+                model.addRow(vector2From(o));
+            }
+        }
+        jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }
 }

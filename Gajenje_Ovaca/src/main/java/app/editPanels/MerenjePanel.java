@@ -656,7 +656,7 @@ private JPanel mainPanel;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void insertOvcaIntoTable(){
-                int selectedRow = jList.getSelectedRow();
+        int selectedRow = jList.getSelectedRow();
         if (selectedRow>=0){
             Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

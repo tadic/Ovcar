@@ -13,6 +13,7 @@ import app.model.Dan;
 import app.model.Ovca;
 import app.model.Vakcinacija;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -732,6 +733,11 @@ private JPanel mainPanel;
         return false;
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        insertOvcaIntoTable();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+
+    private void insertOvcaIntoTable(){
         int selectedRow = jList.getSelectedRow();
         if (selectedRow>=0){
                 Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
@@ -741,9 +747,7 @@ private JPanel mainPanel;
                 }
         }
        jCounter.setText("("+ jTable1.getRowCount() + ")");
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int selectedRow = jTable1.getSelectedRow(); 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -755,11 +759,15 @@ private JPanel mainPanel;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
-       applayFilters();    
-       DefaultTableModel model = (DefaultTableModel) jList.getModel();
-       if (model.getRowCount()>0){
-           jList.setRowSelectionInterval(0, 0);
-       }
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            insertOvcaIntoTable();
+        } else {
+            applayFilters();
+            DefaultTableModel model = (DefaultTableModel) jList.getModel();
+            if (jList.getRowCount()>0){
+                jList.setRowSelectionInterval(0, 0);
+            }
+        }
     }//GEN-LAST:event_jSelekcijaKeyReleased
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

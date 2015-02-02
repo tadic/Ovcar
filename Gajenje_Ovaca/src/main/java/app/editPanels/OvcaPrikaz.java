@@ -315,15 +315,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jStarost = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTezina60 = new javax.swing.JTextField();
-        jPrirast = new javax.swing.JTextField();
-        jTezina120 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jPanelJagnjenja = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableJagnjenja = new javax.swing.JTable();
@@ -333,6 +324,15 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jPanelLecenja = new javax.swing.JPanel();
         jScrollPane18 = new javax.swing.JScrollPane();
         jTableLecenja = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jPrirast = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jTezina120 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jTezina60 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanelProdaja = new javax.swing.JPanel();
         jOznaka8 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -684,66 +684,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jLabel10.setText("Oznaka");
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel11.setText("60 dana:");
-
-        jTezina60.setEditable(false);
-        jTezina60.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jTezina60.setForeground(new java.awt.Color(0, 51, 51));
-        jTezina60.setText("0");
-        jTezina60.setActionCommand("<Not Set>");
-        jTezina60.setAlignmentX(0.0F);
-        jTezina60.setAlignmentY(0.0F);
-        jTezina60.setMinimumSize(new java.awt.Dimension(0, 16));
-        jTezina60.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTezina60ActionPerformed(evt);
-            }
-        });
-
-        jPrirast.setEditable(false);
-        jPrirast.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jPrirast.setForeground(new java.awt.Color(0, 51, 51));
-        jPrirast.setText("0");
-        jPrirast.setActionCommand("<Not Set>");
-        jPrirast.setAlignmentX(0.0F);
-        jPrirast.setAlignmentY(0.0F);
-        jPrirast.setMinimumSize(new java.awt.Dimension(0, 16));
-        jPrirast.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPrirastActionPerformed(evt);
-            }
-        });
-
-        jTezina120.setEditable(false);
-        jTezina120.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jTezina120.setForeground(new java.awt.Color(0, 51, 51));
-        jTezina120.setText("0");
-        jTezina120.setActionCommand("<Not Set>");
-        jTezina120.setAlignmentX(0.0F);
-        jTezina120.setAlignmentY(0.0F);
-        jTezina120.setMinimumSize(new java.awt.Dimension(0, 16));
-        jTezina120.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTezina120ActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel12.setText("120 dana;");
-
-        jLabel15.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel15.setText("Prirast 120d");
-
-        jLabel16.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel16.setText("g/dan");
-
-        jLabel17.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel17.setText("kg");
-
-        jLabel18.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jLabel18.setText("kg");
-
         javax.swing.GroupLayout jPanelOpstipodatciLayout = new javax.swing.GroupLayout(jPanelOpstipodatci);
         jPanelOpstipodatci.setLayout(jPanelOpstipodatciLayout);
         jPanelOpstipodatciLayout.setHorizontalGroup(
@@ -792,26 +732,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                                     .addGroup(jPanelOpstipodatciLayout.createSequentialGroup()
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jOznaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                    .addGroup(jPanelOpstipodatciLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTezina60, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18)
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTezina120, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel17)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPrirast, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel16)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jOznaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         jPanelOpstipodatciLayout.setVerticalGroup(
@@ -843,22 +764,12 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGroup(jPanelOpstipodatciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jOpis, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelOpstipodatciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTezina60, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTezina120, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPrirast, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelJagnjenja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Jagnjenja (2)", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
+        jTableJagnjenja.setAutoCreateRowSorter(true);
         jTableJagnjenja.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTableJagnjenja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -879,7 +790,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTableJagnjenja.setAutoCreateRowSorter(true);
         jTableJagnjenja.setEnabled(false);
         jScrollPane1.setViewportView(jTableJagnjenja);
         jTableJagnjenja.getColumnModel().getColumn(1).setMaxWidth(60);
@@ -892,7 +802,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jPanelJagnjenjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelJagnjenjaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanelJagnjenjaLayout.setVerticalGroup(
@@ -951,7 +861,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jPanelVakcinacijeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelVakcinacijeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelVakcinacijeLayout.setVerticalGroup(
@@ -979,21 +889,111 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jTableLecenja.setEnabled(false);
         jScrollPane18.setViewportView(jTableLecenja);
 
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel16.setText("g/dan");
+
+        jPrirast.setEditable(false);
+        jPrirast.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jPrirast.setForeground(new java.awt.Color(0, 51, 51));
+        jPrirast.setText("0");
+        jPrirast.setActionCommand("<Not Set>");
+        jPrirast.setAlignmentX(0.0F);
+        jPrirast.setAlignmentY(0.0F);
+        jPrirast.setMinimumSize(new java.awt.Dimension(0, 16));
+        jPrirast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPrirastActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel15.setText("Prirast:");
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel17.setText("kg");
+
+        jTezina120.setEditable(false);
+        jTezina120.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jTezina120.setForeground(new java.awt.Color(0, 51, 51));
+        jTezina120.setText("0");
+        jTezina120.setActionCommand("<Not Set>");
+        jTezina120.setAlignmentX(0.0F);
+        jTezina120.setAlignmentY(0.0F);
+        jTezina120.setMinimumSize(new java.awt.Dimension(0, 16));
+        jTezina120.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTezina120ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel12.setText("120 dana;");
+
+        jLabel18.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel18.setText("kg");
+
+        jTezina60.setEditable(false);
+        jTezina60.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jTezina60.setForeground(new java.awt.Color(0, 51, 51));
+        jTezina60.setText("0");
+        jTezina60.setActionCommand("<Not Set>");
+        jTezina60.setAlignmentX(0.0F);
+        jTezina60.setAlignmentY(0.0F);
+        jTezina60.setMinimumSize(new java.awt.Dimension(0, 16));
+        jTezina60.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTezina60ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel11.setText("60 dana:");
+
         javax.swing.GroupLayout jPanelLecenjaLayout = new javax.swing.GroupLayout(jPanelLecenja);
         jPanelLecenja.setLayout(jPanelLecenjaLayout);
         jPanelLecenjaLayout.setHorizontalGroup(
             jPanelLecenjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLecenjaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                .addGroup(jPanelLecenjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLecenjaLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTezina60, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTezina120, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPrirast, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)))
                 .addContainerGap())
         );
         jPanelLecenjaLayout.setVerticalGroup(
             jPanelLecenjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLecenjaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane18, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLecenjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTezina60, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTezina120, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPrirast, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelProdaja.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prodata 25-09-2015", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
@@ -1181,6 +1181,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jIzmeniButton)
                         .addGap(27, 27, 27)
                         .addComponent(jPDFSnimiButton)
@@ -1188,13 +1189,13 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addComponent(jOtkaziButton)
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelJagnjenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelVakcinacije, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelLecenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelProdaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelUginuce, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanelUginuce, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelProdaja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelVakcinacije, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelLecenja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelJagnjenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1221,13 +1222,13 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelOpstipodatci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelRodjenje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelNabavka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelDosije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(8, Short.MAX_VALUE))))
+                        .addContainerGap(40, Short.MAX_VALUE))))
         );
 
         jPanelLecenja.getAccessibleContext().setAccessibleName("Merenja (1)");
@@ -1236,7 +1237,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1324,6 +1325,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private void jIzmeniButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIzmeniButtonActionPerformed
        prepareForEdit(jOznaka);
        prepareForEdit(jNadimak);
+       prepareForEdit(jTezina60);
+       prepareForEdit(jTezina120);
         jPol.setEnabled(true);
        jPol.setBackground(Color.yellow.brighter().brighter());
        jLinija.setEnabled(true);
@@ -1388,16 +1391,29 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         return o;
     }
     
+    private void pickTezine(){
+        try{
+             ovca.setTezinaNaRodjenju(Float.parseFloat(jTezina.getText()));
+        } catch (Exception e){
+            ovca.setTezinaNaRodjenju(0.0f);
+        } 
+        try{
+             ovca.setTezinaDvaMeseca(Float.parseFloat(jTezina60.getText()));
+        } catch (Exception e){
+            ovca.setTezinaDvaMeseca(0.0f);
+        }
+        try{
+             ovca.setTezinaCetiriMeseca(Float.parseFloat(jTezina120.getText()));
+        } catch (Exception e){
+            ovca.setTezinaCetiriMeseca(0.0f);
+        }
+    }
     private void pickOvcaFromForm() {
      //   System.out.println("id "+ovca.getId());
         ovca.setOtac(pickOtac());
         ovca.setMajka(pickMajka());
-         try{
-             ovca.setTezinaNaRodjenju(Float.parseFloat(jTezina.getText()));
-        } catch (Exception e){
-            ovca.setTezinaNaRodjenju(0.0);
-        }
-        
+
+        pickTezine();
         ovca.setOznaka(jOznaka.getText());
         ovca.setNadimak(jNadimak.getText());
         ovca.setProcenatR(jProcenatR.getText());
@@ -1405,6 +1421,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         ovca.setLinija((Linija) jLinija.getSelectedItem());
         ovca.setOpis(jOpis.getText());
         ovca.setPracenje(jDosije.getText());
+ 
+ 
     }
     private void jPDFSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFSnimiButtonActionPerformed
         if (jPDFSnimiButton.getText().equals("Štampaj")){
