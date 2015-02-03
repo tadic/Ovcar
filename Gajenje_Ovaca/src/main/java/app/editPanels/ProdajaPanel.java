@@ -14,6 +14,8 @@ import app.model.Ovca;
 import app.model.Prodaja;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -26,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -198,7 +201,7 @@ private JPanel mainPanel;
 
             },
             new String [] {
-                "nadimak", "oznaka", "pol", "starost", "težina", "cena po kg(€)", "cena €", "kupac", "napomena", "aktuelno", "id"
+                "nadimak", "oznaka", "pol", "starost", "težina", "cena kg(€)", "cena €", "kupac", "napomena", "aktuelno", "id"
             }
         ) {
             Class[] types = new Class [] {
@@ -222,18 +225,19 @@ private JPanel mainPanel;
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(35);
         jTable1.getColumnModel().getColumn(2).setMinWidth(5);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(5);
         jTable1.getColumnModel().getColumn(4).setMinWidth(25);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(25);
         jTable1.getColumnModel().getColumn(5).setMinWidth(25);
         jTable1.getColumnModel().getColumn(5).setPreferredWidth(25);
-        jTable1.getColumnModel().getColumn(6).setPreferredWidth(15);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(25);
         jTable1.getColumnModel().getColumn(7).setPreferredWidth(25);
         jTable1.getColumnModel().getColumn(8).setMinWidth(10);
-        jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(30);
         jTable1.getColumnModel().getColumn(9).setMinWidth(10);
         jTable1.getColumnModel().getColumn(10).setMinWidth(0);
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(2);
@@ -284,18 +288,25 @@ private JPanel mainPanel;
 
         jList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Grlo"
+                "Grlo", "aktuelno"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -303,6 +314,7 @@ private JPanel mainPanel;
         });
         jList.setColumnSelectionAllowed(true);
         jScrollPane4.setViewportView(jList);
+        jList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout nabavkaPanelLayout = new javax.swing.GroupLayout(nabavkaPanel);
         nabavkaPanel.setLayout(nabavkaPanelLayout);
@@ -311,29 +323,29 @@ private JPanel mainPanel;
             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
                         .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCounter))
-                            .addComponent(jScrollPane2))))
+                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         nabavkaPanelLayout.setVerticalGroup(
@@ -391,12 +403,6 @@ private JPanel mainPanel;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSnimiButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -440,12 +446,20 @@ private JPanel mainPanel;
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSnimiButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(1025, 1097, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)))
+                        .addGap(1025, 1106, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nabavkaPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -562,7 +576,25 @@ private JPanel mainPanel;
         }
 
         jCounter.setText("("+ jTable1.getRowCount() + ")");
-       
+       setBoldFontToColumn(1, Color.red);
+    }
+        private void setBoldFontToColumn(int n, Color color){
+        DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
+            
+            Font f = new Font ("Dialog", Font.BOLD, 14);
+            
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
+                    row, column);
+                setFont(f);
+                return this;
+            }
+        
+        };
+        r.setForeground(color);
+        jList.getColumnModel().getColumn(n).setCellRenderer(r);
     }
     private void keepTimePositive(){
         int vremePocetka =   pickint(jsatiPocetak)*100 + pickint(jminutaPocetak);
@@ -764,6 +796,7 @@ private JPanel mainPanel;
     private Vector vectorFrom(Ovca o){
         Vector v = new Vector(); 
         v.add(o);
+        v.add(o.getAktuelno());
         return v;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

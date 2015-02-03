@@ -157,7 +157,7 @@ public class Logic {
     }
 
     public List<Aktivnost> getPoslednjaMerenja() {
-        return activityService().getPoslednjaMerenja(5);
+        return activityService().getPoslednjaMerenja(10);
     }
 
     public float izracunajKoleno(Ovca a, Ovca b) {

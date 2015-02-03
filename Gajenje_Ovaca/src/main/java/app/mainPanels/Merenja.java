@@ -222,20 +222,20 @@ public class Merenja extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "oznaka", "nadimak", "pol", "starost", "iz legla od", "aktuelno", "id", "0", " 1", " 2", " 3", " 4"
+                "oznaka", "nadimak", "pol", "starost", "iz legla od", "aktuelno", "id", "0", " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -296,6 +296,16 @@ public class Merenja extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(25);
         jTable1.getColumnModel().getColumn(11).setResizable(false);
         jTable1.getColumnModel().getColumn(11).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(12).setResizable(false);
+        jTable1.getColumnModel().getColumn(12).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(13).setResizable(false);
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(14).setResizable(false);
+        jTable1.getColumnModel().getColumn(14).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(15).setResizable(false);
+        jTable1.getColumnModel().getColumn(15).setPreferredWidth(25);
+        jTable1.getColumnModel().getColumn(16).setResizable(false);
+        jTable1.getColumnModel().getColumn(16).setPreferredWidth(25);
 
         jNaFarmi.setSelected(true);
         jNaFarmi.setText("na farmi");
