@@ -40,7 +40,7 @@ public class GodisnjiIzvestaj {
     private List<Aktivnost> list;
     private Logic logic;
     private String godina;
-    private Integer mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega, jagnjenja, ojagnjenih, ojagnjenihZivih, jedinci, dvojke, trojke, cetvorke, petice;
+    private Integer romPocetak, sviPocetak, mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega, jagnjenja, ojagnjenih, ojagnjenihZivih, jedinci, dvojke, trojke, cetvorke, petice;
     private float sviRashodi, sviPrihodi;
     private List<String> meseci = Arrays.asList("Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul",
                                                 "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar");
@@ -125,7 +125,7 @@ public class GodisnjiIzvestaj {
     }
     
     private Meseci popuniMesec(String naziv, List<Aktivnost> aktivnosti){
-        Meseci m = new Meseci(naziv, 0,0,0,0,0);
+        Meseci m = new Meseci(naziv,0,0,0,0,0);
         
         for (Aktivnost a: aktivnosti){
             if (a.getVrstaAktivnosti().getName().equals("Jagnjenje")){
@@ -186,6 +186,9 @@ public class GodisnjiIzvestaj {
                 if (i!=0){
                     lista.get(i).setBrojOvaca(lista.get(i).getBrojOvaca() + lista.get(i-1).getBrojOvaca());
                     lista.get(i).setBrojR(lista.get(i).getBrojR() + lista.get(i-1).getBrojR());
+                } else {
+                    lista.get(i).setBrojOvaca(lista.get(i).getBrojOvaca() + sviPocetak);
+                    lista.get(i).setBrojR(lista.get(i).getBrojR() + romPocetak);
                 }
         }
         return lista;
@@ -238,6 +241,7 @@ public class GodisnjiIzvestaj {
         Integer ovnova=0;
         Integer ovaca =0;
         Integer jaganjaca =0;
+        Integer rom = 0;
         for (Ovca o : list){
             if (o.wasJagnje(mesec, Integer.parseInt(godina))){
                 jaganjaca++;
@@ -248,8 +252,16 @@ public class GodisnjiIzvestaj {
                     ovaca++;
                 }
             }
+            if (o.getProcenatR()==100){
+                rom++;
+            }
         }
+
         Integer svega = jaganjaca + ovaca + ovnova;
+        if (svi.equals("sviPocetak")){
+            sviPocetak = svega;
+            romPocetak = rom;
+        }
         params.put(svi, svega.toString()); 
         params.put(ovan, ovnova.toString());
         params.put(ovca, ovaca.toString());
@@ -309,7 +321,7 @@ public class GodisnjiIzvestaj {
         params.put("petice", petice);
         params.put("ojagnjenih", ojagnjenih); 
         params.put("jagnjenja", jagnjenja); 
-        params.put("procenatJagnjenja", "" + Aktivnost.round((float)(100.0*ojagnjenih)/jagnjenja, 0) + "%"); 
+        params.put("procenatJagnjenja", "" + ((float)(100.0*ojagnjenih)/jagnjenja - 0.1f) + "%"); 
         promenaJaganjaca += ojagnjenoZivi;
         promenaSvega += ojagnjenoZivi;
     }

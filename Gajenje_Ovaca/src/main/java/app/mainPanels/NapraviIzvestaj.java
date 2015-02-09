@@ -71,7 +71,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
         });
 
         jGodina.setBackground(new java.awt.Color(0, 204, 204));
-        jGodina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014" }));
+        jGodina.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014", "2015" }));
         jGodina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jGodinaActionPerformed(evt);
@@ -113,7 +113,7 @@ public class NapraviIzvestaj extends javax.swing.JPanel {
         });
 
         jGodina1.setBackground(new java.awt.Color(0, 204, 204));
-        jGodina1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014" }));
+        jGodina1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014", "2015" }));
         jGodina1.setEnabled(false);
         jGodina1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
