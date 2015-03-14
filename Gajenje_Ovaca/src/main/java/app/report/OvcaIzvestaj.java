@@ -4,6 +4,7 @@
  */
 package app.report;
 
+import app.helpers.OvcaReport;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Dan;
@@ -29,21 +30,14 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author ivantadic
  */
 public class OvcaIzvestaj {
-    private List<Ovca> list;
+    private List<OvcaReport> list;
     private Logic logic;
     private Map<String, Object> params = new HashMap<String, Object>();
-    public OvcaIzvestaj(Logic logic, List<Ovca> list){
+    public OvcaIzvestaj(Logic logic, List<OvcaReport> list){
         this.list = list;
         this.logic = logic;
     }
     public void create(){
-        osnovniPodatci();
-        rodjenje();
-        
-        
-        
-        
-
         try
         {
             String ovcaSource = "ovcaIzvestaj.jrxml";
@@ -52,8 +46,6 @@ public class OvcaIzvestaj {
             
             JasperDesign dis=JRXmlLoader.load(ovcaSource); 
             JasperReport jasperReport = JasperCompileManager.compileReport(dis);
-
-            
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport, params, dataSource);
@@ -65,11 +57,4 @@ public class OvcaIzvestaj {
             ex.printStackTrace();
         }
     }
-    private void osnovniPodatci(){
-
-    }
-    private void rodjenje(){
-
-    }
-        
 }

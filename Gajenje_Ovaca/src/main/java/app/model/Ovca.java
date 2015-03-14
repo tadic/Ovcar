@@ -403,10 +403,12 @@ public String getPpol(){
         return brojJagnjenja;
     }
     public String getPoreklo(){
-        if (nabavka==null){
-            return "sa farme";
-        } 
-        return nabavka.getAktivnost().getLokacija();
+        if (nabavka!=null){
+            return nabavka.getAktivnost().getLokacija();
+        } else if (rodjenje==null){
+            return "nepoznato";
+        }
+        return "sa farme";        
     }
     public String getOotac(){
         if (otac!=null){

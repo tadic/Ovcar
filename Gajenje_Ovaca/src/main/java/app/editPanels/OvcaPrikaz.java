@@ -5,6 +5,7 @@
 package app.editPanels;
 
 import app.helpers.OvcaHelper;
+import app.helpers.OvcaReport;
 import app.report.OvcaIzvestaj;
 import app.logic.Logic;
 import app.mainPanels.Podaci_ovaca;
@@ -1426,8 +1427,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     }
     private void jPDFSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFSnimiButtonActionPerformed
         if (jPDFSnimiButton.getText().equals("Štampaj")){
-            ArrayList<Ovca> list = new ArrayList<Ovca>();
-            list.add(ovca);
+            ArrayList<OvcaReport> list = new ArrayList<OvcaReport>();
+            list.add(new OvcaReport(ovca, logic));
             OvcaIzvestaj report = new OvcaIzvestaj(logic, list);
             report.create();
         } else {
