@@ -123,6 +123,7 @@ public class OvcaService {
         ovca1.setOpis(ovca2.getOpis());
         ovca1.setOznaka(ovca2.getOznaka());
         ovca1.setProcenatR(ovca2.getProcenatR());
+        ovca1.setPoreklo(ovca2.getPoreklo());
         ovca1.setLeglo(ovca2.getLeglo());
         ovca1.setPol(ovca2.getPol());
         ovca1.setOtac(ovca2.getOtac());

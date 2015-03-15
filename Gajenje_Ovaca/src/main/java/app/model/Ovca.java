@@ -59,6 +59,7 @@ public class Ovca {
     private Ovca majka;
     private String opis;
     private String pracenje;
+    private String poreklo;
     private String status;
     private Integer leglo;
     @ManyToOne
@@ -402,14 +403,15 @@ public String getPpol(){
         brojJagnjenja ++;
         return brojJagnjenja;
     }
-    public String getPoreklo(){
-        if (nabavka!=null){
-            return nabavka.getAktivnost().getLokacija();
-        } else if (rodjenje==null){
-            return "nepoznato";
-        }
-        return "sa farme";        
+
+    public String getPoreklo() {
+        return poreklo;
     }
+
+    public void setPoreklo(String poreklo) {
+        this.poreklo = poreklo;
+    }
+ 
     public String getOotac(){
         if (otac!=null){
             return otac.toString();
