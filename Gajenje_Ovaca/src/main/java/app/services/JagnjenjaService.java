@@ -79,12 +79,11 @@ public class JagnjenjaService extends ActivityService{
     
     public void createActivity(Aktivnost a){
         String datumJagnjenja = a.getDan().toString();
+        saveDayAndActivity(a.getDan(), a);
             for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
                 jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
-                ovcaService.saveSheep(jagnjenje.getSheep());
-                server.save(jagnjenje);
+                createJagnjenje(jagnjenje, a);
             }
-          saveDayAndActivity(a.getDan(), a);
     }
 
     public void deleteActivity(Aktivnost a) {

@@ -392,9 +392,14 @@ public String getPpol(){
     
     
     public Integer getBrojJagnjenja(){
-        Integer brojJagnjenja = 0;
-        int acId = this.getListaJagnjenja().get(0).getAktivnost().getId();
+        
+        if (this.getListaJagnjenja()==null || this.getListaJagnjenja().isEmpty()){
+            return 0;
+        }
+        Integer brojJagnjenja = 1;
+        int acId = 0;
         for (Jagnjenje j: this.listaJagnjenja){
+            System.out.println("AK " + j.getAktivnost());
             if (j.getAktivnost().getId()!=acId){
                 acId = j.getAktivnost().getId();
                 brojJagnjenja ++;
