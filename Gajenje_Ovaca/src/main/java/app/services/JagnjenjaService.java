@@ -26,7 +26,7 @@ public class JagnjenjaService extends ActivityService{
     
     public void updateActivity(Aktivnost a){
         Aktivnost act = server.find(Aktivnost.class, a.getId());  
-        izbrisiVisakPodaktivnosti(act, a);
+     //   izbrisiVisakPodaktivnosti(act, a);
         updateJagnjenja(a);
         setActivity(act, a);
         saveDayAndActivity(act.getDan(), act);

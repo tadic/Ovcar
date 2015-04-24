@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="866" pageHeight="595" orientation="Landscape" columnWidth="806" leftMargin="40" rightMargin="20" topMargin="40" bottomMargin="20" uuid="f03ee7f1-ca80-4200-81b7-6f29cdb75b6e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="filter1" class="java.lang.String"/>
+	<parameter name="filter2" class="java.lang.String"/>
+	<parameter name="filter3" class="java.lang.String"/>
+	<parameter name="filter4" class="java.lang.String"/>
+	<parameter name="count" class="java.lang.String"/>
+	<field name="datum" class="java.lang.String"/>
+	<field name="vrstaAkt" class="java.lang.String"/>
+	<field name="bilans" class="java.lang.String"/>
+	<field name="lokacija" class="java.lang.String"/>
+	<field name="trosak" class="java.lang.String"/>
+	<field name="napomena" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59">
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="52" y="0" width="182" height="35"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Lista aktivnosti]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" x="662" y="12" width="38" height="15"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[filter 1:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" x="662" y="27" width="38" height="15"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[filter 1:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" x="662" y="43" width="38" height="15"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[filter 1:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="702" y="29" width="100" height="15" forecolor="#660000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{filter3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="702" y="15" width="100" height="15" forecolor="#660000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{filter2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f6cc5945-dbb3-42ca-8a37-f32d7702aae4" x="702" y="44" width="100" height="15" forecolor="#660000"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{filter4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="234" y="0" width="71" height="35"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{count}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="0" y="0" width="75" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[datum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="183" y="0" width="239" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[bilans]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="422" y="0" width="123" height="20" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[lokacija]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="545" y="0" width="65" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[trošak u €]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="75" y="0" width="108" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[vrsta aktivnosti]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c669654-f947-4f08-9cd5-1173a17e7711" mode="Opaque" x="610" y="0" width="187" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[napomena]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="0" y="1" width="75" height="12" forecolor="#660000"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="75" y="1" width="108" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vrstaAkt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" stretchType="RelativeToBandHeight" x="183" y="1" width="222" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bilans}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="422" y="1" width="123" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lokacija}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" x="545" y="1" width="65" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trosak}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d5a476dc-b6a9-4d40-b8ca-bdd49f345477" stretchType="RelativeToBandHeight" x="610" y="0" width="192" height="12"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{napomena}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement uuid="a64acafe-0526-4da2-9d16-72b1186fea60" x="148" y="22" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="14fa9326-dff7-44b0-8556-49169dc64cd2" x="682" y="22" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="cc870106-7cfd-40de-9d6d-2b3f0575912c" x="762" y="22" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="35513bfc-8e97-4a81-b683-c26614ce5fbf" x="1" y="21" width="147" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Lista aktivnosti - izveštaj  -"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
