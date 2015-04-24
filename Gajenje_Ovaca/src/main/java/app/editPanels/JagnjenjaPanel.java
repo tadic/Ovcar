@@ -413,7 +413,6 @@ private JPanel mainPanel;
 
     private void pickJagnjenja(){
         aktivnost.setVremePocetka(pickint(jsatiPocetak)*100 + pickint(jminutaPocetak));
-        System.out.println("vreme pocetka: "+aktivnost.getVremePocetka());
         aktivnost.setVremeZavrsetka(pickint(jsatiKraj)*100 + pickint(jminutaKraj));
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setNapomena(jNapomena.getText());

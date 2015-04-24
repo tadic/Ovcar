@@ -51,7 +51,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Prodaja> prodaje;
     
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Jagnjenje> listaJagnjenja;
     
     @ManyToOne(fetch= FetchType.EAGER)

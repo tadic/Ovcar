@@ -46,6 +46,7 @@ public class JagnjenjaService extends ActivityService{
         for (Jagnjenje j: a.getListaJagnjenja()){
             //saveSheep(j.getSheep());
             j.getSheep().setDatumRodjenja(datumJagnjenja);
+            j.getSheep().setAktuelno("# " + datumJagnjenja);
             saveJagnjenje(j, a);    // prvo saveSheep jagnjenje da bi definitivno dobilo id i jagnjetov id
             
         }
@@ -68,13 +69,14 @@ public class JagnjenjaService extends ActivityService{
             j.getSheep().setId(jagnjenje.getSheep().getId());
             ovcaService.saveSheep(j.getSheep());
             ovcaService.undoStatus(j.getSheep());
-            server.save(jagnjenje);
+            //server.save(jagnjenje);
     }
     
     private void createJagnjenje(Jagnjenje j, Aktivnost a){
+          
             j.setAktivnost(a);
-            ovcaService.saveSheep(j.getSheep());
-            server.save(j);
+           
+          
     }
     
     public void createActivity(Aktivnost a){
@@ -82,14 +84,12 @@ public class JagnjenjaService extends ActivityService{
         saveDayAndActivity(a.getDan(), a);
             for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
                 jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
+                jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
                 createJagnjenje(jagnjenje, a);
             }
     }
 
     public void deleteActivity(Aktivnost a) {
-        for (Jagnjenje j: a.getListaJagnjenja()){
-            ovcaService.deleteSheep(j.getSheep());
-        }
         server.delete(a);
     }
 

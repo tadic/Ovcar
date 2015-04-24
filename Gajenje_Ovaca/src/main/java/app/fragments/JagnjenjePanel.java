@@ -276,7 +276,10 @@ private JagnjenjaPanel parent;
                     row.add(true);
                     row.add("ž");
                     model.addRow(row);
+                    DefaultTableModel tm = (DefaultTableModel) jTableJagnjaci.getModel();
+                    setPercentRToTable(tm, calculatePercentR());
                 }
+                
             } 
     }//GEN-LAST:event_jSpinField2PropertyChange
 //problem
@@ -379,7 +382,7 @@ private JagnjenjaPanel parent;
             return null;
         }
         if (otac==null){
-                otac = new Ovca("zamišljen", OvcaHelper.parseOznaka(jOvan.getSelectedItem().toString()), 'm');
+                otac = logic.getOvca(1);
         }
         TableModel tb = jTableJagnjaci.getModel();
         
@@ -388,6 +391,8 @@ private JagnjenjaPanel parent;
             jagnjenje.setOvca(majka);
             jagnjenje.getSheep().setMajka(majka);
             jagnjenje.getSheep().setOtac(otac);
+            jagnjenje.getSheep().setLinija(otac.getLinija());
+            jagnjenje.getSheep().setPoreklo("farma Tadići");
 
             list.add(jagnjenje);
         }

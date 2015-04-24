@@ -4,6 +4,7 @@
  */
 package app.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class Jagnjenje {
     @ManyToOne
     private Ovca ovca;
     
-    @OneToOne
+    @OneToOne(cascade= CascadeType.ALL)
     private Ovca sheep;
     
     private boolean jelZivo;
