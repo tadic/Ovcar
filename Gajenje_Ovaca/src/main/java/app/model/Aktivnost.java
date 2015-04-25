@@ -36,7 +36,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     @OneToOne(mappedBy="aktivnost")
     private Radovi radovi;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<NabavkaOvaca> nabavljenaGrla;
     
     @OneToMany(cascade = CascadeType.ALL)
@@ -51,7 +51,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Prodaja> prodaje;
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Jagnjenje> listaJagnjenja;
     
     @ManyToOne(fetch= FetchType.EAGER)
@@ -126,11 +126,11 @@ public class Aktivnost implements Comparable<Aktivnost> {
     public void setNapomena(String napomena) {
         this.napomena = napomena;
     }
-    public void setNapomena(Object napomena) {
-        if (napomena!=null){
-            this.napomena = napomena.toString();
-        }
-    }
+//    public void setNapomena(Object napomena) {
+//        if (napomena!=null){
+//            this.napomena = napomena.toString();
+//        }
+//    }
     
     
     public String getLokacija() {

@@ -256,7 +256,7 @@ private JPanel mainPanel;
         nabavkaPanelLayout.setHorizontalGroup(
             nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel13)
@@ -265,12 +265,12 @@ private JPanel mainPanel;
                         .addGap(45, 45, 45)
                         .addComponent(jLabel18)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextTroskovi, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextTroskovi))
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
         );
         nabavkaPanelLayout.setVerticalGroup(
             nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +422,7 @@ private JPanel mainPanel;
         jminutaKraj.setValue(convertHours(aktivnost.zavrsetakMinuta()));
         jLokacija.setText(aktivnost.getLokacija());
         jNapomena.setText(aktivnost.getNapomena());
-        jTextTroskovi.setText(Float.toString(aktivnost.getTroskovi()));
+        jTextTroskovi.setText(Float.toString(Aktivnost.round(aktivnost.getTroskovi(),1)));
         jDatum.setCalendar(aktivnost.getDan().getDate());
         setTableRows();
         
@@ -578,7 +578,8 @@ private JPanel mainPanel;
        
     private void setTableRows(){
         if (aktivnost.getNabavljenaGrla()!=null){
-
+            jSpinField1.setValue(aktivnost.getNabavljenaGrla().size());
+            jSpinField1.setEnabled(false);
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             int i=1;
             for (NabavkaOvaca no: aktivnost.getNabavljenaGrla()){

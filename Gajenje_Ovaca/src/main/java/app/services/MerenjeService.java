@@ -21,6 +21,12 @@ class MerenjeService extends ActivityService {
     }
       
    
+    public void createActivity(Aktivnost a){
+        snimiKontrolneTacke(a);
+        saveDayAndActivity(a.getDan(), a);
+    }
+    
+    
     public void updateActivity(Aktivnost a){
         deleteActivity(a);
         Aktivnost nova = new Aktivnost();
@@ -28,12 +34,21 @@ class MerenjeService extends ActivityService {
         nova.setMerenja(a.getMerenja());
         createActivity(nova);
     }
+       
     
-    public void createActivity(Aktivnost a){
-        saveDayAndActivity(a.getDan(), a);
+    
+    public void deleteActivity(Aktivnost a) {
+        Aktivnost act = server.find(Aktivnost.class, a.getId());
+        if (act!=null){
+            server.delete(act);
+        }
+    }
+    
+    
+    public void snimiKontrolneTacke(Aktivnost a){
+        Calendar date = a.getDan().getDate();
         for (Merenje m: a.getMerenja()){
             Ovca o = m.getOvca();
-            Calendar date = m.getAktivnost().getDan().getDate();
             int starostDana = o.starostUDanima(date);
             if (starostDana>0 && starostDana<7){
                 tezinaNaRodjenju(o, m, starostDana);
@@ -45,6 +60,8 @@ class MerenjeService extends ActivityService {
                 
         }
     }
+
+    
  private void tezinaNaRodjenju(Ovca o, Merenje m, int starostDana){
           Ovca ovca = server.find(Ovca.class, o.getId());
           float prirast = 0.0f;
@@ -81,12 +98,6 @@ class MerenjeService extends ActivityService {
           server.save(ovca);
  }
  
-    
-    public void deleteActivity(Aktivnost a) {
-        Aktivnost act = server.find(Aktivnost.class, a.getId());
-        if (act!=null){
-            server.delete(act);
-        }
-    }
+
     
 }

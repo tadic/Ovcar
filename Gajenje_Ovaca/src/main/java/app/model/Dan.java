@@ -23,7 +23,7 @@ public class Dan implements Serializable  {
     
     private Integer datum;
     
-    @OneToMany(mappedBy="dan", fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="dan", fetch= FetchType.EAGER, cascade= CascadeType.REMOVE)
     private List<Aktivnost> aktivnosti;
     
     public Dan(){

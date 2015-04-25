@@ -24,70 +24,60 @@ public class JagnjenjaService extends ActivityService{
         ovcaService = new OvcaService(server);
     }
     
+    public void createActivity(Aktivnost a){
+        saveDayAndActivity(a.getDan(), a);
+        saveJagnjenja(a);
+
+    }
+    
     public void updateActivity(Aktivnost a){
         Aktivnost act = server.find(Aktivnost.class, a.getId());  
-     //   izbrisiVisakPodaktivnosti(act, a);
-        updateJagnjenja(a);
+        izbrisiVisakPodaktivnosti(act, a); // ovoj funkciji je mesto ovde posto treba i staru i novu aktivnost nepromenjenu
         setActivity(act, a);
-        saveDayAndActivity(act.getDan(), act);
+        saveDayAndActivity(a.getDan(), act); // updejtuj dan, vreme, lokaciju, napomenu i sl.
+        saveJagnjenja(a);
+    }
+        
+    public void saveJagnjenja(Aktivnost a){          
+        String datumJagnjenja = a.getDan().toString();
+        for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
+            jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
+            jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
+            jagnjenje.setAktivnost(a);
+            
+            saveJagnjenje(jagnjenje);
+ // mora da ide posle snimanja jagnjenja da ga jagnjenje ne bi snimilo pre vremena
+        }
+    }
+    
+    private void saveJagnjenje(Jagnjenje j){
+        
+        if (j.getId()!=null){
+            Jagnjenje jagnjenje = server.find(Jagnjenje.class, j.getId());
+            jagnjenje.setAktivnost(j.getAktivnost());
+            jagnjenje.setJelZivo(j.isJelZivo());
+            jagnjenje.setNapomena(j.getNapomena());
+            jagnjenje.getSheep().setStatus(j.getSheep().getStatus());
+            jagnjenje.getSheep().setOznaka(j.getSheep().getOznaka());
+            jagnjenje.getSheep().setPol(j.getSheep().getPol());
+            jagnjenje.getSheep().setProcenatR(j.getSheep().getProcenatR());
+            jagnjenje.getSheep().setOpis(j.getSheep().getOpis());
+            server.save(jagnjenje);
+            //ovcaService.saveSheep(jagnjenje.getSheep());
+        } else {
+            server.save(j);
+        }
     }
     
     private void izbrisiVisakPodaktivnosti(Aktivnost staraAktivnost, Aktivnost novaAktivnost){
         for (Jagnjenje j: staraAktivnost.getListaJagnjenja()){
             if (!novaAktivnost.getListaJagnjenja().contains(j)){
-                ovcaService.deleteSheep(j.getSheep());
+                //ovcaService.deleteSheep(j.getSheep());
                 server.delete(j);
             }
         }
     }
     
-    private void updateJagnjenja(Aktivnost a){
-        String datumJagnjenja = a.getDan().toString();
-        for (Jagnjenje j: a.getListaJagnjenja()){
-            //saveSheep(j.getSheep());
-            j.getSheep().setDatumRodjenja(datumJagnjenja);
-            j.getSheep().setAktuelno("# " + datumJagnjenja);
-            saveJagnjenje(j, a);    // prvo saveSheep jagnjenje da bi definitivno dobilo id i jagnjetov id
-            
-        }
-    }
-    
-    private void saveJagnjenje(Jagnjenje j, Aktivnost a){
-        if (j.getId()!=null){
-           updateJagnjenje(j,a);
-         } else{
-            createJagnjenje(j, a);
-        }
-    }
-    
-    private void updateJagnjenje(Jagnjenje j, Aktivnost a){
-            Jagnjenje jagnjenje = server.find(Jagnjenje.class, j.getId());
-            jagnjenje.setOvca(j.getOvca());
-            
-            jagnjenje.setJelZivo(j.isJelZivo());
-            jagnjenje.setNapomena(j.getNapomena());
-            j.getSheep().setId(jagnjenje.getSheep().getId());
-            ovcaService.saveSheep(j.getSheep());
-            ovcaService.undoStatus(j.getSheep());
-            //server.save(jagnjenje);
-    }
-    
-    private void createJagnjenje(Jagnjenje j, Aktivnost a){
-          
-            j.setAktivnost(a);
-           
-          
-    }
-    
-    public void createActivity(Aktivnost a){
-        String datumJagnjenja = a.getDan().toString();
-        saveDayAndActivity(a.getDan(), a);
-            for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
-                jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
-                jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
-                createJagnjenje(jagnjenje, a);
-            }
-    }
 
     public void deleteActivity(Aktivnost a) {
         server.delete(a);

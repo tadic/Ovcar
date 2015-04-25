@@ -114,7 +114,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jLeglo.setText("?");
         }
         
-        jTezina.setText(String.valueOf(o.getTezinaNaRodjenju()));
+        jTezina.setText(String.valueOf(Aktivnost.round(o.getTezinaNaRodjenju(),2)));
         
         
     }

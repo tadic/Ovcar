@@ -23,13 +23,22 @@ public abstract class ActivityService {
     public void saveDayAndActivity(Dan dan, Aktivnost a){
             Dan d = server.find(Dan.class).where().like("datum", dan.getDatum().toString()).findUnique();  
             
-            if (d!=null){ // ako ga nema u bazi, napravi ga
-                     d.getAktivnosti().add(a);
-                     server.save(d);
-            } else{
-               dan.getAktivnosti().add(a);
-               server.save(dan);
-            }
+//            if (d!=null){ // ako ga nema u bazi, napravi ga
+//                     d.getAktivnosti().add(a);
+//                     server.save(d);
+//            } else{
+//               dan.getAktivnosti().add(a);
+//               server.save(dan);
+//            }
+             if (d!=null){
+                 a.setDan(d);
+                 server.save(a);
+             } else {
+                 server.save(dan);
+                 a.setDan(dan);
+                 server.save(a);
+             }
+             
     }
     
     public List<VrsteAktivnosti> getAllTypesOfActivities() {
@@ -62,11 +71,11 @@ public abstract class ActivityService {
     
     public List<Aktivnost> getPoslednjaMerenja(int maxCount) {
         List<Aktivnost> list =  server.find(Aktivnost.class).where().like("vrsta_aktivnosti_id","7").findList();
-        
-    
-        for (Aktivnost a : list){
-            Integer datum = a.getDan().getDatum();
-        }
+//        
+//    
+//        for (Aktivnost a : list){
+//            Integer datum = a.getDan().getDatum();
+//        }
         if (list.size()>maxCount){
             return list.subList(list.size()-maxCount, list.size());
         } 
@@ -74,7 +83,7 @@ public abstract class ActivityService {
     }
 
     public void setActivity(Aktivnost act, Aktivnost a){
-        act.setDan(a.getDan());
+       // act.setDan(a.getDan());
         act.setLokacija(a.getLokacija());
         act.setNapomena(a.getNapomena());
         act.setVremePocetka(a.getVremePocetka());
@@ -83,16 +92,9 @@ public abstract class ActivityService {
         act.setTroskovi(a.getTroskovi());
         act.setBilans(a.getBilans());
         
-//        act.setUginuce(a.getUginuce());
-//        act.setProdaje(a.getProdaje());
-//        act.setRadovi(a.getRadovi());
-//        act.setVakcinacije(a.getVakcinacije());
-//        act.setListaJagnjenja(a.getListaJagnjenja());
-//        act.setNabavljenaGrla(a.getNabavljenaGrla());
-//        System.out.println("\n\nvreme pocetka: "+act.getVremePocetka());
     }
 
-    public void saveActivity(Aktivnost a) {  
+    public void saveActivity(Aktivnost a) { 
         if (a.getId()==null){
             createActivity(a);
         } else{
