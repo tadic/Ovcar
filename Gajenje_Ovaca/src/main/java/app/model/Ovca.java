@@ -396,16 +396,14 @@ public String getPpol(){
         if (this.getListaJagnjenja()==null || this.getListaJagnjenja().isEmpty()){
             return 0;
         }
-        Integer brojJagnjenja = 1;
-        int acId = 0;
+        Integer brojJagnjenja = 0;
+        int acId = -1;
         for (Jagnjenje j: this.listaJagnjenja){
-            System.out.println("AK " + j.getAktivnost());
             if (j.getAktivnost().getId()!=acId){
                 acId = j.getAktivnost().getId();
                 brojJagnjenja ++;
             }
         } 
-        brojJagnjenja ++;
         return brojJagnjenja;
     }
 
@@ -441,7 +439,7 @@ public String getPpol(){
         }
         Integer brojJagnjadi = this.listaJagnjenja.size();
         Integer brojJagnjenja = getBrojJagnjenja();
-        return Float.toString(100*((float) (brojJagnjadi.floatValue())/brojJagnjenja) - 0.0f) + "%";
+        return Float.toString(100*((float) (brojJagnjadi.floatValue()/brojJagnjenja) - 0.0f)) + "%";
     }
 
     public List<Vakcinacija> getVakcinacije() {

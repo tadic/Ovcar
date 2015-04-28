@@ -182,9 +182,10 @@ private void initComponents(){
     
     private void destroyThisAction(){
         int result = JOptionPane.showConfirmDialog((Component) null, "Da li si siguran da želiš da izbrišeš ovu aktivnost?","alert", JOptionPane.YES_NO_CANCEL_OPTION);
-    
-        DnevniPanel dnevni = (DnevniPanel) getParent();
-        dnevni.deleteActivity(this);
+        if (result==0){
+            DnevniPanel dnevni = (DnevniPanel) getParent();
+            dnevni.deleteActivity(this);
+        }
     }
 
     public void setUnfocused(){

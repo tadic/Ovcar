@@ -86,6 +86,7 @@ public class Ovcar extends javax.swing.JFrame {
         jButton20 = new javax.swing.JButton();
         jPlanPripustaButton = new javax.swing.JButton();
         jLinijeButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
         mainPanel = new javax.swing.JPanel();
 
         jMenu1.setText("File");
@@ -289,6 +290,15 @@ public class Ovcar extends javax.swing.JFrame {
         });
         jToolBar1.add(jLinijeButton1);
 
+        jComboBox1.setBackground(new java.awt.Color(51, 51, 51));
+        jComboBox1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(212, 212, 212));
+        jComboBox1.setMaximumRowCount(3);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lista - opšti podatci", "Lista - merenja i indeksi" }));
+        jComboBox1.setOpaque(true);
+        jComboBox1.setPreferredSize(new java.awt.Dimension(180, 46));
+        jToolBar1.add(jComboBox1);
+
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setPreferredSize(new java.awt.Dimension(1305, 700));
 
@@ -488,6 +498,7 @@ public class Ovcar extends javax.swing.JFrame {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton20;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JButton jLinijeButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
