@@ -22,22 +22,26 @@ public class UginucaService extends ActivityService{
     }
     
     public void updateActivity(Aktivnost a){
-        Aktivnost act = server.find(Aktivnost.class, a.getId());  
-        setActivity(act, a);
-        updateUginuce(act);
-        saveDayAndActivity(act.getDan(), act);
+       // Aktivnost act = server.find(Aktivnost.class, a.getId());  
+        //setActivity(act, a);
+        updateUginuce(a);
+        saveDayAndActivity(a.getDan(), a);
     }
     
     
     private void updateUginuce(Aktivnost a){
         Uginuce u = server.find(Uginuce.class).where().like("a_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)  
         Ovca staraOvca = u.getO();
-        if (!staraOvca.getOznaka().equals(a.getUginuce().getO().getOznaka())){ // ako ovca nije ista
-            ovcaService.undoStatus(staraOvca);
-            server.save(staraOvca);
+        if (!staraOvca.equals(a.getUginuce().getO())){ // ako ovca nije ista
+            
             ovcaService.setStatus(a.getUginuce().getO(), "uginulo");
+            u.setO(a.getUginuce().getO());
+            u.setRazlog(a.getUginuce().getRazlog());
+            server.save(u);
+            ovcaService.undoStatus(staraOvca);  // moze da vrati status tek posto je novo uginuce snimljeno
+            System.out.println("vratio status u " + staraOvca.getStatus());
+            return;
         }
-        u.setO(a.getUginuce().getO());
         u.setRazlog(a.getUginuce().getRazlog());
         server.save(u);
     }
