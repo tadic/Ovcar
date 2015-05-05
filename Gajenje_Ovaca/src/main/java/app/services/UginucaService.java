@@ -5,13 +5,9 @@
 package app.services;
 
 import app.model.Aktivnost;
-import app.model.Dan;
-import app.model.Jagnjenje;
 import app.model.Ovca;
 import app.model.Uginuce;
 import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.annotation.Transactional;
-import java.util.List;
 
 /**
  *
@@ -46,20 +42,19 @@ public class UginucaService extends ActivityService{
         server.save(u);
     }
 
-    @Transactional
     public void createActivity(Aktivnost a){
-        ovcaService.setStatus(a.getUginuce().getO(), "uginulo");       
-        saveDayAndActivity(a.getDan(), a);
+        ovcaService.setStatus(a.getUginuce().getO(), "uginulo");   
+        saveDayAndActivity(a.getDan(), a);     
         a.getUginuce().setA(a);
         server.save(a.getUginuce());
-        
     }
     
-    @Transactional
     public void deleteActivity(Aktivnost a) {
         Uginuce u = server.find(Uginuce.class).where().like("a_id", a.getId().toString()).findUnique();
+        Ovca o = u.getO();
         if (u!=null){
             server.delete(a);
+            server.delete(u);
             ovcaService.undoStatus(u.getO());
         }
     }

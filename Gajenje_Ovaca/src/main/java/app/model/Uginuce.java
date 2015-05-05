@@ -5,6 +5,7 @@
 package app.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -20,7 +21,7 @@ public class Uginuce {
     private String razlog;
     @OneToOne
     private Aktivnost a;
-    @OneToOne 
+    @OneToOne
     private Ovca o;
     public Uginuce(){
         

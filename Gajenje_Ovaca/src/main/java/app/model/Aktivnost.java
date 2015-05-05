@@ -30,7 +30,7 @@ public class Aktivnost implements Comparable<Aktivnost> {
     @OneToOne
     private VrsteAktivnosti vrstaAktivnosti;
     
-    @OneToOne(mappedBy = "a", cascade= CascadeType.REMOVE)
+    @OneToOne(mappedBy = "a")           // Lose isplanirana db sa losim imenima pa nece da radi cascade !!!
     private Uginuce uginuce;
     
     @OneToOne(mappedBy="aktivnost")
