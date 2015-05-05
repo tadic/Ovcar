@@ -20,7 +20,7 @@ public class RadoviService extends ActivityService{
         Aktivnost act = server.find(Aktivnost.class, a.getId());  
         setActivity(act, a);
         updateRadovi(a);
-        saveDayAndActivity(act.getDan(), act);
+        saveDayAndActivity(a.getDan(), act);
     }    
     
     private void updateRadovi(Aktivnost a){
@@ -39,9 +39,9 @@ public class RadoviService extends ActivityService{
     }    
     
     public void deleteActivity(Aktivnost a) {
-       // Radovi r = server.find(Radovi.class).where().like("aktivnost_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)  
+        Radovi r = server.find(Radovi.class).where().like("aktivnost_id", a.getId().toString()).findUnique(); // uginuce iz baze (staro)  
         server.delete(a);
-        //server.delete(r);
+        server.delete(r);
         
     }
     

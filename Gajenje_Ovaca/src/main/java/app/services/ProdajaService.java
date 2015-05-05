@@ -1,20 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.services;
 
 import app.model.Aktivnost;
-import app.model.Dan;
-import app.model.Ovca;
 import app.model.Prodaja;
 import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.annotation.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- *
- * @author ivantadic
- */
 public class ProdajaService extends ActivityService {
     
     private OvcaService ovcaService;
@@ -26,12 +18,14 @@ public class ProdajaService extends ActivityService {
     
     
     public void updateActivity(Aktivnost a){
-        Aktivnost act = server.find(Aktivnost.class, a.getId()); 
-        deleteActivity(act);
+
+        System.out.println("Usao u update \n\n\nUsao u auped");
+        deleteActivity(a);
         Aktivnost nova = new Aktivnost();
         setActivity(nova, a);
         postaviNoveProdaje(nova, a);
-        createActivity(nova);
+        
+        saveDayAndActivity(a.getDan(), nova);
     }
     
     public void createActivity(Aktivnost a){
@@ -64,10 +58,17 @@ public class ProdajaService extends ActivityService {
     
     public void deleteActivity(Aktivnost a) {
         Aktivnost act = server.find(Aktivnost.class, a.getId());
+        List<Prodaja> prodaje = new ArrayList<Prodaja>();
+        for (Prodaja p:act.getProdaje()){       // snima stare prodaje kakve su bile pre updejtovanja
+            prodaje.add(p);                     // da bih pomocu njih pronasao ovce i vratio stari status
+        }
+        
         server.delete(act);
-        for (Prodaja p: act.getProdaje()){
+        for (Prodaja p: prodaje){
             ovcaService.undoStatus(p.getOvca());
         }
+        
+
     }
     
 }
