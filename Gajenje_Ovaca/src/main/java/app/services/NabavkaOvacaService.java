@@ -5,11 +5,8 @@
 package app.services;
 
 import app.model.Aktivnost;
-import app.model.Dan;
 import app.model.NabavkaOvaca;
-import app.model.Ovca;
 import com.avaje.ebean.EbeanServer;
-import java.util.List;
 
 /**
  *
@@ -40,9 +37,10 @@ public class NabavkaOvacaService extends ActivityService {
     
     private void saveNabavkeOvaca(Aktivnost a){
         for (NabavkaOvaca no: a.getNabavljenaGrla()){
-            no.setAktivnost(a);
-            saveNabavku(no);
+            no.setAktivnost(a); 
+            
             ovcaService.saveSheep(no.getSheep());
+            saveNabavku(no);
         }
     }
     
@@ -63,7 +61,7 @@ public class NabavkaOvacaService extends ActivityService {
     
     public void deleteActivity(Aktivnost a) {
         for (NabavkaOvaca no: a.getNabavljenaGrla()){
-            server.delete(no.getSheep());
+            ovcaService.deleteSheep(no.getSheep());
           //  server.delete(no);
         }
         server.delete(a);

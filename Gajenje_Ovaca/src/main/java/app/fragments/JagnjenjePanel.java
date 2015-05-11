@@ -392,7 +392,6 @@ private JagnjenjaPanel parent;
             jagnjenje.getSheep().setMajka(majka);
             jagnjenje.getSheep().setOtac(otac);
             jagnjenje.getSheep().setLinija(otac.getLinija());
-            jagnjenje.getSheep().setPoreklo("farma Tadići");
 
             list.add(jagnjenje);
         }

@@ -3,7 +3,6 @@ package app.services;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Ovca;
-import app.model.Radovi;
 import app.model.Uginuce;
 import app.model.VrsteAktivnosti;
 import com.avaje.ebean.EbeanServer;

@@ -24,7 +24,6 @@ public class NabavkaOvaca {
     private Aktivnost aktivnost;
     
     @OneToOne
-    @JoinColumn(name = "sheep_id")
     private Ovca sheep;
     private float cena;
     private String napomena;

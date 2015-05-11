@@ -462,6 +462,7 @@ private JPanel mainPanel;
 
     private void jSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiButtonActionPerformed
         pickDataFromForm();
+        
         logic.saveActivity(aktivnost);
             mainPanel.removeAll();
             mainPanel.add(new Dnevnik(logic, mainPanel));

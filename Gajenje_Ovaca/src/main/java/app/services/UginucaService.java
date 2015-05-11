@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.services;
 
 import app.model.Aktivnost;
@@ -9,10 +5,7 @@ import app.model.Ovca;
 import app.model.Uginuce;
 import com.avaje.ebean.EbeanServer;
 
-/**
- *
- * @author ivantadic
- */
+
 public class UginucaService extends ActivityService{
 
     private OvcaService ovcaService;

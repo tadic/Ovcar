@@ -5,12 +5,8 @@
 package app.services;
 
 import app.model.Aktivnost;
-import app.model.Dan;
 import app.model.Jagnjenje;
-import app.model.NabavkaOvaca;
-import app.model.Ovca;
 import com.avaje.ebean.EbeanServer;
-import java.util.List;
 
 /**
  *
@@ -43,6 +39,7 @@ public class JagnjenjaService extends ActivityService{
         for (Jagnjenje jagnjenje: a.getListaJagnjenja()){
             jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
             jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
+            jagnjenje.getSheep().setPoreklo("farma Tadići");
             jagnjenje.setAktivnost(a);
             
             saveJagnjenje(jagnjenje);
