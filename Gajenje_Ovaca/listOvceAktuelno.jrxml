@@ -79,7 +79,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="22"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{nazivListe}+" ("+$P{count}+")"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nazivListe}+" "+$P{count}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

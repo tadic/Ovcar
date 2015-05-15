@@ -28,7 +28,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author ivantadic
  */
-public class Podaci_ovaca extends javax.swing.JPanel {
+public class Podaci_ovaca_opsti extends javax.swing.JPanel {
     private List<Ovca> listOfSheep;
     private Logic logic;
     private JPanel mainPanel;
@@ -36,9 +36,9 @@ public class Podaci_ovaca extends javax.swing.JPanel {
 
 
     /**
-     * Creates new form Podaci_ovaca
+     * Creates new form Podaci_ovaca_opsti
      */
-    public Podaci_ovaca(JPanel mainPanel, Logic logic) {
+    public Podaci_ovaca_opsti(JPanel mainPanel, Logic logic) {
         this.logic = logic;
         this.mainPanel = mainPanel;
         initComponents();

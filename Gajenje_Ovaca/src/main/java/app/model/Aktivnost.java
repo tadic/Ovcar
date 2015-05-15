@@ -238,7 +238,8 @@ public class Aktivnost implements Comparable<Aktivnost> {
     }
 
     public int compareTo(Aktivnost t) {
-        return this.vremePocetka-t.vremePocetka;
+         return 10000*(this.getDan().getDatum()-t.getDan().getDatum()) + this.vremePocetka-t.vremePocetka;
+      
     }
 
     public List<NabavkaOvaca> getNabavljenaGrla() {

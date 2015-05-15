@@ -4,11 +4,10 @@
  */
 package app.editPanels;
 
-import app.helpers.OvcaHelper;
 import app.helpers.OvcaReport;
 import app.report.OvcaIzvestaj;
 import app.logic.Logic;
-import app.mainPanels.Podaci_ovaca;
+import app.mainPanels.Podaci_ovaca_opsti;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Jagnjenje;
@@ -21,7 +20,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -29,7 +27,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +42,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private JPanel mainPanel;
 
     /**
-     * Creates new form Podaci_ovaca
+     * Creates new form Podaci_ovaca_opsti
      */
     public OvcaPrikaz(JPanel mainpanel, Logic logic, int id) {
 
@@ -200,6 +197,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
       
          setTitleToPanel(jPanelJagnjenja, "Jagnjenja (" + tm.getRowCount() + ") - " + o.procenatJagnjenja());
          setBoldFontToColumn(jTableJagnjenja, 1);
+         jJagnjadiGodisnje.setText(String.valueOf(o.teoretskiJagnjadiGodisnje(2015)));
+         jDanaIzmedjuJagnjenja.setText(String.valueOf(o.danaIzmedjuJagnjenjaU(2015)));
     }
     private void setMerenja(Ovca o){
         if (o.getMerenja()==null || o.getMerenja().isEmpty()){
@@ -352,6 +351,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jPDFSnimiButton = new javax.swing.JButton();
         jOtkaziButton = new javax.swing.JButton();
         jIzmeniButton = new javax.swing.JButton();
+        jJagnjadiGodisnje = new javax.swing.JTextField();
+        jDanaIzmedjuJagnjenja = new javax.swing.JTextField();
 
         jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
@@ -454,7 +455,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addGroup(jPanelRodjenjeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelRodjenjeLayout.createSequentialGroup()
                                 .addComponent(jLeglo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTezina, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,7 +558,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addComponent(jCenaNabavke, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCenaNabavke1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 345, Short.MAX_VALUE))
+                        .addGap(0, 359, Short.MAX_VALUE))
                     .addGroup(jPanelNabavkaLayout.createSequentialGroup()
                         .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -730,7 +731,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addGroup(jPanelOpstipodatciLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelOpstipodatciLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jOpis, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE))
+                                .addComponent(jOpis, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
                             .addGroup(jPanelOpstipodatciLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1195,6 +1196,10 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             }
         });
 
+        jJagnjadiGodisnje.setText("jTextField1");
+
+        jDanaIzmedjuJagnjenja.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1204,7 +1209,12 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .addComponent(jPanelOpstipodatci, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jJagnjadiGodisnje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDanaIzmedjuJagnjenja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanelRodjenje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(2, 2, 2))
@@ -1250,14 +1260,20 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                             .addComponent(jOtkaziButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jJagnjadiGodisnje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDanaIzmedjuJagnjenja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelOpstipodatci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelRodjenje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelDosije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(13, Short.MAX_VALUE))))
+                        .addContainerGap(8, Short.MAX_VALUE))))
         );
 
         jPanelLecenja.getAccessibleContext().setAccessibleName("Merenja (1)");
@@ -1380,7 +1396,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private void jOtkaziButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOtkaziButtonActionPerformed
         mainPanel.setLayout(new GridLayout());
         mainPanel.removeAll();
-        mainPanel.add(new Podaci_ovaca(mainPanel, logic));
+        mainPanel.add(new Podaci_ovaca_opsti(mainPanel, logic));
         mainPanel.revalidate();
         repaint();
     }//GEN-LAST:event_jOtkaziButtonActionPerformed
@@ -1511,9 +1527,11 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private javax.swing.JTextField jCenaNabavke;
     private javax.swing.JTextField jCenaNabavke1;
     private javax.swing.JTextField jCenaNabavke2;
+    private javax.swing.JTextField jDanaIzmedjuJagnjenja;
     private javax.swing.JTextField jDetaljiNabavke;
     private javax.swing.JTextArea jDosije;
     private javax.swing.JButton jIzmeniButton;
+    private javax.swing.JTextField jJagnjadiGodisnje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

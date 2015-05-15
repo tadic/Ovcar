@@ -8,12 +8,15 @@ import app.mainPanels.Dnevnik;
 import app.mainPanels.Merenja;
 import app.mainPanels.NapraviIzvestaj;
 import app.mainPanels.PlanPripusta;
-import app.mainPanels.Podaci_ovaca;
+import app.mainPanels.Podaci_ovaca_opsti;
+import app.mainPanels.Podaci_ovaca_statistika;
 import app.model.Aktivnost;
 import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.plaf.basic.BasicComboPopup;
 
 
 public class Ovcar extends javax.swing.JFrame {
@@ -37,6 +40,11 @@ public class Ovcar extends javax.swing.JFrame {
         mainPanel.add(new Dnevnik(logic, mainPanel));
         mainPanel.revalidate();
         jToolBar1.setOpaque(true);
+
+        Object child = jComboBox1.getAccessibleContext().getAccessibleChild(0);
+        BasicComboPopup popup = (BasicComboPopup)child;
+        JList list = popup.getList();
+        list.setSelectionBackground(Color.RED);
         repaint();
         setVisible(true);
     }
@@ -79,14 +87,13 @@ public class Ovcar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
+        jComboBox1 = new javax.swing.JComboBox();
         dnevnikButton = new javax.swing.JButton();
-        ovceButton = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
         jButton20 = new javax.swing.JButton();
         jPlanPripustaButton = new javax.swing.JButton();
         jLinijeButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
         mainPanel = new javax.swing.JPanel();
 
         jMenu1.setText("File");
@@ -114,6 +121,20 @@ public class Ovcar extends javax.swing.JFrame {
         jToolBar1.setMinimumSize(new java.awt.Dimension(500, 31));
         jToolBar1.setPreferredSize(new java.awt.Dimension(500, 31));
 
+        jComboBox1.setBackground(new java.awt.Color(255, 0, 0));
+        jComboBox1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(255, 0, 0));
+        jComboBox1.setMaximumRowCount(3);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ovce - opšti podatci", "Ovce - statistika" }));
+        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(200, 46));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jComboBox1);
+
         dnevnikButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         dnevnikButton.setForeground(new java.awt.Color(212, 212, 212));
         dnevnikButton.setText("Dnevnik rada");
@@ -138,31 +159,6 @@ public class Ovcar extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(dnevnikButton);
-
-        ovceButton.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        ovceButton.setForeground(new java.awt.Color(212, 212, 212));
-        ovceButton.setText("Ovce");
-        ovceButton.setBorderPainted(false);
-        ovceButton.setContentAreaFilled(false);
-        ovceButton.setFocusPainted(false);
-        ovceButton.setFocusable(false);
-        ovceButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ovceButton.setMargin(new java.awt.Insets(2, 10, 2, 10));
-        ovceButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        ovceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                ovceButtonMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ovceButtonMouseEntered(evt);
-            }
-        });
-        ovceButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ovceButtonActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(ovceButton);
 
         jButton18.setBackground(new java.awt.Color(0, 204, 153));
         jButton18.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
@@ -290,15 +286,6 @@ public class Ovcar extends javax.swing.JFrame {
         });
         jToolBar1.add(jLinijeButton1);
 
-        jComboBox1.setBackground(new java.awt.Color(51, 51, 51));
-        jComboBox1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(212, 212, 212));
-        jComboBox1.setMaximumRowCount(3);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lista - opšti podatci", "Lista - merenja i indeksi" }));
-        jComboBox1.setOpaque(true);
-        jComboBox1.setPreferredSize(new java.awt.Dimension(180, 46));
-        jToolBar1.add(jComboBox1);
-
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
         mainPanel.setPreferredSize(new java.awt.Dimension(1305, 700));
 
@@ -347,22 +334,6 @@ public class Ovcar extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
     }//GEN-LAST:event_formWindowOpened
-
-    private void ovceButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ovceButtonMouseExited
-        ovceButton.setForeground(new Color(212,212,212));
-    }//GEN-LAST:event_ovceButtonMouseExited
-
-    private void ovceButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ovceButtonMouseEntered
-        ovceButton.setForeground(Color.white);
-    }//GEN-LAST:event_ovceButtonMouseEntered
-
-    private void ovceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovceButtonActionPerformed
-        mainPanel.setLayout(new GridLayout());
-        mainPanel.removeAll();
-        mainPanel.add(new Podaci_ovaca(mainPanel, logic));
-        mainPanel.revalidate();
-        repaint();
-    }//GEN-LAST:event_ovceButtonActionPerformed
 
     private void jButton18MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton18MouseExited
         jButton18.setForeground(new Color(212,212,212));
@@ -459,6 +430,18 @@ public class Ovcar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLinijeButton1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        mainPanel.setLayout(new GridLayout());
+        mainPanel.removeAll();
+        if (jComboBox1.getSelectedIndex()==1){
+            mainPanel.add(new Podaci_ovaca_statistika(mainPanel, logic));
+        } else {
+           mainPanel.add(new Podaci_ovaca_opsti(mainPanel, logic));
+        }
+        mainPanel.revalidate();
+        repaint(); 
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -512,6 +495,5 @@ public class Ovcar extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JButton ovceButton;
     // End of variables declaration//GEN-END:variables
 }

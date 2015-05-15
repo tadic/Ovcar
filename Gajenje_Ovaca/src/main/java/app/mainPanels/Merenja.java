@@ -56,7 +56,6 @@ public class Merenja extends javax.swing.JPanel {
     
     private List<RowFilter<TableModel,Object>> getFilters(){
          List<RowFilter<TableModel,Object>> filters = new ArrayList<RowFilter<TableModel,Object>>();
-         RowFilter<TableModel, Object> comboFilter = RowFilter.regexFilter("");
 
          String polFilter = "";
          if (jTrazi3.getSelectedIndex()==2){
@@ -142,7 +141,7 @@ public class Merenja extends javax.swing.JPanel {
             if (a.getMerenja()!=null && !a.getMerenja().isEmpty()){
                 String datum = a.getDan().toString();
                 
-                novaKolona(model, datum, i);
+                novaKolona(model, a.getDan().toString(), i);
                 for (Merenje m: a.getMerenja()){
                     //int vrsta = vrstaZaUpis(m, listaMerenihOvaca);
                     if (!listaMerenihOvaca.contains(m.getOvca())){
@@ -156,6 +155,7 @@ public class Merenja extends javax.swing.JPanel {
         }       
         setBoldFontToColumn(5, Color.red.darker());
         setSorter();
+        applyFilters();
     }
 
     private void ubaciOvcu(DefaultTableModel model, Ovca o){
@@ -196,7 +196,6 @@ public class Merenja extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jNaFarmi = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jTrazi1 = new javax.swing.JTextField();
         jTrazi2 = new javax.swing.JTextField();
@@ -307,14 +306,6 @@ public class Merenja extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(16).setResizable(false);
         jTable1.getColumnModel().getColumn(16).setPreferredWidth(25);
 
-        jNaFarmi.setSelected(true);
-        jNaFarmi.setText("na farmi");
-        jNaFarmi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jNaFarmiActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Traži:");
 
         jTrazi1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -367,18 +358,15 @@ public class Merenja extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jNaFarmi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -392,20 +380,16 @@ public class Merenja extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jNaFarmi)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -446,20 +430,17 @@ public class Merenja extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1KeyPressed
 
     private void jTrazi1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrazi1KeyReleased
-        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+        applyFilters();
     }//GEN-LAST:event_jTrazi1KeyReleased
 
-    private void jNaFarmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNaFarmiActionPerformed
-       sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-                jCounter.setText("("+ jTable1.getRowCount() + ")");
-    }//GEN-LAST:event_jNaFarmiActionPerformed
-
     private void jTrazi2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTrazi2KeyReleased
-        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+       applyFilters();
     }//GEN-LAST:event_jTrazi2KeyReleased
 
+    private void applyFilters(){
+         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }
     private void jSnimiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiActionPerformed
             for (int i=0; i<jTable1.getRowCount(); i++){
                 int selectedRow = jTable1.convertRowIndexToModel(i);
@@ -482,9 +463,6 @@ public class Merenja extends javax.swing.JPanel {
     private void jStampajSveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSveActionPerformed
        ArrayList<Ovca> list = new ArrayList<Ovca>();
         String f1 = "-";
-        if (jNaFarmi.isSelected()){
-           f1 = "na farmi";
-       }
         String f2 = jTrazi3.getSelectedItem().toString();
         String f3 = jTrazi1.getText();
         String f4 = jTrazi2.getText();
@@ -512,7 +490,6 @@ public class Merenja extends javax.swing.JPanel {
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JCheckBox jNaFarmi;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jStampajSve;

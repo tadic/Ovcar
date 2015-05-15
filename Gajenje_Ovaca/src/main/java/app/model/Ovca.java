@@ -43,7 +43,7 @@ public class Ovca {
     @OneToMany(cascade= CascadeType.ALL, mappedBy = "ovan")
     private List<Parenje> pripusti;
     
-    @OneToOne(mappedBy = "sheep")
+    @OneToOne(mappedBy = "sheep", fetch= FetchType.EAGER)
     private Jagnjenje rodjenje;
     
     @Column(unique=true)
@@ -287,6 +287,137 @@ public String getPpol(){
             leglo = Integer.parseInt(valueAt.toString());
         }
     }
+    
+    public boolean wasPrvojagnjenka(Dan d){
+         for (Jagnjenje j: this.getListaJagnjenja()){
+            if (j.getAktivnost().getDan().getDatum()<d.getDatum()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public float teoretskiJagnjadiGodisnje(){
+        int brojJagnjadi = getListaJagnjenja().size();
+        int brojJagnjenja = getBrojJagnjenja();
+        float prosekJagnjenja = (float)brojJagnjadi/brojJagnjenja;
+        return Aktivnost.round(365*prosekJagnjenja/danaIzmedjuJagnjenja(), 2);
+    }
+    public float teoretskiJagnjadiGodisnje(int godina){
+        List<Jagnjenje> listaJ = this.getListaJagnjenja();
+        if (listaJ==null || listaJ.isEmpty()){
+            return 0;
+        }
+        int jagnjadiUGodini=0;
+        boolean brojacPostavljen = false;
+        Dan pocetak, kraj;
+        Aktivnost a = listaJ.get(0).getAktivnost();
+        pocetak = a.getDan();
+        for (Jagnjenje j : listaJ){
+            if(j.getAktivnost().getDan().getDatum()/10000 == godina){
+                if (brojacPostavljen){
+                    jagnjadiUGodini++;
+                } else {
+                    pocetak = a.getDan();
+                    if (!j.getAktivnost().equals(a)){
+                        brojacPostavljen = true;
+                        jagnjadiUGodini = 1;
+                    }
+                }
+                 
+            }
+            a = j.getAktivnost();
+        }
+        kraj = a.getDan();
+        return ((float)365*jagnjadiUGodini)/razlikaUDanima(pocetak, kraj);
+    }
+    
+    public int danaIzmedjuJagnjenjaU(int godina){
+        List<Jagnjenje> listaJ = this.getListaJagnjenja();
+        if (listaJ==null || listaJ.isEmpty()){
+            return 0;
+        }
+        int brojJagnjenja=0;
+        boolean brojacPostavljen = false;
+        Dan pocetak, kraj;
+        Aktivnost a = listaJ.get(0).getAktivnost();
+        pocetak = a.getDan();
+        for (Jagnjenje j : listaJ){
+            if(j.getAktivnost().getDan().getDatum()/10000 == godina){
+                if (brojacPostavljen){
+                    if (!j.getAktivnost().equals(a)){
+                        brojJagnjenja++;
+                    }
+                } else {
+                    pocetak = a.getDan();
+                    if (!j.getAktivnost().equals(a)){
+                        brojacPostavljen = true;
+                        brojJagnjenja = 1;
+                    }
+                }
+                 
+            }
+            a = j.getAktivnost();
+        }
+        kraj = a.getDan();
+        if (brojJagnjenja>0){
+        return razlikaUDanima(pocetak, kraj)/(brojJagnjenja);
+        } 
+        return 0;
+    }
+    public int danaIzmedjuJagnjenja(){
+        List<Jagnjenje> listaJ = this.getListaJagnjenja();
+        if (listaJ==null || listaJ.isEmpty()){
+            return 0;
+        }
+        int brojJagnjenja=0;
+        boolean brojacPostavljen = false;
+        Dan pocetak, kraj;
+        Aktivnost a = listaJ.get(0).getAktivnost();
+        pocetak = a.getDan();
+        for (Jagnjenje j : listaJ){
+                if (brojacPostavljen){
+                    if (!j.getAktivnost().equals(a)){
+                        brojJagnjenja++;
+                    }
+                } else {
+                    pocetak = a.getDan();
+                    if (!j.getAktivnost().equals(a)){
+                        brojacPostavljen = true;
+                        brojJagnjenja = 1;
+                    }
+                }   
+            a = j.getAktivnost();
+        }
+        kraj = a.getDan();
+        if (brojJagnjenja>0){
+            return razlikaUDanima(pocetak, kraj)/(brojJagnjenja);
+        } 
+        return 0;
+    }
+    private int razlikaUDanima(Dan pocetak, Dan kraj){
+        int p = pocetak.getDatum();
+        int k = kraj.getDatum();
+       
+        return Days.daysBetween(new DateTime(new Date(p/10000, (p%10000)/100, p%100)), 
+                    new DateTime(new Date(k/10000, (k%10000)/100, k%100))).getDays();
+        
+    }
+    public boolean wasDviska(Dan d){
+        if (this.getListaJagnjenja()==null || this.getListaJagnjenja().isEmpty()){
+            return true; //!?
+        }
+        int rmonth = Integer.parseInt(datumRodjenja.substring(3, 5))-1;
+        int ryear = Integer.parseInt(datumRodjenja.substring(6));
+        int datumRodj = ryear*10000 + rmonth*100;
+        int datumProvere = d.getDatum();
+        int razlika = datumProvere - datumRodj;
+        if (razlika>20000){     // ako je starija od 2 godine
+            return false;
+        }
+        
+        return wasPrvojagnjenka(d);
+    }
     private float round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
@@ -457,12 +588,61 @@ public String getPpol(){
     private Integer parseGodina(String datum){
         return Integer.parseInt(datum.substring(6, 10));
     }
+    
+    public boolean wasOdrasloNaFarmi(int mesec, int godina){
+        if (jelBiloOdraslo(mesec, godina)){ // podrazumeva se da je ili rodjeno na farmi ili nabavljeno, znaci poznato mu je rodjenje
+            if (this.getStatus().equals("na farmi")){   // ako je i dalje na farmi a tada je bilo odraslo
+                return true;
+            }
+            if (!this.wasProdato(mesec, godina) && !this.wasUginulo(mesec, godina)){ // ako u trenutku provere nije bilo prodati ili uginulo
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean wasProdato(int mesec, int godina){
+         if (this.getProdaja()!=null){
+             int datumProvere = 1000*godina + 100*mesec;
+             int datumProdaje = this.getProdaja().getAktivnost().getDan().getDatum();
+             if (datumProdaje<datumProvere){
+                 return true;
+             }
+         }
+         return false;
+    }
+    private boolean wasUginulo(int mesec, int godina){
+         if (this.getUginuce()!=null){
+             int datumProvere = 1000*godina + 100*mesec;
+             int datumUginuca = this.getUginuce().getA().getDan().getDatum();
+             if (datumUginuca<datumProvere){
+                 return true;
+             }
+         }
+         return false;
+    }
      public boolean wasJagnje(int mesec, int godina){
         if (this.datumRodjenja!=null && datumRodjenja.length()>0){
             int rmonth = Integer.parseInt(datumRodjenja.substring(3, 5));
             int ryear = Integer.parseInt(datumRodjenja.substring(6));
-            return   (12*(godina-ryear) + mesec-rmonth)<7;
+            int razlikaMeseci = (12*(godina-ryear) + mesec-rmonth);
+            if (razlikaMeseci<7 && razlikaMeseci>=0){
+                return true;
+            }
         }    
+        return false;
+    }
+      public boolean jelBiloOdraslo(int mesec, int godina){
+          if (this.getParenja()==null || this.getParenja().isEmpty()){
+              return false;
+          }
+          int datumProvere = 10000*godina + 100*mesec;
+       //   System.out.println(this.getNadimak() + " ima parenja ");
+          for (Parenje p: this.getParenja()){
+              if (p.getAktivnost().getDan().getDatum()<datumProvere){
+                  return (!this.wasUginulo(mesec, godina) && !wasProdato(mesec, godina));
+              }
+          } 
         return false;
     }
 

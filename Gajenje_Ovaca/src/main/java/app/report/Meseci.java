@@ -6,10 +6,11 @@ package app.report;
  * @author ivantadic
  */
 public class Meseci {
-    private int brojOvaca;
+    private int brojOvaca, brojPlodkinja;
     private int brojR;
-     private int ojagnjeno;
-     private int ojagnjenoMrtvih;
+    private int brojRzenki;
+    private int ojagnjeno;
+    private int ojagnjenoMrtvih;
     private float rashodiHrana;
     private float rashodiNabavkaOvaca;
     private float rashodiOstalo;
@@ -18,19 +19,31 @@ public class Meseci {
     private float bilans;
     private String nazivMeseca;
 
-    public Meseci(String nazivMeseca, int brojOvaca, int brojR, float rashodi, float prihodi, float bilans) {
-        this.brojOvaca = brojOvaca;
-        this.brojR = brojR;
-        this.rashodiHrana = rashodi;
+    public Meseci(String nazivMeseca) {
+        this.brojOvaca = 0;
+        this.brojR = 0;
+        this.brojRzenki = 0;
+        this.brojPlodkinja = 0;
+        this.rashodiHrana = 0;
         this.rashodiNabavkaOvaca = 0;
         this.rashodiOstalo = 0;
         this.rashodiObjekat = 0;
-        this.prihodi = prihodi;
-        this.bilans = bilans;
+        this.prihodi = 0;
+        this.bilans = 0.0f;
         this.ojagnjeno = 0;
         this.ojagnjenoMrtvih = 0;
         this.nazivMeseca = nazivMeseca;
     }
+
+    public int getBrojRzenki() {
+        return brojRzenki;
+    }
+
+    public void setBrojRzenki(int brojRzenki) {
+        this.brojRzenki = brojRzenki;
+    }
+    
+    
 
     public int getBrojOvaca() {
         return brojOvaca;
@@ -118,6 +131,14 @@ public class Meseci {
 
     public void setOjagnjenoMrtvih(int ojagnjenoMrtvih) {
         this.ojagnjenoMrtvih = ojagnjenoMrtvih;
+    }
+
+    public int getBrojPlodkinja() {
+        return brojPlodkinja;
+    }
+
+    public void setBrojPlodkinja(int brojOdraslih) {
+        this.brojPlodkinja = brojOdraslih;
     }
     
     

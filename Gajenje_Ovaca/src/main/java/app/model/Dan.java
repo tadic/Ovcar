@@ -122,6 +122,7 @@ public class Dan implements Serializable  {
     }
     @Override
     public String toString(){
-        return "" + getTwoCharacters(datum%100) + "." + getTwoCharacters(1+(datum%10000)/100) + "." + datum/10000;
+       return "" + getTwoCharacters(getDatum()%100) + "." + 
+               getTwoCharacters(1+(getDatum()%10000)/100) + "." + getDatum()/10000;
     }
 }

@@ -173,6 +173,6 @@ public class Logic {
     public List<Ovca> getSveOvnove() {
         return ovcaService.getSveOvnove();
     }
-   
 
+    
 }

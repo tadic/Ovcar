@@ -6,6 +6,7 @@ import app.model.NabavkaOvaca;
 import app.model.VrsteAktivnosti;
 import com.avaje.ebean.EbeanServer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -34,7 +35,7 @@ public abstract class ActivityService {
     }
     
     public List<VrsteAktivnosti> getAllTypesOfActivities() {
-        List<VrsteAktivnosti> typesOfActivities = server.find(VrsteAktivnosti.class).findList();
+        List<VrsteAktivnosti> typesOfActivities = server.find(VrsteAktivnosti.class).orderBy("name").findList();
         if (typesOfActivities==null){
             return new ArrayList<VrsteAktivnosti>();
         }
@@ -63,7 +64,7 @@ public abstract class ActivityService {
     
     public List<Aktivnost> getPoslednjaMerenja(int maxCount) {
         List<Aktivnost> list =  server.find(Aktivnost.class).where().like("vrsta_aktivnosti_id","7").findList();
-
+        Collections.sort(list);
         if (list.size()>maxCount){
             return list.subList(list.size()-maxCount, list.size());
         } 

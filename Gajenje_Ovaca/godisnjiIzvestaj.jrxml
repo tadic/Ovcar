@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="497" leftMargin="70" rightMargin="28" topMargin="56" bottomMargin="28" uuid="f03ee7f1-ca80-4200-81b7-6f29cdb75b6e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="93"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="mesec" class="java.lang.String"/>
 	<parameter name="godina" class="java.lang.String"/>
 	<parameter name="nabavljenoOvaca" class="java.lang.String"/>
@@ -52,6 +52,14 @@
 	<parameter name="ovceOdDveDoCetiriGod" class="java.lang.Integer"/>
 	<parameter name="ovceOdCetiriDoSestGod" class="java.lang.Integer"/>
 	<parameter name="ovcePrekoSestGod" class="java.lang.Integer"/>
+	<parameter name="ojagnjenihR" class="java.lang.Integer"/>
+	<parameter name="jagnjenjaR" class="java.lang.Integer"/>
+	<parameter name="procenatJagnjenjaRStarije" class="java.lang.String"/>
+	<parameter name="ojagnjenoZivihR" class="java.lang.Integer"/>
+	<parameter name="jagnjenjaRDviske" class="java.lang.Integer"/>
+	<parameter name="ojagnjenihROdDviski" class="java.lang.Integer"/>
+	<parameter name="ojagnjenoZivihROdDviski" class="java.lang.Integer"/>
+	<parameter name="procenatJagnjenjaRDviske" class="java.lang.String"/>
 	<field name="bilans" class="java.lang.Float"/>
 	<field name="brojOvaca" class="java.lang.Integer"/>
 	<field name="nazivMeseca" class="java.lang.String"/>
@@ -62,6 +70,8 @@
 	<field name="rashodiObjekat" class="java.lang.Float"/>
 	<field name="ojagnjeno" class="java.lang.Integer"/>
 	<field name="ojagnjenoMrtvih" class="java.lang.Integer"/>
+	<field name="brojRzenki" class="java.lang.Integer"/>
+	<field name="brojPlodkinja" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -384,7 +394,7 @@
 			</textField>
 			<lineChart>
 				<chart evaluationTime="Report">
-					<reportElement uuid="ff032bc7-e3d2-4b12-a1e2-7dbdf1d9c3c8" x="36" y="240" width="436" height="156"/>
+					<reportElement uuid="ff032bc7-e3d2-4b12-a1e2-7dbdf1d9c3c8" x="6" y="240" width="466" height="156"/>
 					<chartTitle>
 						<titleExpression><![CDATA["Mesečne promene"]]></titleExpression>
 					</chartTitle>
@@ -401,6 +411,16 @@
 						<seriesExpression><![CDATA["100% romanov"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{nazivMeseca}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{brojR}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["R ženskih"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nazivMeseca}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{brojRzenki}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["broj plodkinja"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nazivMeseca}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{brojPlodkinja}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
 				<linePlot>
@@ -433,7 +453,7 @@
 			</staticText>
 			<barChart>
 				<chart evaluationTime="Report">
-					<reportElement uuid="288b548a-f9f8-4ba3-bb2c-30da9f7ad387" x="241" y="431" width="253" height="136"/>
+					<reportElement uuid="288b548a-f9f8-4ba3-bb2c-30da9f7ad387" x="264" y="431" width="232" height="136"/>
 					<chartTitle>
 						<titleExpression><![CDATA["Jagnjenja po broju jagnjadi"]]></titleExpression>
 					</chartTitle>
@@ -442,28 +462,28 @@
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA["broj jagnjadi"]]></seriesExpression>
-						<categoryExpression><![CDATA["1 jagnje"]]></categoryExpression>
+						<seriesExpression><![CDATA["1"]]></seriesExpression>
+						<categoryExpression><![CDATA["broj jagnjadi po jagnjenju"]]></categoryExpression>
 						<valueExpression><![CDATA[$P{jedinci}]]></valueExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["broj jagnjadi"]]></seriesExpression>
-						<categoryExpression><![CDATA["2 jag."]]></categoryExpression>
+						<seriesExpression><![CDATA["2"]]></seriesExpression>
+						<categoryExpression><![CDATA["broj jagnjadi po jagnjenju"]]></categoryExpression>
 						<valueExpression><![CDATA[$P{dvojke}]]></valueExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["broj jagnjadi"]]></seriesExpression>
-						<categoryExpression><![CDATA["3 jag."]]></categoryExpression>
+						<seriesExpression><![CDATA["3"]]></seriesExpression>
+						<categoryExpression><![CDATA["broj jagnjadi po jagnjenju"]]></categoryExpression>
 						<valueExpression><![CDATA[$P{trojke}]]></valueExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["broj jagnjadi"]]></seriesExpression>
-						<categoryExpression><![CDATA["4 jag."]]></categoryExpression>
+						<seriesExpression><![CDATA["4"]]></seriesExpression>
+						<categoryExpression><![CDATA["broj jagnjadi po jagnjenju"]]></categoryExpression>
 						<valueExpression><![CDATA[$P{cetvorke}]]></valueExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["broj jagnjadi"]]></seriesExpression>
-						<categoryExpression><![CDATA["5 jag."]]></categoryExpression>
+						<seriesExpression><![CDATA["5"]]></seriesExpression>
+						<categoryExpression><![CDATA["broj jagnjadi po jagnjenju"]]></categoryExpression>
 						<valueExpression><![CDATA[$P{petice}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
@@ -483,72 +503,68 @@
 				</barPlot>
 			</barChart>
 			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="69" y="456" width="2" height="61"/>
-			</line>
-			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="477" width="137" height="1"/>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="497" width="220" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-12" y="459" width="78" height="20"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-11" y="477" width="78" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[broj jagnjenja]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-11" y="478" width="78" height="20"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-11" y="498" width="78" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[broj jaganjaca]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="497" width="137" height="1"/>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="517" width="220" height="1"/>
 			</line>
 			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="518" width="210" height="1"/>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="538" width="220" height="1"/>
 			</line>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-11" y="498" width="78" height="20"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-11" y="518" width="78" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<text><![CDATA[živih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-34" y="519" width="168" height="19"/>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="-33" y="540" width="100" height="19"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PPROCENAT JAGNJENJA]]></text>
+				<text><![CDATA[% JAGNJENJA]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="137" y="459" width="1" height="76"/>
-			</line>
 			<textField>
-				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="71" y="478" width="57" height="20"/>
+				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="187" y="498" width="40" height="20" forecolor="#FF0000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ojagnjenih}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="71" y="498" width="57" height="20"/>
+				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="187" y="518" width="40" height="20" forecolor="#FF0000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="9" isBold="true"/>
+					<font size="9" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ojagnjenoZivih}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5f79846e-b9a6-4ced-8af8-022fa3b8f73b" x="144" y="522" width="70" height="20"/>
-				<textElement>
-					<font size="10" isBold="true"/>
+				<reportElement uuid="5f79846e-b9a6-4ced-8af8-022fa3b8f73b" x="187" y="539" width="40" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{procenatJagnjenja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="69" y="456" width="61" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="187" y="476" width="40" height="20" forecolor="#FF0000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{jagnjenja}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -560,7 +576,7 @@
 			</textField>
 			<stackedBarChart>
 				<chart evaluationTime="Report">
-					<reportElement uuid="25eec859-4248-46f1-9406-4c86e9079b71" x="37" y="570" width="406" height="160"/>
+					<reportElement uuid="25eec859-4248-46f1-9406-4c86e9079b71" x="239" y="575" width="254" height="160"/>
 					<chartTitle>
 						<titleExpression><![CDATA["Ojagnjenia jagnjad po mesecima"]]></titleExpression>
 					</chartTitle>
@@ -582,6 +598,24 @@
 				<barPlot>
 					<plot/>
 					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="7"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="7"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="7"/>
+							</labelFont>
+						</axisFormat>
+					</valueAxisFormat>
+					<rangeAxisMinValueExpression><![CDATA[1]]></rangeAxisMinValueExpression>
 				</barPlot>
 			</stackedBarChart>
 			<stackedBarChart>
@@ -635,6 +669,133 @@
 					</categoryAxisFormat>
 				</barPlot>
 			</stackedBarChart>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="70" y="462" width="1" height="90"/>
+			</line>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="1" y="477" width="220" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="110" y="462" width="1" height="90"/>
+			</line>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="186" y="462" width="1" height="90"/>
+			</line>
+			<line>
+				<reportElement uuid="5f5ee739-7d18-41eb-ba0a-861d86187946" x="149" y="462" width="1" height="90"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="189" y="458" width="52" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ukupno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="72" y="458" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[R dviske]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="112" y="458" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[R starije]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1771f142-f863-43bf-8078-b2e0349a9200" x="150" y="458" width="35" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ostale]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="110" y="497" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenihR}-$P{ojagnjenihROdDviski}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="110" y="476" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jagnjenjaR}-$P{jagnjenjaRDviske}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="110" y="539" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{procenatJagnjenjaRStarije}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="110" y="518" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenoZivihR}-$P{ojagnjenoZivihROdDviski}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="70" y="477" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jagnjenjaRDviske}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="148" y="476" width="40" height="20" forecolor="#0000FF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jagnjenja}-$P{jagnjenjaR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="70" y="498" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenihROdDviski}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="148" y="497" width="40" height="20" forecolor="#0000FF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenih}-$P{ojagnjenihR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="148" y="518" width="40" height="20" forecolor="#0000FF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenoZivih}-$P{ojagnjenoZivihR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5f00556c-62be-45b7-96d7-4580e4eb57ca" x="70" y="518" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ojagnjenoZivihROdDviski}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ff21f1b-d666-4d00-9d5a-94b84dd4eb8b" x="71" y="539" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{procenatJagnjenjaRDviske}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5f79846e-b9a6-4ced-8af8-022fa3b8f73b" x="148" y="539" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(100*($P{ojagnjenih}-$P{ojagnjenihR})/($P{jagnjenja}-$P{jagnjenjaR})) + "%"]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
@@ -643,23 +804,31 @@
 	<pageFooter>
 		<band height="23">
 			<textField>
-				<reportElement uuid="7f6bf8b9-0959-405b-973e-4c5d852c8b9a" x="378" y="-1" width="80" height="20"/>
-				<textElement textAlignment="Right"/>
+				<reportElement uuid="7f6bf8b9-0959-405b-973e-4c5d852c8b9a" x="378" y="9" width="80" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Strana "+$V{PAGE_NUMBER}+" od"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement uuid="34294c1b-5b2d-4b97-a795-65810351aaa6" x="458" y="-1" width="40" height="20"/>
-				<textElement/>
+				<reportElement uuid="34294c1b-5b2d-4b97-a795-65810351aaa6" x="458" y="9" width="40" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMMMM yyyy">
-				<reportElement uuid="e139eca9-5b2f-425c-8a64-e321966a344a" x="98" y="0" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="e139eca9-5b2f-425c-8a64-e321966a344a" x="79" y="10" width="100" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7f6bf8b9-0959-405b-973e-4c5d852c8b9a" x="-2" y="-1" width="100" height="20"/>
-				<textElement/>
+				<reportElement uuid="7f6bf8b9-0959-405b-973e-4c5d852c8b9a" x="-2" y="9" width="100" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Godišnji izveštaj"]]></textFieldExpression>
 			</textField>
 		</band>

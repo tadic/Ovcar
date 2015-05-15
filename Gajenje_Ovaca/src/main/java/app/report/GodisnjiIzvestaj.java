@@ -11,18 +11,13 @@ import app.model.Jagnjenje;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
 import app.model.Prodaja;
-import app.model.Uginuce;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -30,7 +25,6 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import org.jfree.util.ArrayUtilities;
 
 /**
  *
@@ -40,7 +34,7 @@ public class GodisnjiIzvestaj {
     private List<Aktivnost> list;
     private Logic logic;
     private String godina;
-    private Integer romPocetak, sviPocetak, mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega, jagnjenja, ojagnjenih, ojagnjenihZivih, jedinci, dvojke, trojke, cetvorke, petice;
+    private Integer romPocetak, odraslihPocetak, romZPocetak,  sviPocetak, mesec, promenaOvaca, promenaJaganjaca, promenaOvnova, promenaSvega, jagnjenja, ojagnjenih, ojagnjenihZivih, jedinci, dvojke, trojke, cetvorke, petice;
     private float sviRashodi, sviPrihodi;
     private List<String> meseci = Arrays.asList("Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul",
                                                 "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar");
@@ -81,12 +75,9 @@ public class GodisnjiIzvestaj {
         {
             String reportSource = "godisnjiIzvestaj.jrxml";
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(popuniTabelu());
-            
-            
+          
             JasperDesign dis=JRXmlLoader.load(reportSource); 
             JasperReport jasperReport = JasperCompileManager.compileReport(dis);
-
-            
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport, params, dataSource);
@@ -124,9 +115,19 @@ public class GodisnjiIzvestaj {
         params.put("ovcePrekoSestGod", ovcePrekoSest);        
     }
     
-    private Meseci popuniMesec(String naziv, List<Aktivnost> aktivnosti){
-        Meseci m = new Meseci(naziv,0,0,0,0,0);
-        
+    private int brojODraslihNa(int mesec, int godina){
+        int broj = 0;
+        for (Ovca o: logic.getAllSheep()){
+            if (o.jelBiloOdraslo(mesec, godina)){
+                broj ++;
+            }
+        }
+        return broj;
+    }
+    private Meseci popuniMesec(int i){
+        Meseci m = new Meseci(meseci.get(i).substring(0, 3));
+        List<Aktivnost> aktivnosti = getAktivnostiU(i, Integer.parseInt(godina));
+        m.setBrojPlodkinja(brojODraslihNa(i, Integer.parseInt(godina)));
         for (Aktivnost a: aktivnosti){
             if (a.getVrstaAktivnosti().getName().equals("Jagnjenje")){
                 for (Jagnjenje j: a.getListaJagnjenja()){
@@ -135,6 +136,9 @@ public class GodisnjiIzvestaj {
                         m.setBrojOvaca(m.getBrojOvaca()+1);
                         if (j.getSheep().getProcenatR()==100.0){
                             m.setBrojR(m.getBrojR()+1);  
+                            if (j.getSheep().getPol()=='ž'){
+                                m.setBrojRzenki(m.getBrojRzenki()+1);
+                            }
                         }
                     }else {
                          m.setOjagnjenoMrtvih(m.getOjagnjenoMrtvih()+1);
@@ -147,13 +151,19 @@ public class GodisnjiIzvestaj {
                     for (NabavkaOvaca no: a.getNabavljenaGrla()){
                     if (no.getSheep().getProcenatR()==100.0){
                             m.setBrojR(m.getBrojR()+1);
+                            if (no.getSheep().getPol()=='ž'){
+                                m.setBrojRzenki(m.getBrojRzenki()+1);
+                            }
                     }
                 }
             } else if (a.getVrstaAktivnosti().getName().equals("Prodaja")){
                     m.setBrojOvaca(m.getBrojOvaca() - a.getProdaje().size());
                     for (Prodaja p:a.getProdaje()){
                         if (p.getOvca().getProcenatR()==100.0){
-                            m.setBrojR(m.getBrojR()-1);  
+                            m.setBrojR(m.getBrojR()-1); 
+                            if (p.getOvca().getPol()=='ž'){
+                                m.setBrojRzenki(m.getBrojRzenki()-1);
+                            }
                         }
                     }
                     m.setPrihodi(a.getTroskovi());
@@ -161,6 +171,9 @@ public class GodisnjiIzvestaj {
                     m.setBrojOvaca(m.getBrojOvaca() - 1);
                     if (a.getUginuce().getO().getProcenatR()==100.0){
                             m.setBrojR(m.getBrojR()-1);  
+                            if (a.getUginuce().getO().getPol()=='ž'){
+                                m.setBrojRzenki(m.getBrojRzenki()-1);
+                            }
                      }
             } else if (a.getVrstaAktivnosti().getName().equals("Radovi/nabavke")){
                 if (a.getRadovi().getRazlog().equals("priprema/nabavka hrane")){
@@ -182,13 +195,15 @@ public class GodisnjiIzvestaj {
         List<Meseci> lista = new ArrayList<Meseci>();
         for (int i=0; i<12; i++){
             
-                lista.add(popuniMesec(meseci.get(i).substring(0, 3), getAktivnostiU(i, Integer.parseInt(godina))));
+                lista.add(popuniMesec(i));
                 if (i!=0){
                     lista.get(i).setBrojOvaca(lista.get(i).getBrojOvaca() + lista.get(i-1).getBrojOvaca());
                     lista.get(i).setBrojR(lista.get(i).getBrojR() + lista.get(i-1).getBrojR());
+                    lista.get(i).setBrojRzenki(lista.get(i).getBrojRzenki() + lista.get(i-1).getBrojRzenki());
                 } else {
                     lista.get(i).setBrojOvaca(lista.get(i).getBrojOvaca() + sviPocetak);
                     lista.get(i).setBrojR(lista.get(i).getBrojR() + romPocetak);
+                    lista.get(i).setBrojRzenki(lista.get(i).getBrojRzenki() + romZPocetak);
                 }
         }
         return lista;
@@ -242,6 +257,7 @@ public class GodisnjiIzvestaj {
         Integer ovaca =0;
         Integer jaganjaca =0;
         Integer rom = 0;
+        Integer romZ = 0;
         for (Ovca o : list){
             if (o.wasJagnje(mesec, Integer.parseInt(godina))){
                 jaganjaca++;
@@ -254,6 +270,9 @@ public class GodisnjiIzvestaj {
             }
             if (o.getProcenatR()==100){
                 rom++;
+                if (o.getPol()=='ž'){
+                    romZ++;
+                }
             }
         }
 
@@ -261,6 +280,8 @@ public class GodisnjiIzvestaj {
         if (svi.equals("sviPocetak")){
             sviPocetak = svega;
             romPocetak = rom;
+            romZPocetak = romZ;
+            odraslihPocetak = ovnova + ovaca;
         }
         params.put(svi, svega.toString()); 
         params.put(ovan, ovnova.toString());
@@ -295,24 +316,69 @@ public class GodisnjiIzvestaj {
 
     private void setJagnjenja(ArrayList<Aktivnost> listaJagnjenja){
         Integer ojagnjenoZivi = 0;
+        Integer ojagnjenoZivihR = 0;
+        Integer ojagnjenoZivihROdDviski = 0;
+        Integer ojagnjenihR = 0;
+        Integer ojagnjenihROdDviski = 0;
+        Integer jagnjenjaR = 0;
+        Integer jagnjenjaRDviske = 0;
+
         for (Aktivnost a: listaJagnjenja){
-            Ovca o = a.getListaJagnjenja().get(0).getOvca();
+            Ovca o = new Ovca();            // nova ovca
             int jagnjadiUJednomJagnjenju = 0;
+            
             for (Jagnjenje j:a.getListaJagnjenja()){
-                   if (j.getOvca().equals(o)){
-                        jagnjadiUJednomJagnjenju ++;
-                    } else {
-                        setJagnjadiUJagnjenju(jagnjadiUJednomJagnjenju);
-                        o = j.getOvca();
-                        jagnjadiUJednomJagnjenju = 1;
+                ojagnjenih ++;
+                if (j.getOvca().equals(o)){
+                    jagnjadiUJednomJagnjenju ++;
+                } else {
+                    jagnjenja++;
+                    o = j.getOvca();
+                    setJagnjadiUJagnjenju(jagnjadiUJednomJagnjenju);
+                    if (o.getProcenatR()==100.0f){
+                        jagnjenjaR ++;
+                        if (o.wasDviska(a.getDan())){
+                            jagnjenjaRDviske ++;
+                        }
                     }
-                   ojagnjenih ++;
+                    jagnjadiUJednomJagnjenju = 1;
+                }
+
                 if (j.isJelZivo()){
                     ojagnjenoZivi ++;
+                    if (j.getSheep().getProcenatR()==100.0f){
+                        ojagnjenoZivihR ++;
+                        if (j.getOvca().wasDviska(a.getDan())){
+                            ojagnjenoZivihROdDviski ++;
+                        }
+                    }
+                } 
+                if (j.getSheep().getProcenatR()==100.0f){
+                    ojagnjenihR ++;
+                    if (j.getOvca().wasDviska(a.getDan())){
+                        ojagnjenihROdDviski ++;
+                    }
                 }
             }
             setJagnjadiUJagnjenju(jagnjadiUJednomJagnjenju);
+//            if (o.getProcenatR()==100.0f){
+//               jagnjenjaR ++;
+//                if (o.wasDviska(a.getDan())){
+//                    jagnjenjaRDviske ++;
+//                }
+//            }
+//            setJagnjadiUJagnjenju(jagnjadiUJednomJagnjenju);
         }
+        
+        params.put("ojagnjenoZivihR", ojagnjenoZivihR);
+        params.put("ojagnjenoZivihROdDviski", ojagnjenoZivihROdDviski);
+        params.put("ojagnjenihR", ojagnjenihR); 
+        params.put("ojagnjenihROdDviski", ojagnjenihROdDviski); 
+        params.put("jagnjenjaR", jagnjenjaR);
+        params.put("jagnjenjaRDviske", jagnjenjaRDviske);
+        params.put("procenatJagnjenjaRStarije", "" + 
+                Aktivnost.round((float)(100.0*(ojagnjenihR-ojagnjenihROdDviski))/(jagnjenjaR-jagnjenjaRDviske),1) + "%"); 
+        params.put("procenatJagnjenjaRDviske", "" + Aktivnost.round((float)(100.0*ojagnjenihROdDviski)/jagnjenjaRDviske,1) + "%"); 
         params.put("ojagnjenoZivih", ojagnjenoZivi); 
         params.put("jedinci", jedinci); 
         params.put("dvojke", dvojke); 
@@ -321,13 +387,12 @@ public class GodisnjiIzvestaj {
         params.put("petice", petice);
         params.put("ojagnjenih", ojagnjenih); 
         params.put("jagnjenja", jagnjenja); 
-        params.put("procenatJagnjenja", "" + ((float)(100.0*ojagnjenih)/jagnjenja - 0.1f) + "%"); 
+        params.put("procenatJagnjenja", "" + Aktivnost.round((float)(100.0*ojagnjenih)/jagnjenja, 1) + "%"); 
         promenaJaganjaca += ojagnjenoZivi;
         promenaSvega += ojagnjenoZivi;
     }
     
     private void setJagnjadiUJagnjenju(int jagnjadiUJednomJagnjenju){
-        jagnjenja ++;
         switch (jagnjadiUJednomJagnjenju){
             case 1: jedinci ++; break;
             case 2: dvojke ++; break;
