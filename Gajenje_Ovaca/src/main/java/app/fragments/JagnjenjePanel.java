@@ -393,6 +393,7 @@ private JagnjenjaPanel parent;
             jagnjenje.getSheep().setOtac(otac);
             jagnjenje.getSheep().setLinija(otac.getLinija());
 
+//            jagnjenje.getSheep().setPoreklo("farma Tadići");
             list.add(jagnjenje);
         }
        // System.out.println("Prvo jagnje tezina na rodjenju: " + list.get(0).getSheep().getTezinaNaRodjenju());

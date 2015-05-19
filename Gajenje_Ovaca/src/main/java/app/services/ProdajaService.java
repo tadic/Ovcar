@@ -18,8 +18,6 @@ public class ProdajaService extends ActivityService {
     
     
     public void updateActivity(Aktivnost a){
-
-        System.out.println("Usao u update \n\n\nUsao u auped");
         deleteActivity(a);
         Aktivnost nova = new Aktivnost();
         setActivity(nova, a);

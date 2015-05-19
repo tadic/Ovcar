@@ -197,7 +197,6 @@ public class OvcaService {
     }
     
     private void ocistiOca(Ovca o){
-        System.out.println("Öisti oca");
             if (o.getStatus()!=null && o.getStatus().equals("zamisljena")){
                 List<Ovca> listaPotomaka = server.find(Ovca.class).where().like("otac_id", o.getId().toString()).findList();
                 if (listaPotomaka.size()==1){   // ako je stari otac zamisljen i bio je otac samo ovoj ovci - izbrisi ga

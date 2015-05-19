@@ -287,8 +287,7 @@ public class JagnjnjeServiceTest {
         no = server.find(Aktivnost.class, snimljena.getId());
         jagnjenjeService.deleteActivity(no);
     }
-   
-*/
+   */
     private Aktivnost novaJagnjenja(){
         Dan d = new Dan(2015, 6, 6);
         Aktivnost a = new Aktivnost();

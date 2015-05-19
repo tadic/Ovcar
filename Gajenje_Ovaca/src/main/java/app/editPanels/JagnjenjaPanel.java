@@ -416,16 +416,20 @@ private JPanel mainPanel;
         aktivnost.setVremeZavrsetka(pickint(jsatiKraj)*100 + pickint(jminutaKraj));
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setNapomena(jNapomena.getText());
+        aktivnost.setDan(new Dan(jDatum.getCalendar()));
+        String datumJagnjenja = aktivnost.getDan().toString();
         aktivnost.getListaJagnjenja().clear();
         for (Component c: jagnjenjePanel.getComponents()){
             JagnjenjePanel jp = (JagnjenjePanel) c;
             for (Jagnjenje jagnjenje: jp.getJagnjenja()){
-               aktivnost.getListaJagnjenja().add(jagnjenje); 
+//                jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
+//                jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
+                aktivnost.getListaJagnjenja().add(jagnjenje); 
             }
         }
         int ovaca = jagnjenjePanel.getComponentCount();
         int jaganjaca = aktivnost.getListaJagnjenja().size();
-        aktivnost.setDan(new Dan(jDatum.getCalendar()));
+        
         aktivnost.setBilans(createBilans(ovaca, jaganjaca));
     }
                                     

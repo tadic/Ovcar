@@ -298,10 +298,26 @@ public String getPpol(){
     }
     
     public float teoretskiJagnjadiGodisnje(){
-        int brojJagnjadi = getListaJagnjenja().size();
-        int brojJagnjenja = getBrojJagnjenja();
-        float prosekJagnjenja = (float)brojJagnjadi/brojJagnjenja;
-        return Aktivnost.round(365*prosekJagnjenja/danaIzmedjuJagnjenja(), 2);
+        Integer brojJagnjadi = getListaJagnjenja().size();
+        Integer brojJagnjenja = getBrojJagnjenja();
+        if (brojJagnjadi>0){
+            float prosekJagnjenja = ((float) brojJagnjadi.floatValue())/brojJagnjenja;
+            return Aktivnost.round(365*prosekJagnjenja/danaIzmedjuJagnjenja(), 2);
+        }
+        return 0;
+    }
+    
+    private float jagnjenjaGodisnje(){
+        return (float)365.0f/danaIzmedjuJagnjenja();
+    }
+    
+    public float indexMesecneZarade(){
+        float godisnjeJagnjadi = teoretskiJagnjadiGodisnje();
+        float zaradaOdJagnjadi = godisnjeJagnjadi*80;
+        float ovcaTrosak = 16*jagnjenjaGodisnje() + 48 + 5; // za osnovno odrzavanje 5€/m = 60€ plus 10€ po jagnjenju, plus ostalo 5€
+        float jagnjadTrosak = godisnjeJagnjadi*15 + 5;      // 15€ hrana i 5€ sve ostalo
+        return (zaradaOdJagnjadi-ovcaTrosak-jagnjadTrosak)/12;
+        
     }
     public float teoretskiJagnjadiGodisnje(int godina){
         List<Jagnjenje> listaJ = this.getListaJagnjenja();
@@ -365,36 +381,22 @@ public String getPpol(){
         } 
         return 0;
     }
-    public int danaIzmedjuJagnjenja(){
+
+    public int danaIzmedjuJagnjenja(){      // racuna 6 meseci plus vreme od prvog do poslednjeg
         List<Jagnjenje> listaJ = this.getListaJagnjenja();
         if (listaJ==null || listaJ.isEmpty()){
             return 0;
         }
-        int brojJagnjenja=0;
-        boolean brojacPostavljen = false;
-        Dan pocetak, kraj;
-        Aktivnost a = listaJ.get(0).getAktivnost();
-        pocetak = a.getDan();
-        for (Jagnjenje j : listaJ){
-                if (brojacPostavljen){
-                    if (!j.getAktivnost().equals(a)){
-                        brojJagnjenja++;
-                    }
-                } else {
-                    pocetak = a.getDan();
-                    if (!j.getAktivnost().equals(a)){
-                        brojacPostavljen = true;
-                        brojJagnjenja = 1;
-                    }
-                }   
-            a = j.getAktivnost();
-        }
-        kraj = a.getDan();
+        int brojJagnjenja=getBrojJagnjenja();
+
+        Dan pocetak = listaJ.get(0).getAktivnost().getDan(); 
+        Dan kraj = listaJ.get(listaJ.size()-1).getAktivnost().getDan();
         if (brojJagnjenja>0){
-            return razlikaUDanima(pocetak, kraj)/(brojJagnjenja);
+            return (razlikaUDanima(pocetak, kraj) + 180)/(brojJagnjenja);
         } 
         return 0;
     }
+    
     private int razlikaUDanima(Dan pocetak, Dan kraj){
         int p = pocetak.getDatum();
         int k = kraj.getDatum();

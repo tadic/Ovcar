@@ -5,10 +5,10 @@
 package app.mainPanels;
 
 import app.editPanels.OvcaPrikaz;
-import app.report.ListaOvacaAktuelnoIzvestaj;
-import app.report.ListaOvacaIzvestaj;
 import app.logic.Logic;
 import app.model.Ovca;
+import app.report.ListaOvacaAktuelnoIzvestaj;
+import app.report.ListaOvacaIzvestaj;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -117,12 +117,12 @@ public class Podaci_ovaca_statistika extends javax.swing.JPanel {
         v.add(""+ o.procenatJagnjenja());
         
         v.add(""+o.danaIzmedjuJagnjenja() + " dana");
-        if (brojJagnjenj>1){
+        if (brojJagnjenj>0){
             v.add(""+o.teoretskiJagnjadiGodisnje());
         } else {
             v.add("-");
         }
-        v.add(null);
+        v.add(o.indexMesecneZarade());
         v.add(o.getId());
         v.add(o.getAktuelno());
         v.add(o.getStatus());
@@ -251,10 +251,11 @@ public class Podaci_ovaca_statistika extends javax.swing.JPanel {
         jTable1.getColumnModel().getColumn(9).setMinWidth(100);
         jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(10).setPreferredWidth(100);
-        jTable1.getColumnModel().getColumn(11).setPreferredWidth(200);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(100);
         jTable1.getColumnModel().getColumn(12).setMinWidth(0);
         jTable1.getColumnModel().getColumn(12).setPreferredWidth(0);
         jTable1.getColumnModel().getColumn(12).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(250);
         jTable1.getColumnModel().getColumn(14).setMinWidth(50);
         jTable1.getColumnModel().getColumn(14).setPreferredWidth(70);
         jTable1.getColumnModel().getColumn(14).setMaxWidth(80);

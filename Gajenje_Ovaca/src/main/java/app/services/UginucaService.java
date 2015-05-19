@@ -32,7 +32,6 @@ public class UginucaService extends ActivityService{
             u.setRazlog(a.getUginuce().getRazlog());
             server.save(u);
             ovcaService.undoStatus(staraOvca);  // moze da vrati status tek posto je novo uginuce snimljeno
-            System.out.println("vratio status u " + staraOvca.getStatus());
             return;
         }
         u.setRazlog(a.getUginuce().getRazlog());

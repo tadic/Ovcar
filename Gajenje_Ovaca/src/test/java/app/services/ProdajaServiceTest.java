@@ -189,7 +189,6 @@ public class ProdajaServiceTest {
         
 
         List<Prodaja> prodaje = new ArrayList<Prodaja>();
-        System.out.println(listaOvaca.get(0));
         Prodaja  p = new Prodaja();
         p.setOvca(listaOvaca.get(0));
         p.setTezina(23.3);

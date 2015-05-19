@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicComboPopup;
 
 
@@ -40,12 +42,17 @@ public class Ovcar extends javax.swing.JFrame {
         mainPanel.add(new Dnevnik(logic, mainPanel));
         mainPanel.revalidate();
         jToolBar1.setOpaque(true);
-
-        Object child = jComboBox1.getAccessibleContext().getAccessibleChild(0);
-        BasicComboPopup popup = (BasicComboPopup)child;
-        JList list = popup.getList();
-        list.setSelectionBackground(Color.RED);
+//UIManager.put("ComboBox.background", new ColorUIResource(Color.yellow));
+//        UIManager.put("JTextField.background", new ColorUIResource(Color.yellow));
+//        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.magenta));
+//        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.blue));
+//        Object child = jComboBox1.getAccessibleContext().getAccessibleChild(0);
+//        BasicComboPopup popup = (BasicComboPopup)child;
+//        JList list = popup.getList();
+//        list.setSelectionBackground(Color.red);
+        
         repaint();
+        jComboBox1.getEditor().getEditorComponent().setBackground(Color.red);
         setVisible(true);
     }
     private void login(){
@@ -121,13 +128,12 @@ public class Ovcar extends javax.swing.JFrame {
         jToolBar1.setMinimumSize(new java.awt.Dimension(500, 31));
         jToolBar1.setPreferredSize(new java.awt.Dimension(500, 31));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 0, 0));
         jComboBox1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(255, 0, 0));
         jComboBox1.setMaximumRowCount(3);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ovce - opšti podatci", "Ovce - statistika" }));
-        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(200, 46));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(218, 30));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(200, 30));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

@@ -6,8 +6,8 @@ package app.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -26,7 +26,7 @@ public class Jagnjenje {
     @ManyToOne
     private Ovca ovca;
     
-    @OneToOne(cascade= CascadeType.ALL)
+    @OneToOne(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     private Ovca sheep;
     
     private boolean jelZivo;
@@ -113,11 +113,18 @@ public class Jagnjenje {
         {
             Integer objectId = ((Jagnjenje) object).id;
             if (this.id!=null && objectId!=null && this.id!=0){
-                sameSame = this.id == objectId;
+                sameSame = this.id.intValue() == objectId.intValue();
             }
         }
 
         return sameSame;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
     }
     
     public void setId(Object oid) {

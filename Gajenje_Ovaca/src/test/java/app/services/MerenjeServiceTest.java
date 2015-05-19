@@ -1,6 +1,5 @@
 package app.services;
 
-import app.mainPanels.Merenja;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Merenje;

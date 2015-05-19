@@ -62,8 +62,6 @@ class MerenjeService extends ActivityService {
                  if (starostDana>3){
                      prirast = 0.2f * (starostDana-3);
                  }
-
-
                  ovca.setTezinaNaRodjenju(m.getTezina()-prirast);
                  server.save(ovca);
         }
