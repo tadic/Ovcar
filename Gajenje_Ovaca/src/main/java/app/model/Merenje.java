@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Merenje {
+public class Merenje implements Comparable<Merenje> {
     @Id
     Integer id;
     
@@ -96,6 +96,10 @@ public class Merenje {
         if (oid!=null){
             this.id = Integer.parseInt(oid.toString());
         }
+    }
+
+    public int compareTo(Merenje o) {
+        return this.getAktivnost().compareTo(o.getAktivnost());
     }
     
     

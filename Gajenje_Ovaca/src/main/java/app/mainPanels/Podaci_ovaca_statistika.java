@@ -114,7 +114,7 @@ public class Podaci_ovaca_statistika extends javax.swing.JPanel {
         
         v.add(""+ o.getListaJagnjenja().size() + " kom.");
         v.add(""+brojJagnjenj + " puta");
-        v.add(""+ o.procenatJagnjenja());
+        v.add(""+ o.getProcenatJagnjenja());
         
         v.add(""+o.danaIzmedjuJagnjenja() + " dana");
         if (brojJagnjenj>0){

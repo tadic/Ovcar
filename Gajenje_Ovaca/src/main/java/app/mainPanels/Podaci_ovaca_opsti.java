@@ -9,6 +9,7 @@ import app.report.ListaOvacaAktuelnoIzvestaj;
 import app.report.ListaOvacaIzvestaj;
 import app.logic.Logic;
 import app.model.Ovca;
+import app.report.ListaOvacaBlankoIzvestaj;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -110,7 +111,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         v.add(o.getProcR());
         v.add(o.getStarost());
         v.add(o.getLleglo());
-        v.add(""+ o.procenatJagnjenja());
+        v.add(""+ o.getProcenatJagnjenja());
         if (o.getOtac()==null){
               v.add("nepoznat");
         }else{
@@ -164,6 +165,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         jStampajSve = new javax.swing.JButton();
         jTrazi3 = new javax.swing.JComboBox();
         jStampajSve1 = new javax.swing.JButton();
+        jStampajSve2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -328,6 +330,15 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
             }
         });
 
+        jStampajSve2.setBackground(new java.awt.Color(255, 102, 0));
+        jStampajSve2.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
+        jStampajSve2.setText("Štampaj blanko");
+        jStampajSve2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jStampajSve2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,6 +364,8 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jStampajSve2)
+                        .addGap(18, 18, 18)
                         .addComponent(jStampajSve1)
                         .addGap(18, 18, 18)
                         .addComponent(jStampajSve)
@@ -386,7 +399,8 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStampajSve, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jStampajSve1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jStampajSve1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jStampajSve2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -520,6 +534,30 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         new ListaOvacaAktuelnoIzvestaj(list,"Lista ovaca",  f1, f2, f3, f4).create();
     }//GEN-LAST:event_jStampajSve1ActionPerformed
 
+    private void jStampajSve2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSve2ActionPerformed
+        ArrayList<Ovca> list = new ArrayList<Ovca>();
+        String f1 = "-";
+        if (jNaFarmi.isSelected()){
+           f1 = "na farmi";
+       }
+        String f2 = jTrazi3.getSelectedItem().toString();
+        String f3 = jTrazi1.getText();
+        String f4 = jTrazi2.getText();
+        for (int i=0; i<jTable1.getRowCount(); i++){
+            int selectedRow = jTable1.convertRowIndexToModel(i);
+            Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,11).toString());
+            Ovca o = logic.getOvca(id);
+            if (o.getOtac()!=null){
+                o.setOtac(logic.getOvca(o.getOtac().getId()));
+            }
+            if (o.getMajka()!=null){
+                o.setMajka(logic.getOvca(o.getMajka().getId()));
+            }
+            list.add(o);
+        }
+        new ListaOvacaBlankoIzvestaj(list,"Lista ovaca",  f1, f2, f3, f4).create();
+    }//GEN-LAST:event_jStampajSve2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
@@ -530,6 +568,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jStampajSve;
     private javax.swing.JButton jStampajSve1;
+    private javax.swing.JButton jStampajSve2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi1;
     private javax.swing.JTextField jTrazi2;

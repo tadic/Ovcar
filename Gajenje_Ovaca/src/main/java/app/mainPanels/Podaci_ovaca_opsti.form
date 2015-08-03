@@ -45,6 +45,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jStampajSve2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jStampajSve1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jStampajSve" min="-2" max="-2" attributes="0"/>
@@ -88,6 +90,7 @@
                   <Component id="jPrikazi" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jStampajSve" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jStampajSve1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="jStampajSve2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
           </Group>
@@ -351,6 +354,20 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jStampajSve1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jStampajSve2">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="66" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Monaco" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#x160;tampaj blanko"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jStampajSve2ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

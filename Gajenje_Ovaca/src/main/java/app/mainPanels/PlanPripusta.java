@@ -111,7 +111,7 @@ public class PlanPripusta extends javax.swing.JPanel {
         v.add(o.getProcR());
         v.add(o.getStarost());
         v.add(o.getLleglo());
-        v.add(""+ o.procenatJagnjenja());
+        v.add(""+ o.getProcenatJagnjenja());
         if (o.getOtac()==null){
               v.add("nepoznat");
         }else{

@@ -566,7 +566,7 @@ public String getPpol(){
         }
         return "-";
     } 
-    public String procenatJagnjenja(){
+    public String getProcenatJagnjenja(){
         if (this.listaJagnjenja==null || this.listaJagnjenja.isEmpty()){
             return "0.0%";
         }
