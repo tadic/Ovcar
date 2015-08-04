@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="4.088" errors="0" skipped="0" tests="3" name="app.services.NabavkaOvacaServiceTest">
+<testsuite failures="0" time="3.127" errors="0" skipped="0" tests="3" name="app.services.NabavkaOvacaServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib"/>
@@ -62,7 +62,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="1.492" classname="app.services.NabavkaOvacaServiceTest" name="createActivityTest"/>
-  <testcase time="0.98" classname="app.services.NabavkaOvacaServiceTest" name="updateActivityTestStatus"/>
-  <testcase time="1.616" classname="app.services.NabavkaOvacaServiceTest" name="updateActivityTest"/>
+  <testcase time="1.109" classname="app.services.NabavkaOvacaServiceTest" name="createActivityTest"/>
+  <testcase time="0.909" classname="app.services.NabavkaOvacaServiceTest" name="updateActivityTestStatus"/>
+  <testcase time="1.109" classname="app.services.NabavkaOvacaServiceTest" name="updateActivityTest"/>
 </testsuite>
