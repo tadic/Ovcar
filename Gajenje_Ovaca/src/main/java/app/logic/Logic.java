@@ -7,6 +7,7 @@ import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Linija;
 import app.model.Ovca;
+import app.model.Parenje;
 import app.model.VrsteAktivnosti;
 import app.services.ActivityService;
 import app.services.ActivityServiceFactory;
@@ -172,6 +173,10 @@ public class Logic {
 
     public List<Ovca> getSveOvnove() {
         return ovcaService.getSveOvnove();
+    }
+
+    public List<Parenje> getParenja(Ovca o) {
+        return ovcaService.getParenja(o);
     }
 
     

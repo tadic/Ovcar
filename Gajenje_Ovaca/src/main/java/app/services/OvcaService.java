@@ -1,8 +1,10 @@
 package app.services;
 
 import app.model.Ovca;
+import app.model.Parenje;
 import com.avaje.ebean.EbeanServer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class OvcaService {
@@ -221,6 +223,21 @@ public class OvcaService {
 
     public List<Ovca> getSveOvnove() {
          return server.find(Ovca.class).where().like("status", "na farmi").like("pol", "m").findList();
+    }
+
+    public List<Parenje> getParenja(Ovca ovan) {
+        List<Parenje> lista = new ArrayList<Parenje>();
+        for (Ovca o: getAllSheep()){
+            if (o.getPol()=='ž' && o.getParenja()!=null && !o.getParenja().isEmpty()){
+                List<Parenje> parenja = o.getParenja();
+                Collections.sort(parenja);
+                Parenje zadnjeParenje = parenja.get(parenja.size()-1);
+                if (!zadnjeParenje.getTip().equals("odvajenje") && zadnjeParenje.getOvan().equals(ovan)){
+                    lista.add(zadnjeParenje);
+                }
+            }
+        }
+        return lista;
     }
     
 }

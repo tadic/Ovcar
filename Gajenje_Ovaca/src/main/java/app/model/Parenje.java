@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * @author ivantadic
  */
 @Entity
-public class Parenje {
+public class Parenje implements Comparable<Parenje> {
     @Id 
     private Integer id;
         
@@ -83,6 +83,10 @@ public class Parenje {
         if (napomena!=null){
             this.napomena = napomena.toString();
         }
+    }
+
+    public int compareTo(Parenje o) {
+        return this.getAktivnost().compareTo(o.getAktivnost());
     }
 
    

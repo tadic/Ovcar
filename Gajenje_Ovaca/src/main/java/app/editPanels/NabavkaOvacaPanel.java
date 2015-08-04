@@ -13,14 +13,13 @@ import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.NabavkaOvaca;
 import app.model.Ovca;
+import app.services.OvcaService;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Vector;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.Border;
@@ -517,9 +516,11 @@ private JPanel mainPanel;
     }
     
     private Ovca pickOvca(TableModel table, int n){
-        Ovca ovca = new Ovca("na farmi");
+        Ovca ovca;
         if (aktivnost.getId()!=null){
-            ovca.setId(aktivnost.getNabavljenaGrla().get(n).getSheep().getId());
+            ovca = logic.getOvca(aktivnost.getNabavljenaGrla().get(n).getSheep().getId());
+        } else {
+             ovca = new Ovca("na farmi");
         }
         ovca.setPol(table.getValueAt(n, 1));
         ovca.setOznaka(table.getValueAt(n, 2));

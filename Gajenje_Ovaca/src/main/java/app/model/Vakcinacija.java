@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * @author ivantadic
  */
 @Entity
-public class Vakcinacija {
+public class Vakcinacija implements Comparable<Vakcinacija> {
     @Id
     private Integer id;
     
@@ -92,6 +92,10 @@ public class Vakcinacija {
 
     public void setJelRedovno(Boolean jelRedovno) {
         this.jelRedovno = jelRedovno;
+    }
+
+    public int compareTo(Vakcinacija o) {
+        return this.getAktivnost().compareTo(o.getAktivnost());
     }
     
     

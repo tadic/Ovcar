@@ -4,8 +4,8 @@
  */
 package app.editPanels;
 
+import app.helpers.OvcaHelper;
 import app.helpers.OvcaReport;
-import app.report.OvcaIzvestaj;
 import app.logic.Logic;
 import app.mainPanels.Podaci_ovaca_opsti;
 import app.model.Aktivnost;
@@ -14,14 +14,15 @@ import app.model.Jagnjenje;
 import app.model.Linija;
 import app.model.Merenje;
 import app.model.Ovca;
+import app.model.Parenje;
 import app.model.Vakcinacija;
+import app.report.OvcaIzvestaj;
 import com.sun.java.swing.plaf.motif.MotifBorders;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
@@ -78,6 +79,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         setRodjenje(o);
         setNabavka(o);  
         setJagnjenja(o);
+        setParenje(o);
         setMerenja(o);
         setVakcinacijeLecenja(o);
         setProdaja(o);
@@ -162,8 +164,30 @@ public class OvcaPrikaz extends javax.swing.JPanel {
           jPanelNabavka.setVisible(false);
        }
     }
-    private void setJagnjenja(Ovca o){
+    private void setParenje(Ovca o){
+         if (o.getPol()!='m'){
+             jTrenutnoPari.setVisible(false);
+             return;
+         }
+         List<Parenje> listaParenja = logic.getParenja(o);
          
+         DefaultTableModel tm = (DefaultTableModel) jTableParenja.getModel();
+         tm.setRowCount(0);
+         
+         for (Parenje p: listaParenja){
+             int dana = OvcaHelper.razlikaUDanima(p.getAktivnost().getDan(), new Dan());
+             insertRowInTable(tm, vectorFrom(p.getOvca().getOznaka(), p.getOvca().getNadimak(), String.valueOf(dana), 
+                            p.getOvca().getAktuelno(), p.getOvca().getId()));
+         }
+         jTableParenja.setModel(tm);
+         setTitleToPanel(jTrenutnoPari, "Trenutno pari (" + tm.getRowCount() + ")");
+         setBoldFontToColumn(jTableParenja, 1);
+    }
+    private void setJagnjenja(Ovca o){
+         if (o.getPol()=='m'){
+             jPanelJagnjenja.setVisible(false);
+             return;
+         }
         DefaultTableModel tm = (DefaultTableModel) jTableJagnjenja.getModel();
         tm.setRowCount(0);
         if (o.getListaJagnjenja()!=null && !o.getListaJagnjenja().isEmpty()){
@@ -223,6 +247,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         }
         
        setTitleToPanel(jPanelLecenja, "Merenja ("  + tm2.getRowCount() + ")");
+       setBoldFontToColumn(jTableLecenja, 2);
     }
     private void setVakcinacijeLecenja(Ovca o){
         if (o.getVakcinacije()==null || o.getVakcinacije().isEmpty()){
@@ -234,7 +259,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         tm1.setRowCount(0);
 //        DefaultTableModel tm2 = (DefaultTableModel) jTableLecenja.getModel();
 //        tm2.setRowCount(0);
-        for (Vakcinacija v: o.getVakcinacije()){
+        List<Vakcinacija> vakcinacije = o.getVakcinacije();
+        Collections.sort(vakcinacije);
+        for (Vakcinacija v: vakcinacije){
             
                 insertRowInTable(tm1, vectorFrom(logic.getDan(v.getAktivnost().getDan().getId()).toString(), 
                         v.getRazlog(), v.getSredstvo(), v.getNapomena()));
@@ -243,7 +270,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
 //                        v.getRazlog(), v.getSredstvo(), v.getNapomena()));
             
         }
-        setTitleToPanel(jPanelVakcinacije, "Redovne vakcinacije (" + tm1.getRowCount() + ")");
+        setTitleToPanel(jPanelVakcinacije, "Preventiva/Lečenje (" + tm1.getRowCount() + ")");
+        setBoldFontToColumn(jTableVakcinacije, 2);
 //        setTitleToPanel(jPanelLecenja, "Lečenja  + tm2.getRowCount() + ")");
     }
     private Vector vectorFrom(Object ...params){
@@ -361,6 +389,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         jDetaljiNabavke = new javax.swing.JTextField();
         jCenaNabavke1 = new javax.swing.JTextField();
+        jTrenutnoPari = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTableParenja = new javax.swing.JTable();
 
         jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
@@ -801,7 +832,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Dtum", "razlog", "lek", "napomena"
+                "Datum", "razlog", "sredstvo", "napomena"
             }
         ) {
             Class[] types = new Class [] {
@@ -821,6 +852,12 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         });
         jTableVakcinacije.setEnabled(false);
         jScrollPane5.setViewportView(jTableVakcinacije);
+        jTableVakcinacije.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTableVakcinacije.getColumnModel().getColumn(0).setMaxWidth(100);
+        jTableVakcinacije.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTableVakcinacije.getColumnModel().getColumn(2).setMaxWidth(100);
+        jTableVakcinacije.getColumnModel().getColumn(3).setPreferredWidth(95);
+        jTableVakcinacije.getColumnModel().getColumn(3).setMaxWidth(95);
 
         javax.swing.GroupLayout jPanelVakcinacijeLayout = new javax.swing.GroupLayout(jPanelVakcinacije);
         jPanelVakcinacije.setLayout(jPanelVakcinacijeLayout);
@@ -835,7 +872,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
             jPanelVakcinacijeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelVakcinacijeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -850,7 +887,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Datum", "Starost dana", "Težina (kg)", "Napomena"
+                "Datum", "starost dana", "težina (kg)", "napomena"
             }
         ));
         jTableLecenja.setEnabled(false);
@@ -1200,6 +1237,73 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jTrenutnoPari.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Trenutno pari (5)", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
+
+        jTableParenja.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Oznaka", "nadimak", "spojeni (dana)", "aktuelno", "id"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableParenja.setEnabled(false);
+        jScrollPane6.setViewportView(jTableParenja);
+        jTableParenja.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTableParenja.getColumnModel().getColumn(0).setMaxWidth(100);
+        jTableParenja.getColumnModel().getColumn(2).setPreferredWidth(95);
+        jTableParenja.getColumnModel().getColumn(2).setMaxWidth(95);
+        jTableParenja.getColumnModel().getColumn(3).setPreferredWidth(150);
+        jTableParenja.getColumnModel().getColumn(3).setMaxWidth(150);
+        jTableParenja.getColumnModel().getColumn(4).setPreferredWidth(1);
+        jTableParenja.getColumnModel().getColumn(4).setMaxWidth(1);
+
+        javax.swing.GroupLayout jTrenutnoPariLayout = new javax.swing.GroupLayout(jTrenutnoPari);
+        jTrenutnoPari.setLayout(jTrenutnoPariLayout);
+        jTrenutnoPariLayout.setHorizontalGroup(
+            jTrenutnoPariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTrenutnoPariLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6)
+                .addContainerGap())
+        );
+        jTrenutnoPariLayout.setVerticalGroup(
+            jTrenutnoPariLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTrenutnoPariLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1233,6 +1337,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                             .addComponent(jPanelVakcinacije, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelLecenja, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelJagnjenja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTrenutnoPari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1242,6 +1349,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanelJagnjenja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTrenutnoPari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelVakcinacije, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1585,15 +1694,18 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane18;
     private javax.swing.JScrollPane jScrollPane19;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jStarost;
     private javax.swing.JTextField jStatus1;
     private javax.swing.JTable jTableJagnjenja;
     private javax.swing.JTable jTableLecenja;
+    private javax.swing.JTable jTableParenja;
     private javax.swing.JTable jTableVakcinacije;
     private javax.swing.JTextField jTezina;
     private javax.swing.JTextField jTezina1;
     private javax.swing.JTextField jTezina120;
     private javax.swing.JTextField jTezina60;
+    private javax.swing.JPanel jTrenutnoPari;
     // End of variables declaration//GEN-END:variables
 
 

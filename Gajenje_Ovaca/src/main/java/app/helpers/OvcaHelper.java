@@ -4,10 +4,14 @@
  */
 package app.helpers;
 
+import app.model.Dan;
 import app.model.Ovca;
 import app.services.OvcaService;
 import com.avaje.ebean.EbeanServer;
+import java.util.Date;
 import java.util.List;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 /**
  *
@@ -118,6 +122,14 @@ public class OvcaHelper {
             case 1: return "" + n + " grlo";          
         }
         return "" + n + " grla";
+    }
+     public static int razlikaUDanima(Dan pocetak, Dan kraj){
+        int p = pocetak.getDatum();
+        int k = kraj.getDatum();
+       
+        return Days.daysBetween(new DateTime(new Date(p/10000, (p%10000)/100, p%100)), 
+                    new DateTime(new Date(k/10000, (k%10000)/100, k%100))).getDays();
+        
     }
 }
 
