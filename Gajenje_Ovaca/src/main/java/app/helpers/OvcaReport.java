@@ -58,7 +58,7 @@ public final class OvcaReport{
         nadimak = o.getNadimak();
         poreklo = o.getPoreklo();
         leglo = o.getLeglo();
-        procenatR = o.getProcR();
+        procenatR = o.getProcR() + "%";
         linija = o.getLlinija();
         opis = o.getOpis();
         tezinaRodjenje = String.valueOf(Aktivnost.round(o.getTezinaNaRodjenju(),1)) + "kg";
@@ -87,19 +87,19 @@ public final class OvcaReport{
         Ovca mom = l.getOvca(mo.getMajka().getId());
         Ovca mmm = l.getOvca(mm.getMajka().getId());
         
-        ootac = string0From(oo);
-        omajka = string0From(om);
-        motac = string0From(mo);
-        mmajka = string0From(mm);
+        ootac = stringFrom(oo);
+        omajka = stringFrom(om);
+        motac = stringFrom(mo);
+        mmajka = stringFrom(mm);
         
-        oootac = string1From(ooo);
-        omotac = string1From(omo);
-        mootac = string1From(moo);
-        mmotac = string1From(mmo);
-        ommajka = string1From(omm);
-        oomajka = string1From(oom);
-        momajka = string1From(mom);
-        mmmajka = string1From(mmm);
+        oootac = string0From(ooo);
+        omotac = string0From(omo);
+        mootac = string0From(moo);
+        mmotac = string0From(mmo);
+        ommajka = string0From(omm);
+        oomajka = string0From(oom);
+        momajka = string0From(mom);
+        mmmajka = string0From(mmm);
         
         oooo = string2From(ooo.getOtac());
         omoo = string2From(omo.getOtac());
@@ -122,14 +122,15 @@ public final class OvcaReport{
     private String stringFrom(Ovca o){
         StringBuilder sb = new StringBuilder();
         sb.append(o.getNadimak()).append(" ID=").append(o.getOznaka());
-        sb.append("\n\n\n").append(o.getDatumRodjenja()).append("\n").append(o.getLeglo()).append("\n").append(o.getLlinija());
+        sb.append("\n\n").append(o.getDatumRodjenja()).append("\n").append(o.getLleglo());
+        sb.append("\n").append(o.getProcR()).append("%\n").append(o.getLlinija());
         sb.append("\n(").append(o.getPoreklo()).append(")");
         return sb.toString();
     }
     private String string0From(Ovca o){
         StringBuilder sb = new StringBuilder();
         sb.append(o.getNadimak()).append(" ID=").append(o.getOznaka());
-        sb.append("\n\n\n").append(o.getDatumRodjenja()).append("\n").append(o.getLlinija());
+        sb.append("\n").append(o.getLleglo()).append("\n").append(o.getLlinija());
         sb.append("\n(").append(o.getPoreklo()).append(")");
         return sb.toString();
     }
