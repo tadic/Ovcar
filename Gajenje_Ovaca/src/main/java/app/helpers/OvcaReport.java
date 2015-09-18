@@ -67,8 +67,8 @@ public final class OvcaReport{
     }
     
     public void postaviPorodicnoStablo(Ovca ovca, Logic l){
-        otac = string1From(ovca.getOtac());
-        majka = string1From(ovca.getMajka());
+        otac = stringFrom(ovca.getOtac());
+        majka = stringFrom(ovca.getMajka());
         
         Ovca o = l.getOvca(ovca.getOtac().getId());
         Ovca m = l.getOvca(ovca.getMajka().getId());
@@ -87,10 +87,10 @@ public final class OvcaReport{
         Ovca mom = l.getOvca(mo.getMajka().getId());
         Ovca mmm = l.getOvca(mm.getMajka().getId());
         
-        ootac = string1From(oo);
-        omajka = string1From(om);
-        motac = string1From(mo);
-        mmajka = string1From(mm);
+        ootac = string0From(oo);
+        omajka = string0From(om);
+        motac = string0From(mo);
+        mmajka = string0From(mm);
         
         oootac = string1From(ooo);
         omotac = string1From(omo);
@@ -118,6 +118,20 @@ public final class OvcaReport{
         momm = string2From(mom.getMajka());
         mmmm = string2From(mmm.getMajka());
         
+    }
+    private String stringFrom(Ovca o){
+        StringBuilder sb = new StringBuilder();
+        sb.append(o.getNadimak()).append(" ID=").append(o.getOznaka());
+        sb.append("\n\n\n").append(o.getDatumRodjenja()).append("\n").append(o.getLeglo()).append("\n").append(o.getLlinija());
+        sb.append("\n(").append(o.getPoreklo()).append(")");
+        return sb.toString();
+    }
+    private String string0From(Ovca o){
+        StringBuilder sb = new StringBuilder();
+        sb.append(o.getNadimak()).append(" ID=").append(o.getOznaka());
+        sb.append("\n\n\n").append(o.getDatumRodjenja()).append("\n").append(o.getLlinija());
+        sb.append("\n(").append(o.getPoreklo()).append(")");
+        return sb.toString();
     }
     private String string1From(Ovca o){
         StringBuilder sb = new StringBuilder();

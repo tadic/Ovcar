@@ -7,11 +7,13 @@ package app.editPanels;
 import app.mainPanels.Dnevnik;
 import app.helpers.ColorColumnRenderer;
 import app.helpers.OvcaHelper;
+import app.helpers.OvcaReport;
 import app.logic.Logic;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Ovca;
 import app.model.Prodaja;
+import app.report.OvcaIzvestaj2;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -102,6 +104,7 @@ private JPanel mainPanel;
         jLabel1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jTextTroskovi = new javax.swing.JTextField();
+        jSnimiButton1 = new javax.swing.JButton();
 
         jLabel7.setText("do:");
 
@@ -399,6 +402,15 @@ private JPanel mainPanel;
             }
         });
 
+        jSnimiButton1.setBackground(new java.awt.Color(153, 255, 255));
+        jSnimiButton1.setFont(new java.awt.Font("Monaco", 1, 18)); // NOI18N
+        jSnimiButton1.setText("Štampaj");
+        jSnimiButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSnimiButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -449,14 +461,16 @@ private JPanel mainPanel;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jSnimiButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSnimiButton1)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton2)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(1025, 1106, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,7 +526,8 @@ private JPanel mainPanel;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSnimiButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -741,6 +756,16 @@ private JPanel mainPanel;
         jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jSnimiButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSnimiButton1ActionPerformed
+            
+        ArrayList<OvcaReport> list = new ArrayList<OvcaReport>();
+        for (Prodaja p: pickSveProdaje()){
+            list.add(new OvcaReport(p.getOvca(), logic));
+        }
+        OvcaIzvestaj2 report = new OvcaIzvestaj2(logic, list);
+        report.create();         // TODO add your handling code here:
+    }//GEN-LAST:event_jSnimiButton1ActionPerformed
+
 
     private String createBilans(){
         int komada = aktivnost.getProdaje().size();
@@ -829,6 +854,7 @@ private JPanel mainPanel;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jSelekcija;
     private javax.swing.JButton jSnimiButton;
+    private javax.swing.JButton jSnimiButton1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextTroskovi;
     private javax.swing.JSpinner jminutaKraj;

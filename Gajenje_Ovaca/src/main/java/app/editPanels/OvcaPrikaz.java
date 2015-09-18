@@ -17,6 +17,7 @@ import app.model.Ovca;
 import app.model.Parenje;
 import app.model.Vakcinacija;
 import app.report.OvcaIzvestaj;
+import app.report.OvcaIzvestaj2;
 import com.sun.java.swing.plaf.motif.MotifBorders;
 import java.awt.Color;
 import java.awt.Component;
@@ -392,6 +393,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jTrenutnoPari = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableParenja = new javax.swing.JTable();
+        jPDFSnimiButton1 = new javax.swing.JButton();
 
         jPanelRodjenje.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Rođenje 24-12-2014 selo Korićani", 0, 0, new java.awt.Font("Monaco", 1, 18), new java.awt.Color(153, 0, 51))); // NOI18N
 
@@ -1141,7 +1143,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jPDFSnimiButton.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jPDFSnimiButton.setText("Štampaj");
+        jPDFSnimiButton.setText("Štampaj 4 kolena");
         jPDFSnimiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPDFSnimiButtonActionPerformed(evt);
@@ -1304,6 +1306,14 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPDFSnimiButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jPDFSnimiButton1.setText("Štampaj 3 kolena");
+        jPDFSnimiButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPDFSnimiButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1322,14 +1332,6 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .addComponent(jPanelNabavka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jIzmeniButton)
-                        .addGap(27, 27, 27)
-                        .addComponent(jPDFSnimiButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(jOtkaziButton)
-                        .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanelUginuce, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1341,6 +1343,16 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jTrenutnoPari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jIzmeniButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPDFSnimiButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPDFSnimiButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jOtkaziButton)
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1363,7 +1375,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jIzmeniButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPDFSnimiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jOtkaziButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jOtkaziButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPDFSnimiButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1577,7 +1590,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
  
     }
     private void jPDFSnimiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFSnimiButtonActionPerformed
-        if (jPDFSnimiButton.getText().equals("Štampaj")){
+        if (jPDFSnimiButton.getText().equals("Štampaj 4 kolena")){
             ArrayList<OvcaReport> list = new ArrayList<OvcaReport>();
             list.add(new OvcaReport(ovca, logic));
             OvcaIzvestaj report = new OvcaIzvestaj(logic, list);
@@ -1618,6 +1631,13 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private void jPorekloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPorekloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPorekloActionPerformed
+
+    private void jPDFSnimiButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFSnimiButton1ActionPerformed
+            ArrayList<OvcaReport> list = new ArrayList<OvcaReport>();
+            list.add(new OvcaReport(ovca, logic));
+            OvcaIzvestaj2 report = new OvcaIzvestaj2(logic, list);
+            report.create();        // TODO add your handling code here:
+    }//GEN-LAST:event_jPDFSnimiButton1ActionPerformed
 
     private void openNewOvcaPanel(Ovca o){
         if (o!=null){
@@ -1674,6 +1694,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
     private javax.swing.JButton jOtkaziButton;
     private javax.swing.JTextField jOznaka;
     private javax.swing.JButton jPDFSnimiButton;
+    private javax.swing.JButton jPDFSnimiButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelDosije;
     private javax.swing.JPanel jPanelJagnjenja;

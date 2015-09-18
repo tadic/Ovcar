@@ -70,9 +70,11 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jSnimiButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSnimiButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -80,7 +82,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="1025" pref="1106" max="32767" attributes="0"/>
+                      <EmptySpace min="1025" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -155,6 +157,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jSnimiButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="jSnimiButton1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
@@ -725,6 +728,20 @@
     <Component class="javax.swing.JTextField" name="jTextTroskovi">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTroskoviActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jSnimiButton1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="99" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Monaco" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="&#x160;tampaj"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSnimiButton1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
