@@ -519,6 +519,9 @@ public class GodisnjiIzvestaj {
         float objekat = 0;
         float kapara = 0;
         float ostalo = 0;
+        float prevozStruja = 0;
+        float prostirka = 0;
+        float lecenje = 0;
         for (Aktivnost a: listaRashoda){
             if (a.getRadovi().getRazlog().equals("priprema/nabavka hrane")){
                 hrana += a.getTroskovi();
@@ -526,6 +529,12 @@ public class GodisnjiIzvestaj {
                 objekat += a.getTroskovi();
             } else if (a.getRadovi().getRazlog().equals("kapara za ovce")){
                 kapara += a.getTroskovi();
+            }else if (a.getRadovi().getRazlog().equals("troškovi prevoza")){
+                prevozStruja += a.getTroskovi();
+            }else if (a.getRadovi().getRazlog().equals("prostirka")){
+                prostirka += a.getTroskovi();
+            }else if (a.getRadovi().getRazlog().equals("nabavka lekova")){
+                lecenje += a.getTroskovi();
             }else {
                 ostalo += a.getTroskovi();
             }       
@@ -533,6 +542,9 @@ public class GodisnjiIzvestaj {
         sviRashodi += hrana + objekat + ostalo + kapara;
         params.put("hranaRashod", Aktivnost.round(hrana, 0)); 
         params.put("nabavkaOvacaRashod", (Float)params.get("nabavkaOvacaRashod") + Aktivnost.round(kapara, 0)); 
+        params.put("prevozStrujaRashod", Aktivnost.round(prevozStruja, 0));
+        params.put("prostirkaRashod", Aktivnost.round(prostirka, 0));
+        params.put("lecenjeRashod", Aktivnost.round(lecenje, 0));
         params.put("objekatRashod", Aktivnost.round(objekat, 0)); 
         params.put("ostaloRashod", Aktivnost.round(ostalo, 0)); 
      //   params.put("hranaRashod", String.valueOf(Aktivnost.round(hrana, 1))); 

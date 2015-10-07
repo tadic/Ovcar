@@ -344,6 +344,7 @@ private JPanel mainPanel;
        
     private String createBilans(){
         StringBuilder sb = new StringBuilder();
+        sb.append(jRazog.getSelectedItem().toString()).append(", ");
         sb.append(aktivnost.getRadovi().getStaSeRadilo_Nabavilo());
         sb.append(" - ").append(aktivnost.getRadovi().getKolicina());
         return sb.toString();

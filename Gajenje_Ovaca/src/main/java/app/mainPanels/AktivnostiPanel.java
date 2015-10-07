@@ -150,6 +150,7 @@ public class AktivnostiPanel extends javax.swing.JPanel {
         jLabel2.setSize(new java.awt.Dimension(40, 16));
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTable1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -178,7 +179,6 @@ public class AktivnostiPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoCreateRowSorter(true);
         jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowHeight(35);
         jTable1.setRowMargin(2);

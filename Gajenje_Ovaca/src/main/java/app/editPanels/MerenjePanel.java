@@ -708,7 +708,7 @@ private JPanel mainPanel;
 
     private String createBilans(){
         int komada = aktivnost.getMerenja().size();
-        StringBuilder sb = new StringBuilder("Merenjo ");
+        StringBuilder sb = new StringBuilder("Mereno ");
         sb.append(OvcaHelper.mnozinaGro(komada));
         return sb.toString();
         
