@@ -218,6 +218,7 @@ public class OvcaService {
         stara.setAktuelno(o.getAktuelno());
         stara.setOznaka(o.getOznaka());
         stara.setNadimak(o.getNadimak());
+        System.out.println(o.getId());
         server.save(stara);
     }
 
@@ -225,6 +226,18 @@ public class OvcaService {
          return server.find(Ovca.class).where().like("status", "na farmi").like("pol", "m").findList();
     }
 
+    public void resetAktuelno(Ovca ovca){
+        Ovca o = server.find(Ovca.class, ovca.getId());
+        o.setAktuelno("");
+        server.save(o);
+    }
+    
+    public void saveAktuelno(Ovca ovca){
+        Ovca o = server.find(Ovca.class, ovca.getId());
+        o.setAktuelno(ovca.getAktuelno());
+        server.save(o);
+    }
+    
     public List<Parenje> getParenja(Ovca ovan) {
         List<Parenje> lista = new ArrayList<Parenje>();
         for (Ovca o: getAllSheep()){
@@ -232,7 +245,7 @@ public class OvcaService {
                 List<Parenje> parenja = o.getParenja();
                 Collections.sort(parenja);
                 Parenje zadnjeParenje = parenja.get(parenja.size()-1);
-                if (!zadnjeParenje.getTip().equals("odvajenje") && zadnjeParenje.getOvan().equals(ovan)){
+                if (!zadnjeParenje.getTip().equals("Odvajanje") && zadnjeParenje.getOvan().equals(ovan)){
                     lista.add(zadnjeParenje);
                 }
             }
