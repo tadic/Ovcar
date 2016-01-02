@@ -245,18 +245,25 @@ public class OvcaPrikaz extends javax.swing.JPanel {
          DefaultTableModel tm = (DefaultTableModel) jTableParenje.getModel();
          tm.setRowCount(0);
          Dan datumSpajanja = new Dan();
+         Dan datumOdvajanja = null;
+         Dan datumParenja = null;
+         int dana = 0;
          Ovca ovan = new Ovca();
          for (Parenje p: o.getParenja()){
              if (p.getTip().equals("Spajanje")){
                  ovan= p.getOvan();
                  datumSpajanja = p.getAktivnost().getDan();
-                 int dana = OvcaHelper.razlikaUDanima(p.getAktivnost().getDan(), new Dan());
+                 dana = OvcaHelper.razlikaUDanima(p.getAktivnost().getDan(), new Dan());
                  insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, "", dana));
              } else if (p.getTip().equals("Odvajanje") && p.getOvan().equals(ovan)){
-                 Dan datumOdvajanja = p.getAktivnost().getDan();
-                 int dana = OvcaHelper.razlikaUDanima(datumSpajanja, datumOdvajanja);
+                 datumOdvajanja = p.getAktivnost().getDan();
+                 dana = OvcaHelper.razlikaUDanima(datumSpajanja, datumOdvajanja);
                  deletelastRow(tm);
-                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, datumOdvajanja, dana));
+                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, datumParenja, datumOdvajanja, dana));
+             }else if (p.getOvan().equals(ovan)){
+                 datumParenja = p.getAktivnost().getDan();
+                 deletelastRow(tm);
+                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, datumParenja, datumOdvajanja, dana));
              }
              
          }
@@ -1323,31 +1330,31 @@ public class OvcaPrikaz extends javax.swing.JPanel {
 
         jTableParenje.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Ovan", "spojeni", "razdvojeni", "dana"
+                "Ovan", "spojeni", "parena", "razdvojeni", "dana"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1362,8 +1369,8 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         jScrollPane7.setViewportView(jTableParenje);
         jTableParenje.getColumnModel().getColumn(1).setPreferredWidth(95);
         jTableParenje.getColumnModel().getColumn(1).setMaxWidth(95);
-        jTableParenje.getColumnModel().getColumn(2).setPreferredWidth(150);
-        jTableParenje.getColumnModel().getColumn(2).setMaxWidth(150);
+        jTableParenje.getColumnModel().getColumn(3).setPreferredWidth(150);
+        jTableParenje.getColumnModel().getColumn(3).setMaxWidth(150);
 
         javax.swing.GroupLayout jParenjaLayout = new javax.swing.GroupLayout(jParenja);
         jParenja.setLayout(jParenjaLayout);

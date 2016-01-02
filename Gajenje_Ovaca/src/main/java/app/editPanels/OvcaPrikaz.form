@@ -1703,9 +1703,10 @@
                 <Component class="javax.swing.JTable" name="jTableParenje">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="15">
+                      <Table columnCount="5" rowCount="15">
                         <Column editable="false" title="Ovan" type="java.lang.String"/>
                         <Column editable="false" title="spojeni" type="java.lang.String"/>
+                        <Column editable="false" title="parena" type="java.lang.String"/>
                         <Column editable="false" title="razdvojeni" type="java.lang.String"/>
                         <Column editable="false" title="dana" type="java.lang.Integer"/>
                       </Table>
@@ -1718,6 +1719,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="95" minWidth="-1" prefWidth="95" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
