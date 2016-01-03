@@ -525,7 +525,8 @@ private JPanel mainPanel;
             jLokacija.setText("s.Jasenica");
         } else {
             fillTable(aktivnost.getParenja(), jTable1);
-            jOvan.setSelectedItem(aktivnost.getParenja().get(0).getOvan());
+            Ovca ovan = logic.getOvca(aktivnost.getParenja().get(0).getOvan().getId());
+            jOvan.setSelectedItem(ovan);
         }
         jDatum.setCalendar(aktivnost.getDan().getDate());
 

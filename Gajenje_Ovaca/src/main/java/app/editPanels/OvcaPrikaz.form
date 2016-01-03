@@ -70,13 +70,14 @@
                           </Group>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jPanelVakcinacije" max="32767" attributes="0"/>
                               <Component id="jPanelUginuce" alignment="1" max="32767" attributes="0"/>
                               <Component id="jTrenutnoPari" max="32767" attributes="0"/>
-                              <Component id="jPanelVakcinacije" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jParenja" alignment="1" max="32767" attributes="0"/>
                               <Component id="jPanelLecenja" alignment="1" max="32767" attributes="0"/>
                               <Component id="jPanelProdaja" alignment="1" max="32767" attributes="0"/>
                               <Component id="jPanelJagnjenja" max="32767" attributes="0"/>
+                              <Component id="jParenja" max="32767" attributes="0"/>
+                              <Component id="jParenjaOvan" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -90,27 +91,28 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jPanelJagnjenja" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTrenutnoPari" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jParenja" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="jPanelJagnjenja" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jTrenutnoPari" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jParenja" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jParenjaOvan" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelVakcinacije" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanelLecenja" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanelLecenja" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelProdaja" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelUginuce" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jIzmeniButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="jPDFSnimiButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="jOtkaziButton" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="jPDFSnimiButton1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jLabel2" min="-2" pref="65" max="-2" attributes="0"/>
@@ -122,9 +124,9 @@
                           <Component id="jPanelNabavka" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanelDosije" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -503,7 +505,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace pref="31" max="32767" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
                                               <Component id="jLinija" min="-2" pref="237" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
@@ -843,9 +845,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="114" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="47" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -933,7 +935,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane18" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane18" alignment="0" pref="584" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -961,9 +963,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane18" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane18" pref="104" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jTezina60" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -975,7 +977,7 @@
                           <Component id="jLabel17" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="jLabel18" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1574,15 +1576,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" max="32767" attributes="0"/>
+                      <Component id="jScrollPane6" pref="590" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane6" pref="80" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane6" pref="55" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1660,7 +1662,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPDFSnimiButton1ActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JPanel" name="jParenja">
+        <Container class="javax.swing.JPanel" name="jParenjaOvan">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -1685,9 +1687,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane7" pref="80" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane7" pref="94" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1700,15 +1702,14 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTableParenje">
+                <Component class="javax.swing.JTable" name="jTableParenjeOvan">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="15">
-                        <Column editable="false" title="Ovan" type="java.lang.String"/>
+                      <Table columnCount="4" rowCount="15">
+                        <Column editable="true" title="Broj &#x17e;enki" type="java.lang.Integer"/>
                         <Column editable="false" title="spojeni" type="java.lang.String"/>
-                        <Column editable="false" title="parena" type="java.lang.String"/>
                         <Column editable="false" title="razdvojeni" type="java.lang.String"/>
-                        <Column editable="false" title="dana" type="java.lang.Integer"/>
+                        <Column editable="false" title="trajanje dana" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1719,11 +1720,6 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="95" minWidth="-1" prefWidth="95" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1768,7 +1764,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="559" max="32767" attributes="0"/>
+                      <Component id="jScrollPane5" pref="584" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1776,9 +1772,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane5" pref="1" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane5" pref="99" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1819,6 +1815,96 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="95" minWidth="-1" prefWidth="95" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="jParenja">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Parenja (5)">
+                  <Border PropertyName="innerBorder" info="null"/>
+                  <Font PropertyName="font" name="Monaco" size="18" style="1"/>
+                  <Color PropertyName="color" blue="33" green="0" red="99" type="rgb"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane8" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane8" pref="84" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane8">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="jTableParenje">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="5" rowCount="15">
+                        <Column editable="false" title="Ovan" type="java.lang.String"/>
+                        <Column editable="false" title="spojeni" type="java.lang.String"/>
+                        <Column editable="false" title="parena" type="java.lang.String"/>
+                        <Column editable="false" title="razdvojeni" type="java.lang.String"/>
+                        <Column editable="false" title="dana" type="java.lang.Integer"/>
+                      </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title value="Ovan"/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="95" minWidth="-1" prefWidth="95" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title value="parena"/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="150" minWidth="-1" prefWidth="150" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
