@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -80,9 +81,9 @@ public class OvcaPrikaz extends javax.swing.JPanel {
         setRodjenje(o);
         setNabavka(o);  
         setJagnjenja(o);
-        setParenje(o);
+        setTrenutnoPari(o);
         setParenjaOvca(o);
-        //setParenjaOvan(o);
+        setParenjaOvan(o);
         setMerenja(o);
         setVakcinacijeLecenja(o);
         setProdaja(o);
@@ -168,12 +169,12 @@ public class OvcaPrikaz extends javax.swing.JPanel {
           jPanelNabavka.setVisible(false);
        }
     }
-    private void setParenje(Ovca o){
+    private void setTrenutnoPari(Ovca o){
          if (o.getPol()!='m'){
              jTrenutnoPari.setVisible(false);
              return;
          }
-         List<Parenje> listaParenja = logic.getParenja(o);
+         List<Parenje> listaParenja = logic.getZadnjaParenja(o);
          
          DefaultTableModel tm = (DefaultTableModel) jTableParenja.getModel();
          tm.setRowCount(0);
@@ -187,6 +188,7 @@ public class OvcaPrikaz extends javax.swing.JPanel {
          setTitleToPanel(jTrenutnoPari, "Trenutno pari (" + tm.getRowCount() + ")");
          setBoldFontToColumn(jTableParenja, 1);
     }
+    
     private void setJagnjenja(Ovca o){
          if (o.getPol()=='m'){
              jPanelJagnjenja.setVisible(false);
@@ -236,41 +238,48 @@ public class OvcaPrikaz extends javax.swing.JPanel {
          setTitleToPanel(jPanelJagnjenja, "Jagnjenja (" + tm.getRowCount() + ") - " + o.getProcenatJagnjenja());
          setBoldFontToColumn(jTableJagnjenja, 1);
     }
-//    
-//    private void setParenjaOvan(Ovca o){
-//        if (o.getPol()=='m'){
-//             jParenjaOvan.setVisible(true);
-//         } else {
-//            jParenjaOvan.setVisible(false);
-//            return;
-//         }
-//        
-//        DefaultTableModel tm = (DefaultTableModel) jTableParenjeOvan.getModel();
-//         tm.setRowCount(0);
-//         Dan datumSpajanja = new Dan();
-//         Dan datumOdvajanja = null;
-//         int brojOvaca = 0;
-//         int dana = 0;
-//         Ovca ovan = new Ovca();
-//         for (Parenje p: o.getParenja()){
-//             if (p.getTip().equals("Spajanje")){
-//                 ovan= p.getOvan();
-//                 datumSpajanja = p.getAktivnost().getDan();
-//                 dana = OvcaHelper.razlikaUDanima(p.getAktivnost().getDan(), new Dan());
-//                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, "", dana));
-//             } else if (p.getTip().equals("Odvajanje") && p.getOvan().equals(ovan)){
-//                 datumOdvajanja = p.getAktivnost().getDan();
-//                 dana = OvcaHelper.razlikaUDanima(datumSpajanja, datumOdvajanja);
-//                 deletelastRow(tm);
-//                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, datumParenja, datumOdvajanja, dana));
-//             }else if (p.getOvan().equals(ovan)){
-//                 datumParenja = p.getAktivnost().getDan();
-//                 deletelastRow(tm);
-//                 insertRowInTable(tm, vectorFrom(p.getOvan().getNadimak(), datumSpajanja, datumParenja, datumOdvajanja, dana));
-//             }
-//             
-//         }
-//    }
+    
+    private void setParenjaOvan(Ovca o){
+        if (o.getPol()=='m'){
+             jParenjaOvan.setVisible(true);
+         } else {
+            jParenjaOvan.setVisible(false);
+            return;
+         }
+         Dan datumSpajanja = null;
+         Dan datumOdvajanja = null;
+         int brojOvaca = 0;
+         int dana = 0;
+         DefaultTableModel tm = (DefaultTableModel) jTableParenjeOvan.getModel();
+         tm.setRowCount(0);
+         List<Parenje> listaParenja = logic.getSpajanjaOdvajanjaOvna(o);
+        
+        if (listaParenja!=null && ! listaParenja.isEmpty()){
+            datumSpajanja = listaParenja.get(0).getAktivnost().getDan();
+        }
+
+        for (Iterator<Parenje> it = listaParenja.iterator(); it.hasNext();) {
+            Parenje p = it.next();
+                if (!datumSpajanja.equals(p.getAktivnost().getDan())){ // bilo da je Odvajanje ili Spajanje romena se zapisuje
+                    datumOdvajanja = p.getAktivnost().getDan();
+                    dana = OvcaHelper.razlikaUDanima(datumSpajanja, datumOdvajanja);
+                    insertRowInTable(tm, vectorFrom(brojOvaca, datumSpajanja, datumOdvajanja, dana));
+                    datumSpajanja = p.getAktivnost().getDan();
+                    
+                }
+                if (p.getTip().equals("Spajanje")){
+                        brojOvaca++;
+                    } else {
+                        brojOvaca--;
+                }
+            
+        }
+        jTableParenjeOvan.setModel(tm);
+        setTitleToPanel(jParenjaOvan, "Parenja (" + tm.getRowCount() + ")");
+        setBoldFontToColumn(jTableParenjeOvan, 0);
+        setBoldFontToColumn(jTableParenjeOvan, 2);
+    }
+    
     private void setParenjaOvca(Ovca o){
         if (o.getPol()=='ž'){
              jParenja.setVisible(true);

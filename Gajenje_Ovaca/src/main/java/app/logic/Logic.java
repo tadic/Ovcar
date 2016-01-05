@@ -14,6 +14,7 @@ import app.services.ActivityServiceFactory;
 import app.services.DanService;
 import app.services.LinijeService;
 import app.services.OvcaService;
+import app.services.ParenjeService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Logic {
     private DanService danService;
     private LinijeService linijeService;
     private OvcaService ovcaService;
+    private ParenjeService parenjaService;
     private Calendar selectedDay;
     
     private List<VrsteAktivnosti> typesOfActivities;
@@ -35,6 +37,7 @@ public class Logic {
         danService = new DanService(db.server());
         linijeService = new LinijeService(db.server());
         ovcaService = new OvcaService(db.server());
+        parenjaService = new ParenjeService(db.server());
         
         initialiseData();
     }
@@ -175,9 +178,12 @@ public class Logic {
         return ovcaService.getSveOvnove();
     }
 
-    public List<Parenje> getParenja(Ovca o) {
-        return ovcaService.getParenja(o);
+    public List<Parenje> getZadnjaParenja(Ovca o) {
+        return ovcaService.getZadnjaParenja(o);
     }
 
+    public List<Parenje> getSpajanjaOdvajanjaOvna(Ovca o) {
+        return parenjaService.getSpajanjaOdvajanjaOvna(o);
+    }
     
 }

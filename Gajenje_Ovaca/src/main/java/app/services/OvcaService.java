@@ -238,7 +238,7 @@ public class OvcaService {
         server.save(o);
     }
     
-    public List<Parenje> getParenja(Ovca ovan) {
+    public List<Parenje> getZadnjaParenja(Ovca ovan) {
         List<Parenje> lista = new ArrayList<Parenje>();
         for (Ovca o: getAllSheep()){
             if (o.getPol()=='ž' && o.getParenja()!=null && !o.getParenja().isEmpty()){

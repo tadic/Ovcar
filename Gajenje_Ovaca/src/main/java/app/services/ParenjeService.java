@@ -5,6 +5,9 @@ import app.model.Aktivnost;
 import app.model.Ovca;
 import app.model.Parenje;
 import com.avaje.ebean.EbeanServer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public class ParenjeService extends ActivityService{
@@ -66,7 +69,23 @@ public class ParenjeService extends ActivityService{
         saveDayAndActivity(a.getDan(), a);
     }
     
+    public List<Parenje> getSpajanjaOdvajanjaOvna(Ovca o){
+        List <Parenje> lista = new ArrayList<Parenje>();
+        if (o.getPol()=='m'){
+            for (Parenje p: server.find(Parenje.class).findList()){
+                if (p.getOvan().equals(o) && !p.getTip().equals("Parenje")){
+                    lista.add(p);
+                }
+            }
+        } 
+        Collections.sort(lista);
+        return lista;
+    }
+    
     public void deleteActivity(Aktivnost a) {
+        for (Parenje staroParenje: a.getParenja()){
+            ovcaService.resetAktuelno(staroParenje.getOvca());
+        }
         Aktivnost act = server.find(Aktivnost.class, a.getId());
         if (act!=null){
             server.delete(act);

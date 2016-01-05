@@ -43,6 +43,9 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         this.logic = logic;
         this.mainPanel = mainPanel;
         initComponents();
+        buttonGroup1.add(jRadioButton1);
+        buttonGroup1.add(jRadioButton2);
+        buttonGroup1.add(jRadioButton3);
         jScrollPane1.getViewport().setBackground(Color.white);
         setBoldFontToColumn(3, Color.black);
         setBoldFontToColumn(0, Color.red.darker());
@@ -61,12 +64,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
          if (jNaFarmi.isSelected()){
              comboFilter = RowFilter.regexFilter("na farmi");
          }
-         String polFilter = "";
-         if (jTrazi3.getSelectedIndex()==2){
-             polFilter = "muško";
-         } else if(jTrazi3.getSelectedIndex()==1){
-             polFilter = "žensko";
-         }  
+         String polFilter = getRadioButtonSelected(); 
          RowFilter<TableModel, Object> filter1 = RowFilter.regexFilter(polFilter);
          RowFilter<TableModel, Object> filter2 = RowFilter.regexFilter(jTrazi1.getText());
          RowFilter<TableModel, Object> filter3 = RowFilter.regexFilter(jTrazi2.getText());          
@@ -152,6 +150,10 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -163,9 +165,11 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         jSnimi = new javax.swing.JButton();
         jPrikazi = new javax.swing.JButton();
         jStampajSve = new javax.swing.JButton();
-        jTrazi3 = new javax.swing.JComboBox();
         jStampajSve1 = new javax.swing.JButton();
         jStampajSve2 = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -314,13 +318,6 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
             }
         });
 
-        jTrazi3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sva grla", "ženska grla", "muška grla" }));
-        jTrazi3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTrazi3ActionPerformed(evt);
-            }
-        });
-
         jStampajSve1.setBackground(new java.awt.Color(255, 204, 51));
         jStampajSve1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
         jStampajSve1.setText("Štampaj aktuelno");
@@ -339,6 +336,28 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
             }
         });
 
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("sva grla");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("ženska grla");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("muška grla");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,21 +366,6 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(34, 34, 34)
-                                .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jNaFarmi))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jStampajSve2)
@@ -372,28 +376,50 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jSnimi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPrikazi, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                                .addComponent(jNaFarmi)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton1))
+                                .addGap(0, 223, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jNaFarmi)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jNaFarmi)
+                            .addComponent(jLabel1)
+                            .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTrazi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jCounter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -487,7 +513,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         if (jNaFarmi.isSelected()){
            f1 = "na farmi";
        }
-        String f2 = jTrazi3.getSelectedItem().toString();
+        String f2 = getRadioButtonSelected();
         String f3 = jTrazi1.getText();
         String f4 = jTrazi2.getText();
         for (int i=0; i<jTable1.getRowCount(); i++){
@@ -505,18 +531,22 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         new ListaOvacaIzvestaj(list, f1, f2, f3, f4).create();
     }//GEN-LAST:event_jStampajSveActionPerformed
 
-    private void jTrazi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrazi3ActionPerformed
-         sorter.setRowFilter(RowFilter.andFilter(getFilters()));
-                 jCounter.setText("("+ jTable1.getRowCount() + ")");
-    }//GEN-LAST:event_jTrazi3ActionPerformed
-
+    private String getRadioButtonSelected(){
+        if (jRadioButton2.isSelected()){
+            return  "žensko";
+        } else if (jRadioButton3.isSelected()){
+            return "muško";
+        }
+        return  "";
+    }
+    
     private void jStampajSve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSve1ActionPerformed
         ArrayList<Ovca> list = new ArrayList<Ovca>();
         String f1 = "-";
         if (jNaFarmi.isSelected()){
            f1 = "na farmi";
        }
-        String f2 = jTrazi3.getSelectedItem().toString();
+        String f2 = getRadioButtonSelected();
         String f3 = jTrazi1.getText();
         String f4 = jTrazi2.getText();
         for (int i=0; i<jTable1.getRowCount(); i++){
@@ -540,7 +570,7 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         if (jNaFarmi.isSelected()){
            f1 = "na farmi";
        }
-        String f2 = jTrazi3.getSelectedItem().toString();
+        String f2 = getRadioButtonSelected();
         String f3 = jTrazi1.getText();
         String f4 = jTrazi2.getText();
         for (int i=0; i<jTable1.getRowCount(); i++){
@@ -558,12 +588,34 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
         new ListaOvacaBlankoIzvestaj(list,"Lista ovaca",  f1, f2, f3, f4).create();
     }//GEN-LAST:event_jStampajSve2ActionPerformed
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        sorter.setRowFilter(RowFilter.andFilter(getFilters()));
+                 jCounter.setText("("+ jTable1.getRowCount() + ")");
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JCheckBox jNaFarmi;
     private javax.swing.JButton jPrikazi;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jStampajSve;
@@ -572,6 +624,5 @@ public class Podaci_ovaca_opsti extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi1;
     private javax.swing.JTextField jTrazi2;
-    private javax.swing.JComboBox jTrazi3;
     // End of variables declaration//GEN-END:variables
 }
