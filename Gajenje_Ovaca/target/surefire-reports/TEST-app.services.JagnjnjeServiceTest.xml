@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="6.28" errors="0" skipped="0" tests="2" name="app.services.JagnjnjeServiceTest">
+<testsuite failures="0" time="7.075" errors="0" skipped="0" tests="2" name="app.services.JagnjnjeServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="51.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.10.5"/>
+    <property name="os.version" value="10.11.3"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/ivantadic"/>
     <property name="user.timezone" value="Europe/Helsinki"/>
@@ -62,6 +62,6 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="5.105" classname="app.services.JagnjnjeServiceTest" name="updateActivityPromenaBrojaJagnjadiTest"/>
-  <testcase time="1.175" classname="app.services.JagnjnjeServiceTest" name="createActivityTest"/>
+  <testcase time="5.991" classname="app.services.JagnjnjeServiceTest" name="updateActivityPromenaBrojaJagnjadiTest"/>
+  <testcase time="1.084" classname="app.services.JagnjnjeServiceTest" name="createActivityTest"/>
 </testsuite>
