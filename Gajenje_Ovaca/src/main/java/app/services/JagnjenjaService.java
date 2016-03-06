@@ -2,7 +2,9 @@
 package app.services;
 
 import app.model.Aktivnost;
+import app.model.Dan;
 import app.model.Jagnjenje;
+import app.model.Ovca;
 import com.avaje.ebean.EbeanServer;
 import java.util.List;
 
@@ -11,9 +13,10 @@ import java.util.List;
  * @author ivantadic
  */
 public class JagnjenjaService extends ActivityService{
-    
+    private OvcaService ovcaService;
     public JagnjenjaService(EbeanServer server) {
         super(server);
+        ovcaService = new OvcaService(server);
     }
     
     public void createActivity(Aktivnost a){
@@ -39,6 +42,7 @@ public class JagnjenjaService extends ActivityService{
             
             saveJagnjenje(jagnjenje, datumJagnjenja);
  // mora da ide posle snimanja jagnjenja da ga jagnjenje ne bi snimilo pre vremena
+            ovcaService.saveAktuelno(jagnjenje.getOvca());
         }
     }
     
@@ -82,6 +86,5 @@ public class JagnjenjaService extends ActivityService{
     public void deleteActivity(Aktivnost a) {
         server.delete(a);
     }
-
 
 }

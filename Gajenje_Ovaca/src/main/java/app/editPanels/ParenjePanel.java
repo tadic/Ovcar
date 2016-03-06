@@ -641,6 +641,7 @@ private JPanel mainPanel;
     }
     
 
+    
     private Parenje pickParenje(TableModel table, int n){
         Parenje p = new Parenje();
         Ovca o = logic.getOvca(Integer.parseInt(table.getValueAt(n, 5).toString()));

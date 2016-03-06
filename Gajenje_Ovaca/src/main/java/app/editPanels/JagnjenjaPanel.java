@@ -411,21 +411,38 @@ private JPanel mainPanel;
             mainPanel.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void makeAktuelnoForOvca(JagnjenjePanel jp){
+        StringBuilder sb = new StringBuilder("ä ");
+        sb.append(aktivnost.getDan().toString());
+        
+        int zivih = 0;
+        String slog = " ";
+        for (Jagnjenje jagnjenje: jp.getJagnjenja()){
+            if (jagnjenje.isJelZivo()){
+                zivih ++;
+            }
+            slog+= jagnjenje.getSheep().getPol();
+        }
+        sb.append(" ").append(jp.getJagnjenja().size()).append("/").append(zivih).append(slog);
+        jp.getJagnjenja().get(0).getOvca().setAktuelno(sb.toString());
+    }            
+
     private void pickJagnjenja(){
         aktivnost.setVremePocetka(pickint(jsatiPocetak)*100 + pickint(jminutaPocetak));
         aktivnost.setVremeZavrsetka(pickint(jsatiKraj)*100 + pickint(jminutaKraj));
         aktivnost.setLokacija(jLokacija.getText());
         aktivnost.setNapomena(jNapomena.getText());
         aktivnost.setDan(new Dan(jDatum.getCalendar()));
-        String datumJagnjenja = aktivnost.getDan().toString();
+        
         aktivnost.getListaJagnjenja().clear();
         for (Component c: jagnjenjePanel.getComponents()){
             JagnjenjePanel jp = (JagnjenjePanel) c;
             for (Jagnjenje jagnjenje: jp.getJagnjenja()){
-//                jagnjenje.getSheep().setDatumRodjenja(datumJagnjenja);
-//                jagnjenje.getSheep().setAktuelno("# " + datumJagnjenja);
+                if (jagnjenje.isJelZivo()){
+                }
                 aktivnost.getListaJagnjenja().add(jagnjenje); 
             }
+            makeAktuelnoForOvca(jp);
         }
         int ovaca = jagnjenjePanel.getComponentCount();
         int jaganjaca = aktivnost.getListaJagnjenja().size();
