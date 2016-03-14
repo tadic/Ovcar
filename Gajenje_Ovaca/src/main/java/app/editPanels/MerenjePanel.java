@@ -4,21 +4,14 @@
  */
 package app.editPanels;
 
-import app.mainPanels.Dnevnik;
-import app.helpers.ColorColumnRenderer;
-import app.helpers.JStarsEditor;
-import app.helpers.JStarsRenderer;
-import app.helpers.LevelBar;
-import app.helpers.StarsPanel;
 import app.helpers.OvcaHelper;
 import app.logic.Logic;
+import app.mainPanels.Dnevnik;
 import app.model.Aktivnost;
 import app.model.Dan;
 import app.model.Merenje;
 import app.model.Ovca;
-import app.model.Prodaja;
 import java.awt.BasicStroke;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -37,7 +30,6 @@ import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -59,7 +51,7 @@ private JPanel mainPanel;
         jTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jTable1.setColumnSelectionAllowed(true);
         jTable1.setRowSelectionAllowed(true);
-        
+        setPanel();
 
     }
 
