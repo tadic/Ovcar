@@ -6,6 +6,10 @@ package app.editPanels;
 
 import app.mainPanels.Dnevnik;
 import app.helpers.ColorColumnRenderer;
+import app.helpers.JStarsEditor;
+import app.helpers.JStarsRenderer;
+import app.helpers.LevelBar;
+import app.helpers.StarsPanel;
 import app.helpers.OvcaHelper;
 import app.logic.Logic;
 import app.model.Aktivnost;
@@ -14,6 +18,7 @@ import app.model.Merenje;
 import app.model.Ovca;
 import app.model.Prodaja;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -26,6 +31,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicBorders;
@@ -50,8 +56,11 @@ private JPanel mainPanel;
         this.logic = logic;
         initComponents();
         setOpaque(true);
+        jTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setRowSelectionAllowed(true);
+        
 
-        setPanel();
     }
 
     /**
@@ -94,6 +103,7 @@ private JPanel mainPanel;
         jButton5 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList = new javax.swing.JTable();
+        jComboRazlog = new javax.swing.JComboBox();
         jNameOfActivity = new javax.swing.JLabel();
         jDatum = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -218,6 +228,11 @@ private JPanel mainPanel;
         jTable1.setRowHeight(30);
         jTable1.setRowMargin(0);
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
@@ -303,8 +318,20 @@ private JPanel mainPanel;
             }
         });
         jList.setColumnSelectionAllowed(true);
+        jList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jListKeyReleased(evt);
+            }
+        });
         jScrollPane4.setViewportView(jList);
         jList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+
+        jComboRazlog.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "rođenje", "odlučenje", "puštena na parenje", "prodaja" }));
+        jComboRazlog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboRazlogActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout nabavkaPanelLayout = new javax.swing.GroupLayout(nabavkaPanel);
         nabavkaPanel.setLayout(nabavkaPanelLayout);
@@ -313,17 +340,19 @@ private JPanel mainPanel;
             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, nabavkaPanelLayout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(836, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboRazlog, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -335,7 +364,7 @@ private JPanel mainPanel;
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCounter)
-                                .addContainerGap(657, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,33 +374,32 @@ private JPanel mainPanel;
             nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nabavkaPanelLayout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
                         .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCounter)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(jComboRazlog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel14))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(180, Short.MAX_VALUE))))))
+                        .addGap(59, 59, 59)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(180, Short.MAX_VALUE))))
+            .addGroup(nabavkaPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCounter)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jNameOfActivity.setFont(new java.awt.Font("Monaco", 1, 24)); // NOI18N
@@ -423,7 +451,7 @@ private JPanel mainPanel;
                                 .addComponent(jLabel9)
                                 .addGap(1, 1, 1)
                                 .addComponent(jminutaKraj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 574, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -479,9 +507,9 @@ private JPanel mainPanel;
                         .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -518,8 +546,9 @@ private JPanel mainPanel;
         private void fillTable(List<Merenje> merenja, JTable table){
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             for (Merenje m: merenja){
-                model.addRow(vector2From(m.getOvca(),m));
+                model.addRow(vector2From(m.getOvca(),m, null));
             }
+            
             jCounter.setText("("+ jTable1.getRowCount() + ")");
     }
 
@@ -548,7 +577,8 @@ private JPanel mainPanel;
         for (Ovca o: list){
             model.addRow(vectorFrom(o));
         }
-
+        jList.setRowSelectionInterval(0, 1);
+        
         jCounter.setText("("+ jTable1.getRowCount() + ")");
         setBoldFontToColumn(1, Color.red.darker());
        
@@ -656,7 +686,7 @@ private JPanel mainPanel;
     
     private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
         if (evt.getKeyChar()==KeyEvent.VK_ENTER){
-            insertOvcaIntoTable();
+            insertOvcaIntoTable(getSelectedOvcaAt(jList.getSelectedRow()));
         } else {
             applayFilters();
             DefaultTableModel model = (DefaultTableModel) jList.getModel();
@@ -666,20 +696,30 @@ private JPanel mainPanel;
         }
     }//GEN-LAST:event_jSelekcijaKeyReleased
 
+    private Ovca getSelectedOvcaAt(int selectedRow){
+        if (selectedRow>=0){
+            return (Ovca) jList.getValueAt(selectedRow, 0);
+        }
+        return null;
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        insertOvcaIntoTable();
+        insertOvcaIntoTable(getSelectedOvcaAt(jList.getSelectedRow()));
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void insertOvcaIntoTable(){
-        int selectedRow = jList.getSelectedRow();
-        if (selectedRow>=0){
-            Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
+   
+    private void insertOvcaIntoTable(Ovca o){
+        if (o!=null){
+            //Ovca o = (Ovca) jList.getValueAt(selectedRow, 0);
+            String razlog = jComboRazlog.getSelectedItem().toString();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             if (!tableModelContaintsOvca(model, o)){
-                model.addRow(vector2From(o, null));
+                model.addRow(vector2From(o, null, razlog));
             }
+            jTable1.requestFocus();
+            jTable1.changeSelection(jTable1.getRowCount()-1, 5,false, false);
+            jCounter.setText("("+ jTable1.getRowCount() + ")");
         }
-        jCounter.setText("("+ jTable1.getRowCount() + ")");
+        
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int selectedRow = jTable1.getSelectedRow();
@@ -693,8 +733,9 @@ private JPanel mainPanel;
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+        String razlog = jComboRazlog.getSelectedItem().toString();
         for (Ovca o : logic.getSvaZivaGrla()){
-            model.addRow(vector2From(o, null));
+            model.addRow(vector2From(o, null, razlog));
         }
         jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -705,6 +746,22 @@ private JPanel mainPanel;
         jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jComboRazlogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboRazlogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboRazlogActionPerformed
+
+    private void jListKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListKeyReleased
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            insertOvcaIntoTable(getSelectedOvcaAt(jList.getSelectedRow()-1));        
+        }
+    }//GEN-LAST:event_jListKeyReleased
+
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        if (evt.getKeyChar()==KeyEvent.VK_ENTER){
+            jSelekcija.requestFocus();
+        }
+    }//GEN-LAST:event_jTable1KeyReleased
+
 
     private String createBilans(){
         int komada = aktivnost.getMerenja().size();
@@ -713,7 +770,7 @@ private JPanel mainPanel;
         return sb.toString();
         
     }
-    private Vector vector2From(Ovca o, Merenje m){
+    private Vector vector2From(Ovca o, Merenje m, String razlog){
         Vector v = new Vector(); 
         v.add(o.getNadimak());
         v.add(o.getOznaka());
@@ -722,7 +779,7 @@ private JPanel mainPanel;
         v.add(o.getAktuelno());
         if (m==null){
             v.add(null); 
-            v.add(null); 
+            v.add(razlog); 
         } else {
             v.add(m.getTezina());
             v.add(m.getNapomena());
@@ -783,6 +840,7 @@ private JPanel mainPanel;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jColorLabel;
+    private javax.swing.JComboBox jComboRazlog;
     private javax.swing.JLabel jCounter;
     private com.toedter.calendar.JDateChooser jDatum;
     private javax.swing.JLabel jLabel1;
