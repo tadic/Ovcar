@@ -2,13 +2,13 @@
 package app.mainPanels;
 
 import app.editPanels.OvcaPrikaz;
-import app.helpers.OvcaHelper;
-import app.report.ListaOvacaAktuelnoIzvestaj;
-import app.report.ListaOvacaIzvestaj;
+import app.helpers.RacunanjeKolena;
 import app.logic.Logic;
-import app.model.Aktivnost;
 import app.model.Merenje;
 import app.model.Ovca;
+import app.report.ListaOvacaAktuelnoIzvestaj;
+import app.report.Ukrvljenost;
+import app.report.UkrvljenostIzvestaj;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -16,15 +16,16 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -48,7 +49,7 @@ public class PlanPripusta extends javax.swing.JPanel {
 
         listOfSheep = logic.getSvaZivaGrla();
         //System.err.println("Velicina liste ovaca: " + listOfSheep.size());
-        fillTables(listOfSheep);
+        fillTable(listOfSheep);
 
     }
     
@@ -69,21 +70,12 @@ public class PlanPripusta extends javax.swing.JPanel {
 
          return filters;
     }
-    
-    private List<RowFilter<TableModel,Object>> getFilters1(){
-         List<RowFilter<TableModel,Object>> filters = new ArrayList<RowFilter<TableModel,Object>>();
-
-         RowFilter<TableModel, Object> filter = RowFilter.regexFilter(jSelekcija.getText());
-         filters.add(filter);
-
-         return filters;
-    }
+   
     
     private void setBoldFontToColumn(int n, Color color){
         DefaultTableCellRenderer r = new DefaultTableCellRenderer() {
             
             Font f = new Font ("Dialog", Font.BOLD, 14);
-            
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
@@ -92,53 +84,61 @@ public class PlanPripusta extends javax.swing.JPanel {
                 setFont(f);
                 return this;
             }
-        
         };
         r.setForeground(color);
         jTable1.getColumnModel().getColumn(n).setCellRenderer(r);
     }
     
-    private Vector vectorFrom(Ovca o){
-        Vector v = new Vector();
-        v.add(o.getOznaka());
-        v.add(o.getNadimak());
-        if (o.getPol()=='m'){
-           v.add("muško");
-        } else {
-           v.add("žensko");
-        }
-
-        v.add(o.getProcR());
-        v.add(o.getStarost());
-        v.add(o.getLleglo());
-        v.add(""+ o.getProcenatJagnjenja());
-        if (o.getOtac()==null){
-              v.add("nepoznat");
-        }else{
-             v.add(o.getOtac().toString());
-        }
-        if (o.getMajka()==null){
-              v.add("nepoznata");
-        }else{
-             v.add(o.getMajka().toString());
-        }
-
-        v.add(o.getPoreklo());
-        v.add(o.getOpis());
-        v.add(o.getId());
-        v.add(o.getAktuelno());
-        v.add(o.getStatus());
-        return v;
+//    private Vector vectorFrom(Ovca o){
+//        Vector v = new Vector();
+//        v.add(o.getOznaka());
+//        v.add(o.getNadimak());
+//        if (o.getPol()=='m'){
+//           v.add("muško");
+//        } else {
+//           v.add("žensko");
+//        }
+//
+//        v.add(o.getProcR());
+//        v.add(o.getStarost());
+//        v.add(o.getLleglo());
+//        v.add(""+ o.getProcenatJagnjenja());
+//        if (o.getOtac()==null){
+//              v.add("nepoznat");
+//        }else{
+//             v.add(o.getOtac().toString());
+//        }
+//        if (o.getMajka()==null){
+//              v.add("nepoznata");
+//        }else{
+//             v.add(o.getMajka().toString());
+//        }
+//
+//        v.add(o.getPoreklo());
+//        v.add(o.getOpis());
+//        v.add(o.getId());
+//        v.add(o.getAktuelno());
+//        v.add(o.getStatus());
+//        return v;
+//    }
+    private void fillCobmo(JComboBox jCombo){
+        List ovnovi = logic.getSveOvnove();
+        ovnovi.add(null);
+        jCombo.setModel(new DefaultComboBoxModel(ovnovi.toArray()));
+        jCombo.setSelectedItem(null);
+        AutoCompleteDecorator.decorate(jCombo);
     }
     
-    private void fillTables(List<Ovca> list){
+    private void fillTable(List<Ovca> list){
         DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
-        DefaultTableModel model2 = (DefaultTableModel) jList.getModel();
+        fillCobmo(jComboOvan1);
+        fillCobmo(jComboOvan2);
+        fillCobmo(jComboOvan3);
+        fillCobmo(jComboOvan4);
+        fillCobmo(jComboOvan5);
         model1.setRowCount(0);
-        model2.setRowCount(0);
                 for (Ovca o: list){
                     if (o.getPol()=='m'){
-                        ubaciOvcuTable2(model2, o);
                     }
                     ubaciOvcuTable1(model1, o);
                 }
@@ -146,17 +146,11 @@ public class PlanPripusta extends javax.swing.JPanel {
        setBoldFontToColumn(5, Color.RED.darker());
        jCounter.setText("("+ jTable1.getRowCount() + ")");
     }
-    
-     private void setSorter(){
+
+    private void setSorter(){
         DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
-        DefaultTableModel model1 = (DefaultTableModel) jList.getModel();
-        
-        sorter1 = new TableRowSorter<TableModel>(model1);
         sorter2 = new TableRowSorter<TableModel>(model2);
         jTable1.setRowSorter(sorter2);
-        jList.setRowSorter(sorter1);
-        
-//        sorter2.setRowFilter(RowFilter.andFilter(getFilters2()));
      }
 
     private void ubaciOvcuTable1(DefaultTableModel model, Ovca o){
@@ -172,23 +166,15 @@ public class PlanPripusta extends javax.swing.JPanel {
         v.add(o.getLeglo());
         v.add(o.getAktuelno());
         v.add(o.getId());
-        v.add(null);
-        v.add(null);
+        v.add("-");
+        v.add("-");
+        v.add("-");
+        v.add("-");
+        v.add("-");
         
         model.addRow(v);
     }
-    private void ubaciOvcuTable2(DefaultTableModel model, Ovca o){
-        Vector v = new Vector();
-        v.add(o);
-        
-        model.addRow(v);
-    }
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -202,19 +188,19 @@ public class PlanPripusta extends javax.swing.JPanel {
         jSnimi = new javax.swing.JButton();
         jTrazi3 = new javax.swing.JComboBox();
         jStampajSve1 = new javax.swing.JButton();
-        nabavkaPanel = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jSelekcija = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList = new javax.swing.JTable();
-        jRacunaj = new javax.swing.JButton();
+        jComboOvan1 = new javax.swing.JComboBox();
+        jComboOvan2 = new javax.swing.JComboBox();
+        jComboOvan3 = new javax.swing.JComboBox();
+        jComboOvan4 = new javax.swing.JComboBox();
+        jComboOvan5 = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Noteworthy", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Plan Pripusta");
+        jLabel2.setText("Planiranje pripusta");
         jLabel2.setAlignmentY(3.0F);
         jLabel2.setMaximumSize(new java.awt.Dimension(219, 40));
         jLabel2.setMinimumSize(new java.awt.Dimension(219, 40));
@@ -227,20 +213,20 @@ public class PlanPripusta extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "oznaka", "nadimak", "pol", "starost", "iz legla od", "aktuelno", "id", "Koleno", "Poklapanje % krvi"
+                "oznaka", "nadimak", "pol", "starost", "iz legla od", "aktuelno", "id", "ukrvljenost", "ukrvljenost", "ukrvljenost", "ukrvljenost", "ukrvljenost"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false, false
+                false, false, false, false, false, true, false, false, false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -319,91 +305,49 @@ public class PlanPripusta extends javax.swing.JPanel {
 
         jStampajSve1.setBackground(new java.awt.Color(255, 204, 51));
         jStampajSve1.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jStampajSve1.setText("Štampaj aktuelno");
+        jStampajSve1.setText("Štampaj");
         jStampajSve1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jStampajSve1ActionPerformed(evt);
             }
         });
 
-        nabavkaPanel.setBackground(new java.awt.Color(255, 255, 255));
-        nabavkaPanel.setOpaque(false);
-
-        jLabel14.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLabel14.setText("Filter");
-
-        jSelekcija.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jSelekcijaKeyReleased(evt);
-            }
-        });
-
-        jList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Grlo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jList.setColumnSelectionAllowed(true);
-        jList.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jListKeyReleased(evt);
-            }
-        });
-        jScrollPane4.setViewportView(jList);
-
-        jRacunaj.setFont(new java.awt.Font("Monaco", 0, 18)); // NOI18N
-        jRacunaj.setText("Računaj");
-        jRacunaj.addActionListener(new java.awt.event.ActionListener() {
+        jComboOvan1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboOvan1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRacunajActionPerformed(evt);
+                jComboOvan1ActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout nabavkaPanelLayout = new javax.swing.GroupLayout(nabavkaPanel);
-        nabavkaPanel.setLayout(nabavkaPanelLayout);
-        nabavkaPanelLayout.setHorizontalGroup(
-            nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                        .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nabavkaPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jRacunaj, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        nabavkaPanelLayout.setVerticalGroup(
-            nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(nabavkaPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(nabavkaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSelekcija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jRacunaj, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
+        jComboOvan2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboOvan2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboOvan2ActionPerformed(evt);
+            }
+        });
+
+        jComboOvan3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboOvan3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboOvan3ActionPerformed(evt);
+            }
+        });
+
+        jComboOvan4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboOvan4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboOvan4ActionPerformed(evt);
+            }
+        });
+
+        jComboOvan5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboOvan5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboOvan5ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Ovnovi:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -411,25 +355,34 @@ public class PlanPripusta extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jStampajSve1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSnimi))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jStampajSve1)
                         .addGap(18, 18, 18)
-                        .addComponent(jSnimi))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jTrazi1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(35, 35, 35)
+                        .addComponent(jComboOvan1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboOvan2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboOvan3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboOvan4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jComboOvan5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -444,17 +397,21 @@ public class PlanPripusta extends javax.swing.JPanel {
                             .addComponent(jTrazi3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboOvan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboOvan2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboOvan3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboOvan4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboOvan5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSnimi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jStampajSve1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(nabavkaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -509,64 +466,45 @@ public class PlanPripusta extends javax.swing.JPanel {
             //fillTable(null);
     }//GEN-LAST:event_jSnimiActionPerformed
 
+    private Ovca getOvan(JComboBox combo){
+        if (combo.getSelectedItem()==null){
+            return null;
+        }
+        return (Ovca) combo.getSelectedItem();
+    }
     private void jStampajSve1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jStampajSve1ActionPerformed
-        List<Ovca> list = new ArrayList<Ovca>();
+        List<Ukrvljenost> list = new ArrayList<Ukrvljenost>();
         String f1 = "-";
         String f2 = jTrazi3.getSelectedItem().toString();
         String f3 = jTrazi1.getText();
+        Ovca ovan1 = getOvan(jComboOvan1);
+        Ovca ovan2 = getOvan(jComboOvan2);
+        Ovca ovan3 = getOvan(jComboOvan3);
+        Ovca ovan4 = getOvan(jComboOvan4);
+        Ovca ovan5 = getOvan(jComboOvan5);
         for (int i=0; i<jTable1.getRowCount(); i++){
             int selectedRow = jTable1.convertRowIndexToModel(i);
             Integer id = Integer.parseInt(jTable1.getModel().getValueAt(selectedRow,6).toString());
             Ovca o = logic.getOvca(id);
-            if (o.getOtac()!=null){
-                o.setOtac(logic.getOvca(o.getOtac().getId()));
-            }
-            if (o.getMajka()!=null){
-                o.setMajka(logic.getOvca(o.getMajka().getId()));
-            }
-            list.add(o);
+            Ukrvljenost u = new Ukrvljenost(o);
+            u.setProcOvan1(jTable1.getModel().getValueAt(selectedRow,7).toString());
+            u.setProcOvan2(jTable1.getModel().getValueAt(selectedRow,8).toString());
+            u.setProcOvan3(jTable1.getModel().getValueAt(selectedRow,9).toString());
+            u.setProcOvan4(jTable1.getModel().getValueAt(selectedRow,10).toString());
+            u.setProcOvan5(jTable1.getModel().getValueAt(selectedRow,11).toString());
+            list.add(u);
         }
-        new ListaOvacaAktuelnoIzvestaj(list, "Plan pripusta", f1, f2, f3, "").create();
+        new UkrvljenostIzvestaj(list, ovan1, ovan2, ovan3, ovan4, ovan5).create();
     }//GEN-LAST:event_jStampajSve1ActionPerformed
 
-    private void jSelekcijaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSelekcijaKeyReleased
-         sorter1.setRowFilter(RowFilter.andFilter(getFilters1()));
-    }//GEN-LAST:event_jSelekcijaKeyReleased
-
-    private void jRacunajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRacunajActionPerformed
-            int selectedRow = jList.getSelectedRow();
-            if (selectedRow>=0){
-                Ovca ovan = (Ovca) jList.getValueAt(selectedRow, 0);
-                popuniKolena(ovan);
-            }
-    }//GEN-LAST:event_jRacunajActionPerformed
-
-    private void popuniKolena(Ovca ovan){
+    private void popuniKolena(Ovca ovan, int n){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        RacunanjeKolena racun = new RacunanjeKolena(logic);
         for (int i=0; i<model.getRowCount(); i++){
             Ovca o = logic.getOvca((Integer)model.getValueAt(i, 6));
-            float koleno = logic.izracunajKoleno(ovan, o);
-            model.setValueAt(parseKoleno(koleno), i, 7);
-            model.setValueAt(parseProcenat(koleno), i, 8);
+            String ukrvljenost = racun.getUkrvljenost(o, ovan);
+            model.setValueAt(ukrvljenost, i, 6+n);
         }
-    }
-    private String parseProcenat(float koleno){
-        int n = (int) (koleno*10);
-        float procenat = 100;
-        for (int i=0; i<n/10; i++){
-            procenat = procenat/2;
-        }
-        if (n%10!=0){
-            return "<" + procenat + "%"; 
-        }
-        return "" + procenat + "%";
-    }
-    private String parseKoleno(float koleno){
-        int n = (int) (koleno*10);
-        if (n%10!=0){
-            return "" + n/10 + "+";
-        }
-        return "" + n/10;
     }
     
     private void jTrazi3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTrazi3ActionPerformed
@@ -574,33 +512,62 @@ public class PlanPripusta extends javax.swing.JPanel {
                  jCounter.setText("("+ jTable1.getRowCount() + ")");
     }//GEN-LAST:event_jTrazi3ActionPerformed
 
-    private void jListKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jListKeyReleased
-        if (evt.equals(KeyEvent.VK_ENTER)){
-
-           
+    private void jComboOvan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboOvan1ActionPerformed
+        if (jComboOvan1.getSelectedItem()==null){
+            return;
         }
-            
-    }//GEN-LAST:event_jListKeyReleased
+        Ovca ovan = (Ovca)jComboOvan1.getSelectedItem();
+        popuniKolena(ovan, 1);
+    }//GEN-LAST:event_jComboOvan1ActionPerformed
+
+    private void jComboOvan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboOvan2ActionPerformed
+        if (jComboOvan2.getSelectedItem()==null){
+            return;
+        }
+        Ovca ovan = (Ovca)jComboOvan2.getSelectedItem();
+        popuniKolena(ovan, 2);
+    }//GEN-LAST:event_jComboOvan2ActionPerformed
+
+    private void jComboOvan3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboOvan3ActionPerformed
+        if (jComboOvan3.getSelectedItem()==null){
+            return;
+        }
+        Ovca ovan = (Ovca)jComboOvan3.getSelectedItem();
+        popuniKolena(ovan, 3);
+    }//GEN-LAST:event_jComboOvan3ActionPerformed
+
+    private void jComboOvan4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboOvan4ActionPerformed
+        if (jComboOvan4.getSelectedItem()==null){
+            return;
+        }
+        Ovca ovan = (Ovca)jComboOvan4.getSelectedItem();
+        popuniKolena(ovan, 4);
+    }//GEN-LAST:event_jComboOvan4ActionPerformed
+
+    private void jComboOvan5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboOvan5ActionPerformed
+        if (jComboOvan5.getSelectedItem()==null){
+            return;
+        }
+        Ovca ovan = (Ovca)jComboOvan5.getSelectedItem();
+        popuniKolena(ovan, 5);   
+    }//GEN-LAST:event_jComboOvan5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox jComboOvan1;
+    private javax.swing.JComboBox jComboOvan2;
+    private javax.swing.JComboBox jComboOvan3;
+    private javax.swing.JComboBox jComboOvan4;
+    private javax.swing.JComboBox jComboOvan5;
     private javax.swing.JLabel jCounter;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTable jList;
-    private javax.swing.JButton jRacunaj;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jSelekcija;
     private javax.swing.JButton jSnimi;
     private javax.swing.JButton jStampajSve1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTrazi1;
     private javax.swing.JComboBox jTrazi3;
-    private javax.swing.JPanel nabavkaPanel;
     // End of variables declaration//GEN-END:variables
 
-    private void ubaciMerenje(Merenje m, DefaultTableModel model, int vrsta, int kolona) {
-        model.setValueAt(m.getTezina(), vrsta, kolona + 7);
-    }
 }
